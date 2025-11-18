@@ -1,0 +1,19 @@
+{
+  "name": "nostalgiaTok",
+  "short_name": "nostalgiaTok",
+  "description": "Watch old TikToks like you're in that era",
+  "start_url": "/",
+  "scope": "/",
+  "display": "fullscreen",
+  "background_color": "#f5f5dc",
+  "theme_color": "#77867f",
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
