@@ -10,6 +10,10 @@
   <!-- PWA manifest -->
   <link rel="manifest" href="manifest.webmanifest" />
 
+  <!-- Project stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+
+  <script src="script.js"></script>
   <!-- Theme color for address bar -->
   <meta name="theme-color" content="#77867f" />
 
@@ -18,25 +22,16 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <link rel="apple-touch-icon" href="logo.png" />
 
-  <style>
-    :root { color-scheme: light dark; }
-    body {
-      margin: 0; font-family: system-ui, sans-serif;
-      display: grid; place-items: center; min-height: 100vh;
-      background: canvas; color: canvastext;
-    }
-    main {
-      padding: 2rem; border-radius: 12px; border: 1px solid #e5e7eb;
-      max-width: 48rem; width: 100%;
-    }
-    button { padding: .6rem 1rem; border-radius: .6rem; border: 1px solid #e5e7eb; }
-  </style>
 </head>
 <body>
-  <main>
-   Free Palestine
-  </main>
+  <div id="titleBar"><div><img src="logo.png" id="logo"><span words="1">&nbsp; nostalgiaTok</span> <span words="0"></span> <span words="2"href ="">FM Da$ani</span></div></div>
+  <div id="textEnter">
+      <b id="teTitle" words="3"></b>
+      <br />
+      <input type="text" id="teInput" />
+      <br />
+      <span id="teButton" words="4"></span>
+  </div>
 
-  <script src="app.js" type="module"></script>
 </body>
 </html>

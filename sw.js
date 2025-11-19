@@ -1,10 +1,13 @@
 /* eslint-disable no-restricted-globals */
-const CACHE_NAME = 'pwa-cache-v1';
+const CACHE_NAME = 'pwa-cache-v2';
 const APP_SHELL = [
   '/',
   '/index.html',
   '/manifest.webmanifest',
   '/app.js',
+  '/style.css',
+  '/GlacialIndifference-Regular.otf',
+  '/GlacialIndifference-Bold.otf',
   'logo.png',
 ];
 

@@ -1,0 +1,81 @@
+@font-face {
+    font-family: 'GlacialIndifference';
+    src: url('GlacialIndifference-Regular.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'GlacialIndifference';
+    src: url('GlacialIndifference-Bold.otf') format('opentype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+:root{
+    --bg: #f5f5dc;
+    --accent: #77867f;
+    --second: #4c061d;
+    --text: #f5f5dc;
+    --font: 'GlacialIndifference';
+}
+*{
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--font), system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+#titleBar {
+    background-color: var(--accent);
+    color: var(--text);
+    width: max-content;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    border-radius: 5px;
+    height: 2em;
+    max-height: 2em;
+    display: grid;
+    place-items: center;
+    position: absolute;
+    top: calc(90vh - 2em);
+    left: 10vw;
+}
+#titleBar :is(div) {
+    display: block;
+    background-color: inherit;
+    width: inherit;
+    max-height: inherit;
+}
+img{
+    height: 1em;
+    width: 1em;
+    vertical-align: middle;
+}
+b,a,span{
+    background-color: inherit;
+}
+#textEnter{
+    transition: 1s;
+    background-color: var(--second);
+    color: var(--text);
+    width: calc(80vw - 2em);
+    height: max-content;
+    padding: 1em;
+    border-radius: 5px;
+    position: absolute;
+    bottom: 10vh;
+    left: 110vw;
+    display: grid;
+    place-items: start;
+}
+#textEnter :is(input){
+    border: 0.125em solid var(--text);
+}
+#teInput{
+    background: transparent;
+    border-radius: 5px;
+}
+body{
+    max-width: 100vw;
+    max-height: 100vh;
+    overflow:hidden;
+}
