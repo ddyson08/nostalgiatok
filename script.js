@@ -1,12 +1,66 @@
 ﻿words = {
-    "en-US": ["by", "nostalgiaTok", "FM Da$ani","what's your name?","(next)"],
-    "en": ["by", "nostalgiaTok", "FM Da$ani"],
-    "ar": ["من", "FM Da$ani", "nostalgiaTok", "ما اسمك؟", "(التالي)"],
-    "he": ["מִן", "FM Da$ani", "nostalgiaTok", "מה השם שלך?","(בא)"],
-    "es": ["por", "nostalgiaTok", "FM Da$ani", "¿Cómo te llamas?", "(siguiente)"],
-    "fr": ["par", "nostalgiaTok", "FM Da$ani", "Comment tu t'appelles ?", "(suivant)"],
-    "ja": ["〜によって", "nostalgiaTok", "FM Da$ani", "あなたの名前は何ですか？", "(次)"]
+    "en-US": [
+        "by", "nostalgiaTok", "FM Da$ani", "what's your name?", "(next)",
+        "Your", "nostalgia", "what time period are you nostalgic for?",
+        "what creators (if any) (use commas)?",
+        "what topics (if any) (use commas)?",
+        "'s ", "", ""
+    ],
+
+    "en": [
+        "by", "nostalgiaTok", "FM Da$ani", "what's your name?", "(next)",
+        "Your", "nostalgia", "what time period are you nostalgic for?",
+        "what creators (if any) (use commas)?",
+        "what topics (if any) (use commas)?",
+        "'s ", "", ""
+    ],
+
+    "fr": [
+        "par", "nostalgiaTok", "FM Da$ani", "Comment tu t'appelles ?", "(suivant)",
+        "Ton", "nostalgie", "Pour quelle période ressens-tu de la nostalgie ?",
+        "Quels créateurs (le cas échéant) (sépare par des virgules) ?",
+        "Quels sujets (le cas échéant) (sépare par des virgules) ?",
+        "de ", "", ""
+    ],
+
+    "es": [
+        "por", "nostalgiaTok", "FM Da$ani", "¿Cómo te llamas?", "(siguiente)",
+        "Tu", "", "¿De qué época sientes nostalgia?",
+        "¿Qué creadores (si los hay) (usa comas)?",
+        "¿Qué temas (si los hay) (usa comas)?",
+        "", "nostalgia", " de "
+    ],
+
+    "ja": [
+        "〜によって", "nostalgiaTok", "FM Da$ani", "あなたの名前は何ですか？", "(次)",
+        "あなたの", "", "どの時代にノスタルジーを感じますか？",
+        "どのクリエイター（いる場合）（カンマで区切って）？",
+        "どのトピック（ある場合）（カンマで区切って）？",
+        "", "ノスタルジア", " の "
+    ],
+
+    "ar": [
+        "من", "FM Da$ani", "nostalgiaTok", "ما اسمك؟", "(التالي)",
+        "لك", "", "ما الفترة الزمنية التي تشعر بالحنين إليها؟",
+        "ما المبدعين (إن وجد) (استخدم الفواصل)؟",
+        "ما المواضيع (إن وجد) (استخدم الفواصل)؟",
+        "", "الحنين", " لـ "
+    ],
+
+    "he": [
+        "מִן", "FM Da$ani", "nostalgiaTok", "מה השם שלך?", "(בא)",
+        "שלך", "", "לאיזו תקופה אתה מתגעגע?",
+        "אילו יוצרים (אם בכלל) (השתמש בפסיקים)?",
+        "אילו נושאים (אם בכלל) (השתמש בפסיקים)?",
+        "", "נוסטלגיה", " של "
+    ]
 }
+
+
+
+
+
+
 additions = {
     "en-US": [" ", "<b>&nbsp;  </b>", "<a> </a>"],
     "en": [" ", "<b>&nbsp;  </b>", "<a> </a>"],
@@ -79,5 +133,202 @@ window.onload = function () {
         }
     }
 
-   jumpLogo();
+    jumpLogo();
+    pendulum = document.querySelector("#uvula");
+    wiggleNumber = 1;
+    funnyN = 0;
+    funnyC = 1;
+    let wiggle; // store interval ID
+
+    function startPendulum() {
+        wiggle = setInterval(function () {
+            if (funnyC !== 0) {
+                pendulum.style.transform = "rotate(" +
+                    50 * Math.cos((Math.PI / 180) * Math.sqrt(6 / 50) * funnyN) + "deg)";
+                funnyN += 3 * (funnyC / wiggleNumber);
+                if (funnyN > (60000 / 16)) {
+                    funnyN = 0;
+                }
+            }
+        }, 16); // ~60fps
+    }
+
+    function stopPendulum() {
+        clearInterval(wiggle);
+    }
+
+    document.addEventListener("visibilitychange", function () {
+        if (document.hidden) {
+            stopPendulum();   // pause when tab is hidden
+        } else {
+            startPendulum();  // resume when tab is visible
+        }
+    });
+
+    document.querySelector("#teInput").addEventListener("keyup", function (e) {
+        slowLimit = 5;
+        wiggleNumber = 10;
+        canCount = true;
+        if (e.keyCode == 13) {
+            enterName();
+        }
+    });
+    document.querySelector("#teInput").addEventListener("click", function (e) {
+        document.querySelector("#uvula").style.opacity = "1";
+        startPendulum()
+    });
+    document.querySelector("#teButton").addEventListener("click", function (e) {
+            enterName();
+    });
 };
+ns = 0;
+slowLimit = 0;
+canCount = false;
+canWiggleMore = false;
+canWiggleLess = false;
+slow = setInterval(function () {
+    if (canCount) {
+        ns+=1;
+    }
+    if (ns > slowLimit) {
+        wiggleNumber = 1; 
+        ns = 0;
+        canCount = false;
+    }
+}, 100)
+function swapTe(n, f, m, g) {
+    var ne = document.querySelector("#textEnter");
+    var nee = ne.cloneNode(true);
+    nee.style.left = "100vw";
+    nee.querySelector("b").innerHTML = words[navigator.language][n];
+    nee.querySelector("input").addEventListener("keyup", function (e) { if (e.keyCode == 13) { f() } });
+    nee.querySelector("input").value = "";
+    nee.querySelector("span").innerHTML = words[navigator.language][m];
+    nee.querySelector("span").addEventListener("click", g);
+    document.body.append(nee);
+    ne.style.left = "-100vw";
+    setTimeout(function () {
+        nee.style.left = "10vw";
+        ne.remove();
+        nee.querySelector("input").addEventListener("keyup", function (e) {
+            slowLimit += 1;
+            wiggleNumber = 10;
+            canCount = true;
+        });
+    }, 1000);
+}
+var userName = ""
+function generatePreferences() {
+    user.preferences = document.querySelector("#teInput").value;
+    makeShapes(user.preferences, ',', 'p', true);  
+    swapTe(9, function () {
+        swapTe(10, function () {
+            user.topics = document.querySelector("#teInput").value; makeShapes(user.topics, ',', 't', true); runAnimation()
+        }, 4, function () {
+            user.preferences = document.querySelector("#teInput").value; runAnimation()
+        })
+    }, 4, function() {
+        swapTe(10, function() {
+            user.topics = document.querySelector("#teInput").value; makeShapes(user.topics, ',', 't', true); runAnimation()
+        }, 4, function() {
+            user.preferences = document.querySelector("#teInput").value; runAnimation()
+        })
+});
+    
+}
+user = {
+    year: '',
+    preferences: '',
+    topics: '',
+
+}
+function runAnimation(){ }
+function enterName() {
+    var i = document.querySelector("#teInput");
+    userName = i.value;
+    if (userName == "") {
+        userName = words[navigator.language][5]
+    }
+    var ni = document.querySelector("#uNameplate");
+    ni.innerText = words[navigator.language][11] + words[navigator.language][12] + userName + words[navigator.language][10] + words[navigator.language][6];
+    var ll = ni.getBoundingClientRect().width;
+    ni.style.color = "var(--accent)";
+    ni.style.transition = "1s";
+    ni.style.width = ll + "px";
+    setTimeout(function () {
+        ni.style.color = "var(--text)";
+        ni.style.width = "max-content";
+    }, 1000);
+    swapTe(7, function () {
+        user.year = document.querySelector("#teInput").value;
+        makeShapes(user.year,' ','y',true);  
+        swapTe(8, generatePreferences, 4, generatePreferences)
+
+    }, 4, {})
+}
+var shapes = ['circle', 'square', 'triangle', 'rounded square'];
+function makeShapes(n, y, extra, t) {
+    var properties = [];
+    for (var i of n.split(y)) {
+        var m = new Math.seedrandom(i + n.split(y).indexOf(i) + extra);
+        q = Math.floor(m() * 1000000000).toString();
+        q = q.toString()
+        switch (shapes[Math.round(parseInt(q[0]) / 2.5)]) {
+            case "circle":
+                properties[0] = "border-radius: 50%;"
+                break;
+            case "square":
+                properties[0] = "";
+                break;
+            case "triangle":
+                properties[0] = `transform: skew(20deg);`
+                break;
+            case "rounded square":
+                properties[0] = "border-radius: 5px";
+                break;
+        }
+        pp = (parseInt(window.getComputedStyle(document.documentElement).getPropertyValue('--ballSize').replace("em", "")) / 999 - (0.02 / 999))
+        properties = [properties[0], (parseInt(q.slice(1, 4)) * pp + 0.01 / 999), (parseInt(q.slice(4, 7)) * pp + 0.01 / 999), ((0.25 * parseInt(q.slice(7, 8))) + 0.5) + "em", parseInt(q.slice(7, 8)) + "deg"];
+        var sh = document.createElement('div');
+        funnyC = 0;
+        funnyN = 0;
+        document.querySelector('#uvula').style.transform = "rotate(0deg)";
+        document.body.append(sh);
+        document.querySelector('#uvula').style.transition = "0.1s";
+        sh.setAttribute('style', properties[0]);
+        sh.setAttribute('class', 'teShape');
+        sh.style.top = "90vh";
+        sh.style.left = "50vw";
+        sh.style.height = "0vh";
+        sh.style.left = "0vw";
+        sh.style.position = "absolute";
+        let twin1 = sh;
+        let ppy1 = properties;
+        setTimeout(function () { 
+            twin1.style.left = "calc(50vw - var(--ballSize)/2 + " + ppy1[1] + "em)";
+            twin1.style.opacity = "1";
+        twin1.style.top = "calc(" + ppy1[2] + "em + " + document.querySelector('#uvula').getBoundingClientRect().height + "px " + " - " + Math.abs(parseFloat(document.querySelector('#uvula').getBoundingClientRect().y)) + "px - var(--ballSize))"
+        twin1.style.height = ppy1[3];
+        twin1.style.width = ppy1[3];
+        twin1.style.zIndex = "50";
+        twin1.style.transform = "rotate(" + ppy1[4] + "deg)"
+        let twin = twin1;
+        let ppy = ppy1;
+        setTimeout(
+            function (twin, ppy) {
+                document.querySelector('#uvula').style.transition = "1s";
+                twin.style.transition = "0s";
+                document.querySelector("#uBall").append(twin);
+                twin.style.left = "calc(0% + " + ppy[1] + "em)";
+                twin.style.top = "calc(0% + " + ppy[2] + "em)";
+                twin.style.height = ppy[3];
+                twin.style.width = ppy[3];
+                twin.style.transform = "rotate(" + ppy[4] + "deg)";
+                twin.style.transition = "1s";
+                twin.style.zIndex = "5";
+                twin.style.border = "0px solid black"
+                funnyC = 1;
+            }, 1000, twin, ppy)
+        }, 50, twin1, ppy1)
+    }
+}

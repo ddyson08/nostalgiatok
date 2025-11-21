@@ -18,6 +18,7 @@
     --second: #4c061d;
     --text: #f5f5dc;
     --font: 'GlacialIndifference';
+    --ballSize: 10em;
 }
 *{
     background-color: var(--bg);
@@ -78,4 +79,76 @@ body{
     max-width: 100vw;
     max-height: 100vh;
     overflow:hidden;
+    position: absolute;
+    left: 0px;
+    top:0px;
+    margin:0;
+    padding:0;
+}
+#uvula{
+    position: relative;
+    width: var(--ballSize);
+    height:100vh;
+    top: calc(-50vh + 1.5em);
+    left: calc(50vw - (var(--ballSize) / 2));
+    z-index: 1;
+    background-color: rgba(0,0,0,0);
+    transform: rotate(0deg);
+    transition: 1s;
+    opacity: 0;
+}
+#uBall{
+    position: absolute;
+    border-radius: 50%;
+    top: calc(100% - var(--ballSize));
+    left:0;
+    width: var(--ballSize);
+    height: var(--ballSize);
+    background-color: var(--accent);
+}
+#uMiniball {
+    position: absolute;
+    border-radius: 50%;
+    top: calc(50% - 0.5em);
+    left: calc(50% - 0.5em);
+    width: 1em;
+    height: 1em;
+    background-color: var(--accent);
+}
+#uLine {
+    position: absolute;
+    top: 50%;
+    height: calc(50vh - (var(--ballSize) / 2));
+    width: 1em;
+    left: calc(50% - 0.5em);
+    background-color: var(--accent);
+}
+#uNameplate {
+    position: absolute;
+    height: 2em;
+    display: grid;
+    place-items: center;
+    width: max-content;
+    background-color: var(--accent);
+    color: var(--text);
+    position: absolute;
+    top: calc(50% + 4em);
+    left: calc(50% + 0.5em);
+    color: var(--accent);
+    border-radius: 5px;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+}
+#uBalance {
+    position: absolute;
+    height: 50%;
+    opacity: 0;
+    top: 0;
+}
+.teShape{
+    background-color: var(--bg);
+    position: absolute;
+    border: 0.125em solid var(--second);
+    transition: 1s;
+    opacity: 0;
 }
