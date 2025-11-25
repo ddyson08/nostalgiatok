@@ -19,6 +19,7 @@
     --text: #f5f5dc;
     --font: 'GlacialIndifference';
     --ballSize: 10em;
+    --oj: #c17767;
 }
 *{
     background-color: var(--bg);
@@ -67,6 +68,7 @@ b,a,span{
     left: 110vw;
     display: grid;
     place-items: start;
+    z-index: 100;
 }
 #textEnter :is(input){
     border: 0.125em solid var(--text);
@@ -88,7 +90,7 @@ body{
 #uvula{
     position: relative;
     width: var(--ballSize);
-    height:100vh;
+    height: 100vh;
     top: calc(-50vh + 1.5em);
     left: calc(50vw - (var(--ballSize) / 2));
     z-index: 1;
@@ -122,6 +124,7 @@ body{
     width: 1em;
     left: calc(50% - 0.5em);
     background-color: var(--accent);
+    transition: 1s;
 }
 #uNameplate {
     position: absolute;
@@ -145,10 +148,12 @@ body{
     opacity: 0;
     top: 0;
 }
-.teShape{
+.teShape {
     background-color: var(--bg);
     position: absolute;
     border: 0.125em solid var(--second);
     transition: 1s;
     opacity: 0;
+    display: grid;
+    place-items: center;
 }
