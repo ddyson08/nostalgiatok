@@ -1,10 +1,127 @@
-﻿words = {
+﻿// =======================================================
+// Self-contained IndexedDB Helper Functions
+// =======================================================
+/**
+ * Checks if the current browser session is running in a PWA-like display mode.
+ * @returns {boolean} True if installed (standalone, fullscreen, or minimal-ui), false otherwise (browser tab).
+ */
+function isPWA() {
+    const displayModes = ["fullscreen", "standalone", "minimal-ui"];
+
+    // Check modern browsers (Chrome, Edge, Firefox, modern Safari on iOS)
+    if (window.matchMedia) {
+        const anyMatch = displayModes.some((mode) => window.matchMedia(`(display-mode: ${mode})`).matches);
+        if (anyMatch) {
+            return true;
+        }
+    }
+
+    // Fallback for older iOS Safari before matchMedia support was reliable
+    // navigator.standalone is an iOS-specific property
+    if (('standalone' in navigator) && (navigator.standalone)) {
+        return true;
+    }
+
+    // If none of the above are true, it's likely a normal browser tab
+    return false;
+}
+
+// --- Example Usage ---
+
+
+
+const DB_NAME = 'MyStringBuilderDB';
+const STORE_NAME = 'StringStore';
+const RECORD_KEY = 'theOneAndOnlyString';
+let db = null;
+
+// Helper to open the DB connection (must run first)
+function openTheDatabase() {
+    return new Promise((resolve, reject) => {
+        const request = indexedDB.open(DB_NAME, 1);
+
+        request.onupgradeneeded = (event) => {
+            const dbRef = event.target.result;
+            if (!dbRef.objectStoreNames.contains(STORE_NAME)) {
+                dbRef.createObjectStore(STORE_NAME);
+            }
+        };
+
+        request.onsuccess = (event) => {
+            db = event.target.result;
+            resolve();
+        };
+
+        request.onerror = (event) => reject('Database error: ' + event.target.error);
+    });
+}
+
+// Function 1: Reads, modifies (appends), and saves the string
+async function appendToStringStore(newValueToAppend) {
+    if (!db) await openTheDatabase(); // Ensure DB is open
+
+    // We need a readwrite transaction to append
+    const transaction = db.transaction([STORE_NAME], "readwrite");
+    const store = transaction.objectStore(STORE_NAME);
+
+    // 1. Get the current value
+    const getRequest = store.get(RECORD_KEY);
+
+    getRequest.onsuccess = (event) => {
+        let currentValue = event.target.result || ""; // Default to empty string if no data found
+
+        // 2. Modify (append the new value and a newline)
+        currentValue += newValueToAppend + "\n";
+
+        // 3. Put the modified value back with the same key
+        store.put(currentValue, RECORD_KEY); 
+    };
+
+    getRequest.onerror = (event) => console.error("Error reading data for append:", event.target.error);
+
+    // Wait for the entire transaction to complete
+    return new Promise((resolve, reject) => {
+        transaction.oncomplete = () => resolve("Append successful");
+        transaction.onerror = (event) => reject("Transaction error: " + event.target.error);
+    });
+}
+
+// Function 2: Reads the long string
+async function readStringStore() {
+    if (!db) await openTheDatabase(); // Ensure DB is open
+
+    const transaction = db.transaction([STORE_NAME], "readonly");
+    const store = transaction.objectStore(STORE_NAME);
+
+    return new Promise((resolve, reject) => {
+        const request = store.get(RECORD_KEY);
+
+        request.onsuccess = (event) => {
+            // Resolve the promise with the string data, or an empty string if null
+            resolve(event.target.result || ""); 
+        };
+
+        request.onerror = (event) => reject("Error reading string:", event.target.error);
+    });
+}
+
+// =======================================================
+// How to use these functions in your app:
+// =======================================================
+
+// Example:
+
+
+// Run the example function to see it work:
+// usageExample();
+
+words = {
     "en-US": [
         "by", "nostalgiaTok", "FM Da$ani", "what's your name?", "(next)",
         "Your", "nostalgia", "what time period are you nostalgic for?",
         "what creators (if any) (use commas)?",
         "what topics (if any) (use commas)?",
-        "'s ", "", "", "video pool", "a whole lot of 'em", "player", "ts plays videos"
+        "'s ", "", "", "if you wanna save your nostalgia for later, name it here", "(or just skip here)", "video pool", "a whole lot of 'em", "player", "ts plays videos", "loading...", "", "(choose this one)", "(delete this one)", "(view saved nostalgias)", "(next one)", ""
     ],
 
     "en": [
@@ -114,7 +231,7 @@ function jumpLogo(){
     }, 2600)
 
 }
-
+var wiggle = "";
 window.onload = function () {
     for (var i of [...document.querySelectorAll('[words]')]) {
         try {
@@ -146,11 +263,11 @@ window.onload = function () {
                 pendulum.style.transform = "rotate(" +
                     50 * Math.cos((Math.PI / 180) * Math.sqrt(6 / 50) * funnyN) + "deg)";
                 funnyN += 3 * (funnyC / wiggleNumber);
-                if (funnyN > (60000 / 16)) {
+                if (funnyN > (60000 / 18)) {
                     funnyN = 0;
                 }
             }
-        }, 16); // ~60fps
+        }, 18); // ~60fps
     }
 
     function stopPendulum() {
@@ -195,25 +312,31 @@ slow = setInterval(function () {
         ns = 0;
         canCount = false;
     }
-}, 100)
+}, 10)
 function swapTe(n, f, m, g, t) {
     var ne = document.querySelector("#textEnter");
     var nee = ne.cloneNode(true);
     nee.style.left = "100vw";
     nee.querySelector("b").innerHTML = words[navigator.language][n];
-    if (n == 13 || n == 15) {
+    if (n == 15 || n == 17 || n == 19 || n == 20) {
         if (nee.querySelector("input") !== null) {
             nee.querySelector("input").remove();
         }
     } else {
-        nee.querySelector("input").addEventListener("keyup", function (e) { if (e.keyCode == 13) { f() } });
-        nee.querySelector("input").value = "";
+        const inputEl = nee.querySelector("input");
+            inputEl.value = "twin";
+            inputEl.setAttribute("onkeyup", "if (event.keyCode == 13) { var raeleigh = "+f+"; raeleigh(); }");
     }
     if (t) {
         nee.style.height = "calc(var(--ballSize) + 1em) !important";
     }
     nee.querySelector("span").innerHTML = words[navigator.language][m];
     nee.querySelector("span").addEventListener("click", g);
+     if (n == 19) {
+        if (nee.querySelector("span") !== null) {
+            nee.querySelector("span").remove();
+        }
+    }
     document.body.append(nee);
     ne.style.left = "-100vw";
     setTimeout(function () {
@@ -222,7 +345,7 @@ function swapTe(n, f, m, g, t) {
         if (t) {
             nee.style.height = "calc(var(--ballSize) + 1em) !important";
         }
-        if (n == 13 || n == 15) {
+        if (n == 15 || n == 17) {
             if (nee.querySelector("input") !== null) {
         nee.querySelector("input").addEventListener("keyup", function (e) {
             slowLimit += 1;
@@ -231,22 +354,178 @@ function swapTe(n, f, m, g, t) {
         });
             }
         }
+        if(n > 19){
+            if(nee.querySelector('#viewSaved')!==null){
+            nee.querySelector('#viewSaved').remove();
+            }
+            var b1 = document.createElement('span');
+            b1.setAttribute('onclick', 'nextSaved()');
+            b1.setAttribute('id','b1');
+            b1.innerText = words[navigator.language][24];
+            var b2 = document.createElement('span');
+            b2.setAttribute('onclick', 'delSaved()');
+            b2.setAttribute('id','b2');
+            b2.innerText = words[navigator.language][23];
+            var b3 = document.createElement('span');
+            b3.setAttribute('onclick', 'chooseSaved()');
+            b3.setAttribute('id','b3');
+            b3.innerText = words[navigator.language][22];
+            if(nee.querySelector('#b1')==null){
+            nee.append(b1);
+            }
+            if(nee.querySelector('#b2')==null){
+            nee.append(b2);
+            }
+            if(nee.querySelector('#b3')==null){
+            nee.append(b3);
+            }
+        }
+        if(n<8){
+            if(window.localStorage.getItem('nostalgiaTokSaved') !== null){
+            nee.innerHTML += `<span style="display: block" id="viewSaved" onclick="swapTe(19,function(){},25,function(){}); getSaved();">`+words[navigator.language][23]+`</span>`
+            }
+        }else{
+            document.querySelector("#viewSaved").remove();
+        }
     }, 1000);
 }
-var userName = ""
+var userName = "";
+async function saveNew(val){
+    alert(val);
+    if(isPWA()){
+         await appendToStringStore('[NOSTALGIATOKSPLIT]'+val+'[NTS2]'+JSON.stringify(user))
+        }else{
+       localStorage.setItem('nostalgiaTokSaved',localStorage.getItem('nostalgiaTokSaved')+'[NOSTALGIATOKSPLIT]'+val+'[NTS2]'+JSON.stringify(user))
+    }
+}
+var Arr = [];
+var posinar = 0;
+function nextSaved(){
+    funnyC = 0;
+    funnyN = 0;
+    posinar+=1;
+    document.getElementById('uvula').style.transform = "rotate(0deg)"
+    document.getElementById('uvula').style.transition = "0.1s";
+    setTimeout(function(){
+        var q = document.querySelector('#uBall').querySelector('.teShape').children[0];
+        var qq = q.getBoundingClientRect();
+        var qqq = document.querySelector('#uBall').getBoundingClientRect();
+        var q4 = document.querySelector('#uBall');
+        q4.style.transition = "2s";
+        document.getElementById('uvula').style.transform = "rotate(0deg)"
+        document.body.append(q);
+        q.setAttribute('style','left:'+(qq.x)+'px; top:'+(qq.y)+'px; opacity: 1; background-color: var(--accent); width:'+(qq.width)+'px; height:'+(qq.height)+'px;');
+        setTimeout(function(){q.setAttribute('style','transition: 2s; left:'+(qqq.x)+'px; top:'+(qqq.y)+'px; opacity: 1; background-color: var(--accent); width:'+(qqq.width)+'px; height:'+(qqq.height)+'px;');
+        document.querySelector('#uBall').setAttribute('style','transition: 1s; opacity: 0; left:'+((qqq.x-qq.x)*(qqq.width/qq.width))+'px; top:'+((-qqq.y+qq.y)*(qqq.height/qq.height))+'px; width:'+(qqq.width*(qqq.width/qq.width))+'px; height:'+(qqq.height*(qqq.height/qq.height))+'px;');   },100);
+        setTimeout(function(){q.setAttribute('style',''); document.querySelector('#uvula').append(q); document.querySelector('#uBall').remove(); genNext(); swapTe(20,function(){},25,function(){}); }, 2200);
+    },200);
+}
+function genNext(t, two){
+    // Select all elements that have an 'id' attribute
+const allElementsWithIds = document.querySelectorAll('[id]');
+
+// Create a Set to store unique IDs encountered
+const seenIds = new Set();
+
+// Iterate through the selected elements
+allElementsWithIds.forEach(element => {
+    const id = element.id;
+
+    // If the ID has been seen before, remove the current element
+    if (seenIds.has(id)) {
+        element.remove();
+    } else {
+        // If the ID is new, add it to the Set
+        seenIds.add(id);
+    }
+});
+
+    document.querySelector('#uvula').append(document.querySelector('#uBall'));
+    var clone = document.querySelector('#uBall').cloneNode();
+    clone.style.zIndex = "1000";
+        words[navigator.language][20] = Arr[posinar % Arr.length].split('[NTS2]')[0] + "(" + (parseFloat(posinar % Arr.length)+1) + "/" + Arr.length + ")";
+        var obj = JSON.parse(Arr[posinar % Arr.length].split('[NTS2]')[1]);
+        makeShapes(obj.year, ' ', 'y', false, clone);
+        makeShapes(obj.preferences, ' ', 'p', false, clone);
+        makeShapes(obj.topics, ' ', 't', false, clone);
+        posinar+=1;
+        if(!t){
+            genNext(true, clone);
+        }else{
+            document.querySelector('#uBall').remove();
+            document.querySelector('#uvula').append(two);
+            if(posinar < 3){
+            setTimeout(function(){
+                console.log([document.querySelector('#uBall').innerHTML,document.querySelector('#uBall').querySelector('.teShape')])
+                document.querySelector('#uBall').querySelector('.teShape').append(clone);
+                clone.style.width="50%";
+                clone.style.height=(document.querySelector('#uBall').querySelector('.teShape').getBoundingClientRect().width)/2+"px";
+                clone.style.top = "25%";
+                clone.style.left = "25%";
+                for(var i of clone.querySelectorAll('.teShape')){
+                    i.style.transition = "0s";
+                    i.style.left = (parseFloat(i.style.left)/parseFloat(window.getComputedStyle(document.body).getPropertyValue('--ballSize')))*100+"%";
+                    i.style.top = (parseFloat(i.style.top)/parseFloat(window.getComputedStyle(document.body).getPropertyValue('--ballSize')))*100+"%";
+                    i.style.width = (parseFloat(i.style.width)/parseFloat(window.getComputedStyle(document.body).getPropertyValue('--ballSize')))*100+"%";
+                    i.style.height = (parseFloat(i.style.height)/parseFloat(window.getComputedStyle(document.body).getPropertyValue('--ballSize')))*100+"%";
+                }
+            },1500);
+        }else{
+             console.log([document.querySelector('#uBall').innerHTML,document.querySelector('#uBall').querySelector('.teShape')])
+                document.querySelector('#uBall').querySelector('.teShape').append(clone);
+                clone.style.width="50%";
+                clone.style.height=(document.querySelector('#uBall').querySelector('.teShape').getBoundingClientRect().width)/2+"px";
+                clone.style.top = "25%";
+                clone.style.left = "25%";
+                for(var i of clone.querySelectorAll('.teShape')){
+                    i.style.transition = "0s";
+                    i.style.left = (parseFloat(i.style.left)/parseFloat(window.getComputedStyle(document.body).getPropertyValue('--ballSize')))*100+"%";
+                    i.style.top = (parseFloat(i.style.top)/parseFloat(window.getComputedStyle(document.body).getPropertyValue('--ballSize')))*100+"%";
+                    i.style.width = (parseFloat(i.style.width)/parseFloat(window.getComputedStyle(document.body).getPropertyValue('--ballSize')))*100+"%";
+                    i.style.height = (parseFloat(i.style.height)/parseFloat(window.getComputedStyle(document.body).getPropertyValue('--ballSize')))*100+"%";
+        }
+        }
+}
+}
+async function getSaved(){
+    if(!isPWA()){
+        Arr = localStorage.getItem('nostalgiaTokSaved').split('[NOSTALGIATOKSPLIT]');
+        Arr.shift();
+        genNext(false);
+        swapTe(20,function(){},25,function(){});
+    }else{
+        var nArr = await readStringStore();
+        Arr = nArr.split('[NOSTALGIATOKSPLIT]');
+        Arr.shift();
+        genNext(false);
+        swapTe(20,function(){},25,function(){});
+    }
+}
 function generatePreferences() {
     user.preferences = document.querySelector("#teInput").value;
-    makeShapes(user.preferences, ',', 'p', true);  
+    makeShapes(user.topics, ',', 'p', true);  
     swapTe(9, function () {
-        swapTe(13, function () { }, 14, function () { }, true)
-        user.topics = document.querySelector("#teInput").value;
         makeShapes(user.topics, ',', 't', true);
-        runAnimation()
+        swapTe(13,function(){ saveNew(document.querySelector('input').value);
+            swapTe(15, function () { }, 16, function () { }, true)
+            user.topics = document.querySelector("#teInput").value;
+            runAnimation()
+        }, 14, function(){
+            swapTe(15, function () { }, 16, function () { }, true)
+            user.topics = document.querySelector("#teInput").value;
+            runAnimation()
+        })
     }, 4, function() {
-        swapTe(13, function () { }, 14, function () { }, true)
-        user.topics = document.querySelector("#teInput").value;
         makeShapes(user.topics, ',', 't', true);
-        runAnimation()
+        swapTe(13,function(){ saveNew();
+            swapTe(15, function () { }, 16, function () { }, true)
+            user.topics = document.querySelector("#teInput").value;
+            runAnimation()
+        }, 14, function(){
+            swapTe(15, function () { }, 16, function () { }, true)
+            user.topics = document.querySelector("#teInput").value;
+            runAnimation()
+        })
 });
     
 }
@@ -274,8 +553,9 @@ function runAnimation() {
             var nn = n[Math.floor(Math.random() * [...n].length)]
             nn.style.backgroundColor = "var(--oj)";
             nn.style.opacity = "1";
+            nn.style.filter = "";
             setTimeout(function () {
-                q.style.top = "calc(-10vh + 1.5em)";
+                q.style.top = "calc(-10vh)";
                 setTimeout(function () {
                     q.style.top = "calc(-50vh + 1.5em)";
                     for (var i of document.querySelectorAll(".teShape")) {
@@ -283,6 +563,7 @@ function runAnimation() {
                         if (r == 0) {
                             i.style.backgroundColor = "var(--oj)";
                             i.style.opacity = "1";
+                            i.style.filter = "";
                             var three = i.getBoundingClientRect().width * 0.3;
                             var tee = document.createElement('div');
                             tee.setAttribute('style', `
@@ -298,12 +579,15 @@ function runAnimation() {
                         if (r == 1) {
                             i.style.backgroundColor = "var(--oj)";
                             i.style.opacity = "0.5";
+                            //i.innerHTML="";
+                            i.style.filter = "blur(5px)";
                             if (i.children.length == 0) {
                                 var three = i.getBoundingClientRect().width * 0.3;
                                 var tee = document.createElement('div');
                                 tee.setAttribute('style', `
   width: 0; 
   height: 0; 
+  opacity: 50%;
   border-top: `+ three + `px solid var(--oj);
   border-bottom: `+ three + `px solid var(--oj);
   
@@ -314,19 +598,22 @@ function runAnimation() {
                         }
                     }
                     setTimeout(function () {
-                        q.style.top = "calc(-10vh + 1.5em)";
+                        q.style.top = "calc(-10vh)";
                         setTimeout(function () {
                             q.style.top = "calc(-50vh + 1.5em)";
                             for (var i of document.querySelectorAll(".teShape")) {
                                 if (i.style.backgroundColor != "var(--oj)") {
                                     i.style.backgroundColor = "var(--oj)";
                                     i.style.opacity = "0.5";
+                                   // i.innerHTML = "";
+                                    i.style.filter = "blur(5px)";
                                     if (i.children.length == 0) {
                                         var three = i.getBoundingClientRect().width * 0.3;
                                         var tee = document.createElement('div');
                                         tee.setAttribute('style', `
   width: 0; 
   height: 0; 
+  opacity: 50%;
   border-top: `+ three + `px solid var(--oj);
   border-bottom: `+ three + `px solid var(--oj);
   
@@ -338,12 +625,14 @@ function runAnimation() {
                                 }
                             }
                             setTimeout(function () {
-                                q.style.top = "calc(-10vh + 1.5em)";
+                                q.style.top = "calc(-10vh)";
                                 setTimeout(function () {
                                     q.style.top = "calc(-50vh + 1.5em)";
                                     for (var i of document.querySelectorAll(".teShape")) {
                                         i.style.backgroundColor = "var(--oj)";
                                         i.style.opacity = "1";
+                                      //  i.innerHTML = "";
+                                        i.style.filter = "";
                                         if (i.children.length == 0) {
                                             var three = i.getBoundingClientRect().width * 0.3;
                                             var tee = document.createElement('div');
@@ -358,26 +647,36 @@ function runAnimation() {
                                             i.append(tee);
                                         }
                                     }
-                                    swapTe(15, function () { }, 16, function () { }, true);
+                                    swapTe(17, function () { }, 18, function () { }, true);
                                     
                                     setTimeout(function () {
-                                        q.style.top = "calc(-10vh + 1.5em)";
+                                        q.style.top = "calc(-10vh - 1.5em)";
+                                        /*
+                                        setTimeout(function(){var v = q.getBoundingClientRect()
+                                        for(var j of [...document.querySelector('#uBall').children]){
+                                                if(j.getBoundingClientRect().height+j.getBoundingClientRect().y > v.y+v.height){
+                                                    j.style.transition = "0.1s";
+                                                    j.style.opacity = "0";
+                                                }
+                                            }}, 600)
+                                            */
                                         setTimeout(function () {
-                                            document.querySelector('#uLine').style.backgroundColor = "var(--oj)";
-                                            document.querySelector('#uMiniball').style.backgroundColor = "var(--oj)";
+                                            var t = document.querySelector('#textEnter')
+                                            t.style.backgroundColor = "var(--bg)";
+                                            t.style.color = "var(--accent)";
                                             setTimeout(function () {
-                                                var t = document.querySelector('#textEnter');
                                                 t.style.bottom = 0;
                                                 setTimeout(function () {
                                                     t.style.height = "calc(100vh - 4em)";
+                                                    t.style.maxHeight = "calc(100vh - 4em)";
                                                     setTimeout(function () {
                                                         t.style.left = 0;
                                                         t.style.width = "100vw";
                                                     }, 100)
                                                 }, 100)
-                                            }, 250)
-                                        }, 500)
-                                    }, 1500)
+                                          }, 1250)
+                                        }, 1700)
+                                    }, 1700)
                                 }, 500)
                             }, 500)
                         }, 500)
@@ -411,7 +710,13 @@ function enterName() {
     }, 4, {})
 }
 var shapes = ['circle', 'square', 'triangle', 'rounded square'];
-function makeShapes(n, y, extra, t) {
+function makeShapes(n, y, extra, t, c) {
+    var a;
+    if(t){
+        a=document.querySelector('#uBall');
+    }else{
+        a = c;
+    }
     var properties = [];
     for (var i of n.split(y)) {
         var m = new Math.seedrandom(i + (n.split(y).indexOf(i)) * Math.random() + extra);
@@ -431,9 +736,10 @@ function makeShapes(n, y, extra, t) {
                 properties[0] = "border-radius: 5px";
                 break;
         }
-        pp = ((parseInt(window.getComputedStyle(document.documentElement).getPropertyValue('--ballSize').replace("em", "")) * 0.70) / 999 - (0.02 / 999) + (parseInt(window.getComputedStyle(document.documentElement).getPropertyValue('--ballSize').replace("em", "")) * 0.15) / 999);
+        pp = ((parseInt(window.getComputedStyle(document.documentElement).getPropertyValue('--ballSize').replace("em", "")) * 0.70) / 999 - (0.02 / 999) + (parseInt(window.getComputedStyle(document.documentElement).getPropertyValue('--ballSize').replace("em", "")) * 0.17) / 999);
         properties = [properties[0], (parseInt(q.slice(1, 4)) * pp + 0.01 / 999), (parseInt(q.slice(4, 7)) * pp + 0.01 / 999), ((0.5 * parseInt(q.slice(7, 8))) + 0.5) + "em", parseInt(q.slice(7, 8)) + "deg"];
         var sh = document.createElement('div');
+        if(t){
         funnyC = 0;
         funnyN = 0;
         document.querySelector('#uvula').style.transform = "rotate(0deg)";
@@ -446,8 +752,11 @@ function makeShapes(n, y, extra, t) {
         sh.style.height = "0vh";
         sh.style.left = "0vw";
         sh.style.position = "absolute";
+        }
         let twin1 = sh;
         let ppy1 = properties;
+        if(posinar < 3){
+        
         setTimeout(function () { 
             twin1.style.left = "calc(50vw - var(--ballSize)/2 + " + ppy1[1] + "em)";
             twin1.style.opacity = "1";
@@ -456,23 +765,50 @@ function makeShapes(n, y, extra, t) {
         twin1.style.width = ppy1[3];
         twin1.style.zIndex = "50";
         twin1.style.transform = "rotate(" + ppy1[4] + "deg)"
+        twin1.setAttribute('class', 'teShape');
         let twin = twin1;
         let ppy = ppy1;
         setTimeout(
             function (twin, ppy) {
                 document.querySelector('#uvula').style.transition = "1s";
                 twin.style.transition = "0s";
-                document.querySelector("#uBall").append(twin);
-                twin.style.left = "calc(0% + " + ppy[1] + "em)";
-                twin.style.top = "calc(0% + " + ppy[2] + "em)";
+                a.append(twin);
+                twin.style.left = ppy[1] + "em";
+                twin.style.top = ppy[2] + "em";
                 twin.style.height = ppy[3];
                 twin.style.width = ppy[3];
                 twin.style.transform = "rotate(" + ppy[4] + "deg)";
                 twin.style.transition = "1s";
                 twin.style.zIndex = "5";
                 twin.style.border = "0px solid black"
+                twin.setAttribute('class', 'teShape');
                 funnyC = 1;
             }, 1000, twin, ppy)
         }, 50, twin1, ppy1)
+    }else{
+            twin1.style.left = "calc(50vw - var(--ballSize)/2 + " + ppy1[1] + "em)";
+            twin1.style.opacity = "1";
+        twin1.style.top = "calc(" + ppy1[2] + "em + " + document.querySelector('#uvula').getBoundingClientRect().height + "px " + " - " + Math.abs(parseFloat(document.querySelector('#uvula').getBoundingClientRect().y)) + "px - var(--ballSize))"
+        twin1.style.height = ppy1[3];
+        twin1.style.width = ppy1[3];
+        twin1.style.zIndex = "50";
+        twin1.style.transform = "rotate(" + ppy1[4] + "deg)"
+        twin1.setAttribute('class', 'teShape');
+        let twin = twin1;
+        let ppy = ppy1;
+                document.querySelector('#uvula').style.transition = "1s";
+                twin.style.transition = "0s";
+                a.append(twin);
+                twin.style.left = ppy[1] + "em";
+                twin.style.top = ppy[2] + "em";
+                twin.style.height = ppy[3];
+                twin.style.width = ppy[3];
+                twin.style.transform = "rotate(" + ppy[4] + "deg)";
+                twin.style.transition = "1s";
+                twin.style.zIndex = "5";
+                twin.style.border = "0px solid black"
+                twin.setAttribute('class', 'teShape');
+                funnyC = 1;
+    }
     }
 }

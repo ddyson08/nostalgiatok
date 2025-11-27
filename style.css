@@ -63,6 +63,7 @@ b,a,span{
     height: max-content;
     padding: 1em;
     border-radius: 5px;
+    max-height: var(--ballSize);
     position: absolute;
     bottom: 10vh;
     left: 110vw;
@@ -72,6 +73,12 @@ b,a,span{
 }
 #textEnter :is(input){
     border: 0.125em solid var(--text);
+}
+#viewSaved{
+    display: none;
+}
+#saveThis{
+    display: none;
 }
 #teInput{
     background: transparent;
@@ -88,6 +95,7 @@ body{
     padding:0;
 }
 #uvula{
+    will-change: transform;
     position: relative;
     width: var(--ballSize);
     height: 100vh;

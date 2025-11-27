@@ -1,5 +1,5 @@
 /* eslint-disable no-restricted-globals */
-const CACHE_NAME = 'pwa-cache-v2';
+const CACHE_NAME = 'nostalgiaTok';
 const APP_SHELL = [
   '/',
   '/index.html',
@@ -12,11 +12,40 @@ const APP_SHELL = [
 ];
 
 // Install: cache app shell
+
+
+async function openAppCache() {
+  const cache = await caches.open(CACHE_NAME);
+  return cache;
+}
+// In service-worker.js
+const urlsToCache = [
+  '/',
+  'index.html',
+  'script.js',
+  'style.css'
+];
+// In service-worker.js
+self.addEventListener('fetch', (event) => {
+  event.respondWith(
+    caches.match(event.request) // Try to find the request in any cache
+      .then((cachedResponse) => {
+        if (cachedResponse) {
+          return cachedResponse;
+        }
+        return fetch(event.request);
+      })
+  );
+});
+
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(APP_SHELL))
+    caches.open(CACHE_NAME)
+      .then((cache) => {
+        // 'addAll' fetches the URLs and stores the responses in the cache
+        return cache.addAll(urlsToCache);
+      })
   );
-  self.skipWaiting();
 });
 
 // Activate: cleanup old caches
@@ -31,26 +60,19 @@ self.addEventListener('activate', (event) => {
   self.clients.claim();
 });
 
-// Fetch: cache-first for same-origin, network-first for others
-self.addEventListener('fetch', (event) => {
-  const req = event.request;
-  const url = new URL(req.url);
+// In service-worker.js, during the 'activate' event for cleanup
+const cacheAllowList = [CACHE_NAME];
 
-  if (url.origin === self.location.origin) {
-    // Cache-first for app shell and same-origin assets
-    event.respondWith(
-      caches.match(req).then((cached) => cached || fetch(req))
-    );
-  } else {
-    // Network-first for cross-origin requests (e.g., APIs)
-    event.respondWith(
-      fetch(req)
-        .then((res) => {
-          const copy = res.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put(req, copy));
-          return res;
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    caches.keys().then((cacheNames) => {
+      return Promise.all(
+        cacheNames.map((cacheName) => {
+          if (cacheAllowList.indexOf(cacheName) === -1) {
+            return caches.delete(cacheName);
+          }
         })
-        .catch(() => caches.match(req))
-    );
-  }
+      );
+    })
+  );
 });
