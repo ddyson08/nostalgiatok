@@ -59,14 +59,14 @@ b,a,span{
     transition: 1s;
     background-color: var(--second);
     color: var(--text);
-    width: calc(80vw - 2em);
+    width: calc(100vw - 10em);
     height: max-content;
     padding: 1em;
     border-radius: 5px;
     max-height: var(--ballSize);
     position: absolute;
     bottom: 10vh;
-    left: 110vw;
+    left: calc(100vw + 4em);
     display: grid;
     place-items: start;
     z-index: 100;
@@ -141,7 +141,7 @@ body{
     place-items: center;
     width: max-content;
     background-color: var(--accent);
-    color: var(--text);
+    color: var(--accent);
     position: absolute;
     top: calc(50% + 4em);
     left: calc(50% + 0.5em);
@@ -164,4 +164,85 @@ body{
     opacity: 0;
     display: grid;
     place-items: center;
+}
+#displayVideos{
+    display: none;
+    transition: 0.5s;
+    opacity: 0;
+    width: 100vw;
+    height: calc(100vh - 4em);
+    max-height: calc(100vh - 4em);
+    background-color: var(--bg);
+    color: var(--text);
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+#displayVideos :is(iframe){
+    top: 1.5em;
+    position: absolute;
+    left: calc((100vw - ((100vh - 9.5em) * (9/16)))/2);
+    height: calc(100vh - 9.5em);
+    width: calc((100vh - 9.5em) * (9/16));
+    background-color: var(--second);
+    border-radius: 5px;
+}
+#buttonHolder{
+    position: absolute;
+    width: 100vw;
+    display: grid;
+    height: 4em;
+    place-items: center;
+    top: calc(100vh - 7em);
+    left: 0em;
+}
+#buttonHolder :is(div){
+    position: absolute;
+    background-color: var(--second);
+    color: var(--text);
+    border: 0px solid black !important;
+    border-radius: 5px;
+    display: grid;
+    place-items:center;
+    padding: 1em;
+}
+#leftButton{
+    left: calc((100vw - ((100vh - 9.5em) * (9/16)))/2);
+}
+#rightButton{
+    right: calc((100vw - ((100vh - 9.5em) * (9/16)))/2);
+}
+#swipeScreen{
+    display: grid;
+    place-items: left;
+    display: none;
+    opacity: 0;
+    transition: 0.5s;
+}
+#swFirst, #swLine, #swTopic{
+    padding-top: 1em;
+}
+.swText{
+    color: var(--second);
+    font-size: 1.6em;
+}
+#swDrag{
+    background-color: var(--second);
+    color: var(--text);
+    width: 10em;
+    height: 4em;
+    border-radius: 10%;
+    padding: 1em;
+}
+#swGive{
+    background-color: var(--accent);
+    width: 10em;
+    height: 4em;
+    border-radius: 10%;
+    padding: 1em;
+}
+#swLine{
+    width: calc(100vw - 8em);
+    left: 4em;
+    height: 0.1em;
 }

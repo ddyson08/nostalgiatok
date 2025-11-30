@@ -117,11 +117,36 @@ async function readStringStore() {
 
 words = {
     "en-US": [
-        "by", "nostalgiaTok", "FM Da$ani", "what's your name?", "(next)",
-        "Your", "nostalgia", "what time period are you nostalgic for?",
-        "what creators (if any) (use commas)?",
-        "what topics (if any) (use commas)?",
-        "'s ", "", "", "if you wanna save your nostalgia for later, name it here", "(or just skip here)", "video pool", "a whole lot of 'em", "player", "ts plays videos", "loading...", "", "(choose this one)", "(delete this one)", "(view saved nostalgias)", "(next one)", ""
+        "by", //0
+        "nostalgiaTok", //1
+        "FM Da$ani", //2
+        "what's your name?", //3
+        "(next)", //4
+        "Your", //5
+        "nostalgia", //6
+        "what time period are you nostalgic for?", //7
+        "what creators (if any) (use commas)?", //8
+        "what topics (if any) (use commas)?", //9
+        "'s ", //10
+        "", //11
+        "", //12
+        "if you wanna save your nostalgia for later, name it here", //13
+        "(or just skip here)", //14
+        "video pool", //15
+        "a whole lot of 'em", //16
+        "player", //17
+        "ts plays videos", //18
+        "loading...", //19
+        "", //20
+        "(choose this one)", //21
+        "(delete this one)", //22
+        "(view saved nostalgias)", //23
+        "(next one)", //24
+        "(less of ts)", //25
+        "(➢)", //26
+        "(more of ts)", //27
+        "creator", //28
+        "topic" //29
     ],
 
     "en": [
@@ -221,7 +246,7 @@ function jumpLogo(){
         logo.style.transition = "1s";
         var ll = logo.getBoundingClientRect().width;
         logo.style.width = ll + "px";
-        document.querySelector("#textEnter").style.left = "10vw";
+        document.querySelector("#textEnter").style.left = "4em";
         setTimeout(function () {
             logo.style.left = 0;
             setTimeout(function () {
@@ -233,6 +258,29 @@ function jumpLogo(){
 }
 var wiggle = "";
 window.onload = function () {
+    if(localStorage.getItem('nostalgiaTokName') !== null){
+        document.querySelector('#teInput').value = localStorage.getItem('nostalgiaTokName');
+        userName = localStorage.getItem('nostalgiaTokName');
+        setTimeout(function(){
+            var ni = document.querySelector("#uNameplate");
+   
+    ni.style.color = "var(--accent)";
+    ni.style.transition = "1s";
+    ni.style.width = "0px";
+    setTimeout(function () {
+         ni.innerText = words[navigator.language][11] + words[navigator.language][12] + userName + words[navigator.language][10] + words[navigator.language][6];
+        ni.style.color = "var(--text)";
+        ni.style.width = "max-content";
+    }, 1000);
+        swapTe(7, function () {
+        user.year = document.querySelector("#teInput").value;
+        makeShapes(user.year,' ','y',true);  
+        swapTe(8, generatePreferences, 4, generatePreferences)
+        }, 4);
+ document.querySelector("#uvula").style.opacity = "1";
+ startPendulum();
+    }, 4000, {})
+    }
     for (var i of [...document.querySelectorAll('[words]')]) {
         try {
             ah = additions[this.navigator.language][i.getAttribute('words')].split(" ")
@@ -297,6 +345,12 @@ window.onload = function () {
     document.querySelector("#teButton").addEventListener("click", function (e) {
             enterName();
     });
+    document.querySelector("#leftButton").addEventListener("click", function (e) {
+            displaySwipe("l");
+    });
+    document.querySelector("#rightButton").addEventListener("click", function (e) {
+            displaySwipe("r");
+    });
 };
 ns = 0;
 slowLimit = 0;
@@ -324,8 +378,8 @@ function swapTe(n, f, m, g, t) {
         }
     } else {
         const inputEl = nee.querySelector("input");
-            inputEl.value = "twin";
-            inputEl.setAttribute("onkeyup", "if (event.keyCode == 13) { var raeleigh = "+f+"; raeleigh(); }");
+        inputEl.value='';
+            inputEl.setAttribute("onkeyup", "if (event.keyCode == 13) { var raeleigh = "+f+"; raeleigh();}");
     }
     if (t) {
         nee.style.height = "calc(var(--ballSize) + 1em) !important";
@@ -340,7 +394,7 @@ function swapTe(n, f, m, g, t) {
     document.body.append(nee);
     ne.style.left = "-100vw";
     setTimeout(function () {
-        nee.style.left = "10vw";
+        nee.style.left = "4em";
         ne.remove();
         if (t) {
             nee.style.height = "calc(var(--ballSize) + 1em) !important";
@@ -354,7 +408,7 @@ function swapTe(n, f, m, g, t) {
         });
             }
         }
-        if(n > 19){
+        if(n > 19 && ra == false){
             if(nee.querySelector('#viewSaved')!==null){
             nee.querySelector('#viewSaved').remove();
             }
@@ -363,11 +417,11 @@ function swapTe(n, f, m, g, t) {
             b1.setAttribute('id','b1');
             b1.innerText = words[navigator.language][24];
             var b2 = document.createElement('span');
-            b2.setAttribute('onclick', 'delSaved()');
+            b2.setAttribute('onclick', 'chooseSaved()');
             b2.setAttribute('id','b2');
-            b2.innerText = words[navigator.language][23];
+            b2.innerText = words[navigator.language][21];
             var b3 = document.createElement('span');
-            b3.setAttribute('onclick', 'chooseSaved()');
+            b3.setAttribute('onclick', 'delSaved()');
             b3.setAttribute('id','b3');
             b3.innerText = words[navigator.language][22];
             if(nee.querySelector('#b1')==null){
@@ -380,18 +434,33 @@ function swapTe(n, f, m, g, t) {
             nee.append(b3);
             }
         }
+        if(ra == true && n > 19){
+            if(nee.querySelector('#b1')!==null){
+            nee.querySelector('#b1').remove();
+            }
+            if(nee.querySelector('#b2')!==null){
+            nee.querySelector('#b2').remove();
+            }
+            if(nee.querySelector('#b3')!==null){
+            nee.querySelector('#b3').remove();
+            }
+        }
         if(n<8){
             if(window.localStorage.getItem('nostalgiaTokSaved') !== null){
             nee.innerHTML += `<span style="display: block" id="viewSaved" onclick="swapTe(19,function(){},25,function(){}); getSaved();">`+words[navigator.language][23]+`</span>`
             }
         }else{
+            try{
             document.querySelector("#viewSaved").remove();
+            }catch(e){
+                console.log(e);
+            }
         }
     }, 1000);
 }
 var userName = "";
 async function saveNew(val){
-    alert(val);
+  //  alert(val);
     if(isPWA()){
          await appendToStringStore('[NOSTALGIATOKSPLIT]'+val+'[NTS2]'+JSON.stringify(user))
         }else{
@@ -490,7 +559,9 @@ allElementsWithIds.forEach(element => {
 async function getSaved(){
     if(!isPWA()){
         Arr = localStorage.getItem('nostalgiaTokSaved').split('[NOSTALGIATOKSPLIT]');
-        Arr.shift();
+        if(Arr[0] == "null"){
+            Arr.shift();
+        }
         genNext(false);
         swapTe(20,function(){},25,function(){});
     }else{
@@ -503,12 +574,13 @@ async function getSaved(){
 }
 function generatePreferences() {
     user.preferences = document.querySelector("#teInput").value;
-    makeShapes(user.topics, ',', 'p', true);  
+    makeShapes(user.preferences, ',', 'p', true);  
     swapTe(9, function () {
+        user.topics = document.querySelector("#teInput").value;
         makeShapes(user.topics, ',', 't', true);
         swapTe(13,function(){ saveNew(document.querySelector('input').value);
             swapTe(15, function () { }, 16, function () { }, true)
-            user.topics = document.querySelector("#teInput").value;
+            
             runAnimation()
         }, 14, function(){
             swapTe(15, function () { }, 16, function () { }, true)
@@ -516,6 +588,7 @@ function generatePreferences() {
             runAnimation()
         })
     }, 4, function() {
+         user.topics = document.querySelector("#teInput").value;
         makeShapes(user.topics, ',', 't', true);
         swapTe(13,function(){ saveNew();
             swapTe(15, function () { }, 16, function () { }, true)
@@ -535,8 +608,18 @@ user = {
     topics: '',
 
 }
+var ra = false;
 function runAnimation() {
+    ra = true;
+    setTimeout(function(){
     funnyC = 0;
+    for(var j of document.querySelector('#uBall').children){
+        try{
+        j.children[0].remove();
+        }catch(e){
+            console.log(e);
+        }
+    }
     funnyN = 0;
     var q = document.querySelector('#uvula');
     document.querySelector('#uvula').style.transition = "0.1s";
@@ -637,13 +720,13 @@ function runAnimation() {
                                             var three = i.getBoundingClientRect().width * 0.3;
                                             var tee = document.createElement('div');
                                             tee.setAttribute('style', `
-  width: 0; 
-  height: 0; 
-  border-top: `+ three + `px solid var(--oj);
-  border-bottom: `+ three + `px solid var(--oj);
-  
-  border-left: `+ three + `px solid var(--accent);
-`);
+                                                width: 0; 
+                                                height: 0; 
+                                                border-top: `+ three + `px solid var(--oj);
+                                                border-bottom: `+ three + `px solid var(--oj);
+                                                
+                                                border-left: `+ three + `px solid var(--accent);
+                                            `);
                                             i.append(tee);
                                         }
                                     }
@@ -672,6 +755,12 @@ function runAnimation() {
                                                     setTimeout(function () {
                                                         t.style.left = 0;
                                                         t.style.width = "100vw";
+                                                        setTimeout(function(){
+                                                            var v = document.querySelector('#displayVideos');
+                                                            v.style.opacity = "1";
+                                                            v.style.display = "block";
+                                                            t.append(v);
+                                                        },1000)
                                                     }, 100)
                                                 }, 100)
                                           }, 1250)
@@ -685,6 +774,24 @@ function runAnimation() {
             }, 500)
         }, 500)
     },1100)
+},1000);
+}
+function delSaved(){
+    Arr.splice((posinar-1) % Arr.length,1);
+    if(!isPWA()){
+        localStorage.setItem('nostalgiaTokSaved',Arr.join('[NOSTALGIATOKSPLIT]'));
+    }else{
+        var nArr = Arr.join('[NOSTALGIATOKSPLIT]');
+        openTheDatabase().then(async function(){
+            await appendToStringStore(nArr);
+        });
+    }
+    nextSaved();
+}
+function chooseSaved(){
+    ra = true;
+    swapTe(15, function () { }, 16, function () { }, true);
+    runAnimation();
 }
 function enterName() {
     var i = document.querySelector("#teInput");
@@ -694,10 +801,9 @@ function enterName() {
     }
     var ni = document.querySelector("#uNameplate");
     ni.innerText = words[navigator.language][11] + words[navigator.language][12] + userName + words[navigator.language][10] + words[navigator.language][6];
-    var ll = ni.getBoundingClientRect().width;
     ni.style.color = "var(--accent)";
     ni.style.transition = "1s";
-    ni.style.width = ll + "px";
+    ni.style.width = "0px";
     setTimeout(function () {
         ni.style.color = "var(--text)";
         ni.style.width = "max-content";
@@ -708,8 +814,9 @@ function enterName() {
         swapTe(8, generatePreferences, 4, generatePreferences)
 
     }, 4, {})
+    localStorage.setItem('nostalgiaTokName', userName);
 }
-var shapes = ['circle', 'square', 'triangle', 'rounded square'];
+var shapes = ['circle', 'rounded square'];
 function makeShapes(n, y, extra, t, c) {
     var a;
     if(t){
@@ -718,24 +825,26 @@ function makeShapes(n, y, extra, t, c) {
         a = c;
     }
     var properties = [];
+ 
     for (var i of n.split(y)) {
         var m = new Math.seedrandom(i + (n.split(y).indexOf(i)) * Math.random() + extra);
         q = Math.floor(m() * 1000000000).toString();
-        q = q.toString()
-        switch (shapes[Math.round(parseInt(q[0]) / 2.5)]) {
+        q = q.toString();
+        switch (shapes[Math.floor(parseInt(q[0]) / 5)]) {
             case "circle":
                 properties[0] = "border-radius: 50%;"
                 break;
-            case "square":
+            /*case "square":
                 properties[0] = "";
                 break;
             case "triangle":
                 properties[0] = `transform: skew(20deg);`
-                break;
+                break;*/
             case "rounded square":
                 properties[0] = "border-radius: 5px";
                 break;
         }
+        //alert(properties)
         pp = ((parseInt(window.getComputedStyle(document.documentElement).getPropertyValue('--ballSize').replace("em", "")) * 0.70) / 999 - (0.02 / 999) + (parseInt(window.getComputedStyle(document.documentElement).getPropertyValue('--ballSize').replace("em", "")) * 0.17) / 999);
         properties = [properties[0], (parseInt(q.slice(1, 4)) * pp + 0.01 / 999), (parseInt(q.slice(4, 7)) * pp + 0.01 / 999), ((0.5 * parseInt(q.slice(7, 8))) + 0.5) + "em", parseInt(q.slice(7, 8)) + "deg"];
         var sh = document.createElement('div');
@@ -810,5 +919,15 @@ function makeShapes(n, y, extra, t, c) {
                 twin.setAttribute('class', 'teShape');
                 funnyC = 1;
     }
+    }
+}
+function displaySwipe(lr){
+    var swsc = document.querySelector('#swipeScreen');
+    swsc.style.display = "block";
+    swsc.style.opacity = 1;
+    if(lr == "l"){
+        swsc.querySelector('p').innerText = words[navigator.language][25].replace('(','').replace(')','') + "↓";
+    }else{
+        swsc.querySelector('p').innerText = words[navigator.language][27].replace('(','').replace(')','') + "↓";
     }
 }
