@@ -166,8 +166,7 @@ body{
     place-items: center;
 }
 #displayVideos{
-    display: none;
-    transition: 0.5s;
+    transition: 1s;
     opacity: 0;
     width: 100vw;
     height: calc(100vh - 4em);
@@ -213,25 +212,28 @@ body{
     right: calc((100vw - ((100vh - 9.5em) * (9/16)))/2);
 }
 #swipeScreen{
-    display: grid;
-    place-items: left;
     display: none;
+    place-items: left;
+    display: block;
     opacity: 0;
     transition: 0.5s;
 }
-#swFirst, #swLine, #swTopic{
+#swFirst, #creator, #swTopic, #exitsw {
     padding-top: 1em;
+    display: flex;
+    gap: 2em;
+    height: 2em;
+    align-items: center;
 }
 .swText{
     color: var(--second);
     font-size: 1.6em;
 }
-#swDrag{
+#swDrag {
     background-color: var(--second);
     color: var(--text);
     width: 10em;
-    height: 4em;
-    border-radius: 10%;
+    border-radius: 5px;
     padding: 1em;
 }
 #swGive{
@@ -245,4 +247,6 @@ body{
     width: calc(100vw - 8em);
     left: 4em;
     height: 0.1em;
+    background-color: var(--second);
+    margin-top: 1em;
 }
