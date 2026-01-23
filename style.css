@@ -1,12 +1,12 @@
 @font-face {
     font-family: 'GlacialIndifference';
     src: url('GlacialIndifference-Regular.otf') format('opentype');
-    font-weight: 400;
+    font-weight: 200;
     font-style: normal;
     font-display: swap;
 }
 @font-face {
-    font-family: 'GlacialIndifference';
+    font-family: 'GlacialIndifferences';
     src: url('GlacialIndifference-Bold.otf') format('opentype');
     font-weight: 700;
     font-style: normal;
@@ -25,6 +25,7 @@
     background-color: var(--bg);
     color: var(--text);
     font-family: var(--font), system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 24px;
 }
 #titleBar {
     background-color: var(--accent);
@@ -54,6 +55,10 @@ img{
 }
 b,a,span{
     background-color: inherit;
+}
+b{
+    text-decoration: underline;
+    font-weight: normal;
 }
 #textEnter{
     transition: 1s;
@@ -249,4 +254,8 @@ body{
     height: 0.1em;
     background-color: var(--second);
     margin-top: 1em;
+}
+#teInput{
+    font-size: 20px;
+    height: 30px;
 }

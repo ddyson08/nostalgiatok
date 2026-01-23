@@ -121,7 +121,7 @@ words = {
         "nostalgiaTok", //1
         "FM Da$ani", //2
         "what's your name?", //3
-        "(next)", //4
+        "next", //4
         "Your", //5
         "nostalgia", //6
         "what time period are you nostalgic for?", //7
@@ -131,20 +131,20 @@ words = {
         "", //11
         "", //12
         "if you wanna save your nostalgia for later, name it here", //13
-        "(or just skip here)", //14
+        "or just skip here", //14
         "video pool", //15
         "a whole lot of 'em", //16
         "player", //17
         "ts plays videos", //18
         "loading...", //19
         "", //20
-        "(choose this one)", //21
-        "(delete this one)", //22
-        "(view saved nostalgias)", //23
-        "(next one)", //24
-        "(less of ts)", //25
-        "(➢)", //26
-        "(more of ts)", //27
+        "choose this one", //21
+        "delete this one", //22
+        "view saved nostalgias", //23
+        "next one", //24
+        "less of ts", //25
+        "➢", //26
+        "more of ts", //27
         "creator", //28
         "topic", //29
         "drag ts down", //30
@@ -411,6 +411,7 @@ slow = setInterval(function () {
     }
 }, 10)
 function swapTe(n, f, m, g, t) {
+    console.log(['numa',n,f,m,g,t])
     var ne = document.querySelector("#textEnter");
     var nee = ne.cloneNode(true);
     nee.style.left = "100vw";
@@ -465,6 +466,18 @@ function swapTe(n, f, m, g, t) {
            
         }
         if(n >= 19){
+            try{
+                nee.querySelector("#b1").remove();
+        }catch(e){
+        }
+        try{
+            nee.querySelector("#b2").remove();
+        }catch(e){
+        }
+        try{
+            nee.querySelector("#b3").remove();
+        }catch(e){
+        }
             if(nee.querySelector('#viewSaved')!==null){
             nee.querySelector('#viewSaved').remove();
             }
@@ -480,15 +493,11 @@ function swapTe(n, f, m, g, t) {
             b3.setAttribute('onclick', 'delSaved()');
             b3.setAttribute('id','b3');
             b3.innerText = words[navigator.language][22];
-            if(nee.querySelector('#b1')==null){
+            
             nee.append(b1);
-            }
-            if(nee.querySelector('#b2')==null){
             nee.append(b2);
-            }
-            if(nee.querySelector('#b3')==null){
             nee.append(b3);
-            }
+
         }
       
         if(n<8){
@@ -524,8 +533,8 @@ function nextSaved(){
     setTimeout(function () {
         var minHeight;
         var mH;
-        for (var Yuval of document.querySelector('#uBall').querySelectorAll('.teShape')) {
-            if ([...document.querySelector('#uBall').querySelectorAll('.teShape')].indexOf(Yuval) == 0) {
+        for (var Yuval of document.querySelector('#uBall').children) {
+            if ([...document.querySelector('#uBall').children].indexOf(Yuval) == 0) {
                 minHeight = parseFloat(Yuval.style.top);
                 mH = Yuval;
             } else {
@@ -584,13 +593,13 @@ allElementsWithIds.forEach(element => {
                 document.querySelector('#uBall').remove();
                 document.querySelector('#uvula').append(two);
             }
-            if(posinar < 3){
+            if(posinar){
             setTimeout(function(){
-                console.log([document.querySelector('#uBall').innerHTML,document.querySelector('#uBall').querySelector('.teShape')])
+                console.log([document.querySelector('#uBall').innerHTML,document.querySelector('#uBall').children])
                 var minHeight;
                 var mH;
-                for (var Yuval of document.querySelector('#uBall').querySelectorAll('.teShape')) {
-                    if ([...document.querySelector('#uBall').querySelectorAll('.teShape')].indexOf(Yuval) == 0) {
+                for (var Yuval of document.querySelector('#uBall').children) {
+                    if ([...document.querySelector('#uBall').children].indexOf(Yuval) == 0) {
                         minHeight = parseFloat(Yuval.style.top);
                         mH = Yuval;
                     } else {
