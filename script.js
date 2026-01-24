@@ -131,7 +131,7 @@ words = {
         "", //11
         "", //12
         "if you wanna save your nostalgia for later, name it here", //13
-        "or just skip here", //14
+        "or not, thats ok", //14
         "video pool", //15
         "a whole lot of 'em", //16
         "player", //17
@@ -148,7 +148,8 @@ words = {
         "creator", //28
         "topic", //29
         "drag ts down", //30
-        "exit ts menu"
+        "exit ts menu", //31
+        "what's good, ", //32
     ],
 
     "en": [
@@ -302,7 +303,9 @@ window.onload = function () {
         document.querySelector(closest[1]).append(document.querySelector('#swDrag'))
     }
     if(localStorage.getItem('nostalgiaTokName') !== null){
-        document.querySelector('#teInput').value = localStorage.getItem('nostalgiaTokName');
+            document.querySelector('#teInput').setAttribute('class','noBorder')
+            document.querySelector('#teTitle').style.textDecoration = "none";
+            document.querySelector('#teButton').style.display = "none";
         userName = localStorage.getItem('nostalgiaTokName');
         setTimeout(function(){
             var ni = document.querySelector("#uNameplate");
@@ -314,8 +317,9 @@ window.onload = function () {
          ni.innerText = words[navigator.language][11] + words[navigator.language][12] + userName + words[navigator.language][10] + words[navigator.language][6];
         ni.style.color = "var(--text)";
         ni.style.width = "max-content";
+        ni.style.left = "calc(50% + 0.5em)"
     }, 1000);
-        swapTe(7, function () {
+   swapTe(7, function () {
         user.year = document.querySelector("#teInput").value;
         makeShapes(user.year,' ','y',true);  
         swapTe(8, generatePreferences, 4, generatePreferences)
@@ -340,6 +344,7 @@ window.onload = function () {
             i.innerHTML = ah[0] + words["en-US"][i.getAttribute('words')] + ah[1];
         }
     }
+    document.querySelector('#teTitle').innerHTML = words[navigator.language][32] + localStorage.getItem('nostalgiaTokName') + "?";
 
     jumpLogo();
     pendulum = document.querySelector("#uvula");
@@ -418,7 +423,7 @@ function swapTe(n, f, m, g, t) {
     if (n == 15 || n == 17) {
         nee.innerHTML = `<b id='teTitle'></b><span id='teButton'></span>`
     }
-    nee.querySelector("b").innerHTML = words[navigator.language][n];
+    nee.querySelector("#teTitle").innerHTML = words[navigator.language][n];
     if (nee.querySelector('#b1') !== null) {
         b1.remove();
     }
@@ -452,6 +457,12 @@ function swapTe(n, f, m, g, t) {
     setTimeout(function () {
         nee.style.left = "4em";
         ne.remove();
+        try{
+    document.querySelector('#teInput').setAttribute('class','hasBorder');
+    document.querySelector('#teTitle').style.textDecoration = "underline";
+    document.querySelector('#teButton').style.display = "block";
+    }
+    catch(e){console.log(e)}
         if (t) {
             nee.style.height = "calc(var(--ballSize) + 1em) !important";
         }
@@ -701,6 +712,7 @@ function generatePreferences() {
         })
 });
     
+
 }
 user = {
     year: '',
@@ -725,7 +737,7 @@ function runAnimation() {
     document.querySelector('#uvula').style.transition = "0.1s";
     document.querySelector('#uvula').style.transform = "rotate(0deg)";
     setTimeout(function () {
-        q.style.top = "calc(-10vh - 1.5em)";
+        q.style.top = "calc(-2em - 1.5em)";
         funnyC = 0;
         funnyN = 0;
         document.querySelector('#uvula').style.transform = "rotate(0deg)";
@@ -738,7 +750,7 @@ function runAnimation() {
             nn.style.opacity = "1";
             nn.style.filter = "";
             setTimeout(function () {
-                q.style.top = "calc(-10vh)";
+                q.style.top = "calc(-2em)";
                 setTimeout(function () {
                     q.style.top = "calc(-50vh + 1.5em)";
                     for (var i of document.querySelectorAll(".teShape")) {
@@ -781,7 +793,7 @@ function runAnimation() {
                         }
                     }
                     setTimeout(function () {
-                        q.style.top = "calc(-10vh)";
+                        q.style.top = "calc(-2em)";
                         setTimeout(function () {
                             q.style.top = "calc(-50vh + 1.5em)";
                             for (var i of document.querySelectorAll(".teShape")) {
@@ -808,7 +820,7 @@ function runAnimation() {
                                 }
                             }
                             setTimeout(function () {
-                                q.style.top = "calc(-10vh)";
+                                q.style.top = "calc(-2em)";
                                 setTimeout(function () {
                                     q.style.top = "calc(-50vh + 1.5em)";
                                     for (var i of document.querySelectorAll(".teShape")) {
@@ -833,7 +845,7 @@ function runAnimation() {
                                     swapTe(17, function () { }, 18, function () { }, true);
                                     
                                     setTimeout(function () {
-                                        q.style.top = "calc(-10vh - 1.5em)";
+                                        q.style.top = "calc(-2em - 1.5em)";
                                         /*
                                         setTimeout(function(){var v = q.getBoundingClientRect()
                                         for(var j of [...document.querySelector('#uBall').children]){
@@ -907,6 +919,7 @@ function enterName() {
     setTimeout(function () {
         ni.style.color = "var(--text)";
         ni.style.width = "max-content";
+        ni.style.left = "calc(50% + 0.5em)"
     }, 1000);
     swapTe(7, function () {
         user.year = document.querySelector("#teInput").value;

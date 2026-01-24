@@ -39,8 +39,9 @@
     display: grid;
     place-items: center;
     position: absolute;
-    top: calc(90vh - 2em);
+    top: calc(100vh - 4em);
     left: 10vw;
+    z-index: 150;
 }
 #titleBar :is(div) {
     display: block;
@@ -56,7 +57,7 @@ img{
 b,a,span{
     background-color: inherit;
 }
-b{
+b,#teTitle{
     text-decoration: underline;
     font-weight: normal;
 }
@@ -66,18 +67,40 @@ b{
     color: var(--text);
     width: calc(100vw - 10em);
     height: max-content;
-    padding: 1em;
+    padding-left: 1em;
+    padding-right: 1em;
     border-radius: 5px;
-    max-height: var(--ballSize);
+    min-height: 0;
     position: absolute;
-    bottom: 10vh;
+    bottom: 2em;
     left: calc(100vw + 4em);
-    display: grid;
-    place-items: start;
+    display: block;
     z-index: 100;
+    overflow: hidden;
 }
-#textEnter :is(input){
-    border: 0.125em solid var(--text);
+.hasBorder{
+    border-bottom: 0.0625em dashed var(--text);
+    border-top: 0.0625em solid var(--second);
+    border-left: 0.0625em solid var(--second);
+    border-right: 0.0625em solid var(--second);
+    display: block;
+}
+.noBorder{
+    border: 0.0625em solid var(--second);
+    display: none;
+}
+    
+#textEnter :is(span, input, b, #teTitle, #teButton){
+    width: 100%;
+    min-height: 0;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+#teTitle{
+    display: flex;
+    align-items: center;
+    margin-top: 1em !important;
+    margin-bottom: 1em !important;
 }
 #viewSaved{
     display: none;
@@ -149,7 +172,7 @@ body{
     color: var(--accent);
     position: absolute;
     top: calc(50% + 4em);
-    left: calc(50% + 0.5em);
+    left: calc(50% - 0.5em);
     color: var(--accent);
     border-radius: 5px;
     padding-left: 0.5em;
