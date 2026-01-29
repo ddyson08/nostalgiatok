@@ -150,6 +150,7 @@ words = {
         "drag ts down", //30
         "exit ts menu", //31
         "what's good, ", //32
+        "anqrzfeubxkmlpwhdvocty", //33
     ],
 
     "en": [
@@ -303,10 +304,12 @@ window.onload = function () {
         document.querySelector(closest[1]).append(document.querySelector('#swDrag'))
     }
     if(localStorage.getItem('nostalgiaTokName') !== null){
+       
             document.querySelector('#teInput').setAttribute('class','noBorder')
             document.querySelector('#teTitle').style.textDecoration = "none";
             document.querySelector('#teButton').style.display = "none";
         userName = localStorage.getItem('nostalgiaTokName');
+        document.querySelector('#teTitle').innerHTML = words[navigator.language][32] + localStorage.getItem('nostalgiaTokName') + "?";
         setTimeout(function(){
             var ni = document.querySelector("#uNameplate");
    
@@ -324,9 +327,17 @@ window.onload = function () {
         makeShapes(user.year,' ','y',true);  
         swapTe(8, generatePreferences, 4, generatePreferences)
         }, 4);
+            
+    setTimeout(function(){
+        fkAround();
+    },1000);
  document.querySelector("#uvula").style.opacity = "1";
  startPendulum();
+     document.documentElement.scrollTop = 0;
+     document.documentElement.scrollLeft = 0;
+    this.document.body.style.overflow = "hidden";
     }, 4000, {})
+     this.setTimeout(function(){document.querySelector('#teTitle').innerHTML = words[navigator.language][32] + localStorage.getItem('nostalgiaTokName') + "?";},1000);
     }
     for (var i of [...document.querySelectorAll('[words]')]) {
         try {
@@ -344,7 +355,7 @@ window.onload = function () {
             i.innerHTML = ah[0] + words["en-US"][i.getAttribute('words')] + ah[1];
         }
     }
-    document.querySelector('#teTitle').innerHTML = words[navigator.language][32] + localStorage.getItem('nostalgiaTokName') + "?";
+   
 
     jumpLogo();
     pendulum = document.querySelector("#uvula");
@@ -356,11 +367,13 @@ window.onload = function () {
     function startPendulum() {
         wiggle = setInterval(function () {
             if (funnyC !== 0) {
-                pendulum.style.transform = "rotate(" +
-                    50 * Math.cos((Math.PI / 180) * Math.sqrt(6 / 50) * funnyN) + "deg)";
+                pendulum.style.transform = "rotateZ(" +
+                    50 * (Math.cos(0.01 * funnyN)) + "deg)";
                 funnyN += 3 * (funnyC / wiggleNumber);
-                if (funnyN > (60000 / 18)) {
-                    funnyN = 0;
+                if (funnyN > (10000/2)) {
+                    var closest2pi = Math.floor((funnyN/2)/(200*Math.PI));
+                    var distance = (funnyN/2) - closest2pi;
+                    funnyN = distance;
                 }
             }
         }, 18); // ~60fps
@@ -399,6 +412,11 @@ window.onload = function () {
     document.querySelector("#rightButton").addEventListener("click", function (e) {
             displaySwipe("r");
     });
+    this.setTimeout(function(){
+        document.documentElement.scrollTop = 0;
+        document.documentElement.scrollLeft = 0;
+    this.document.body.style.overflow = "hidden";
+    }, 100);
 };
 ns = 0;
 slowLimit = 0;
@@ -513,7 +531,7 @@ function swapTe(n, f, m, g, t) {
       
         if(n<8){
             if(window.localStorage.getItem('nostalgiaTokSaved') !== null){
-            nee.innerHTML += `<span style="display: block" id="viewSaved" onclick="swapTe(19,function(){},25,function(){}); getSaved();">`+words[navigator.language][23]+`</span>`
+            nee.innerHTML += `<span style="display: block" id="viewSaved" class = "vs2" onclick="swapTe(19,function(){},25,function(){}); getSaved();">`+words[navigator.language][23]+`</span>`
             }
         }else{
             try{
@@ -905,11 +923,65 @@ function chooseSaved(){
     swapTe(15, function () { }, 16, function () { }, true);
     runAnimation();
 }
+var jint = true;
+var jintArr = [0,2,3,4,5,7,8,10,11,12,13,14,15,16,17,18,19,21].reverse();
+var jintI = 0;
+function fkAround2(){
+        document.querySelector('#teInput').removeEventListener('keyup',fkAround2);
+        var newH = 0;
+        if(document.querySelector('.vs2') == null){
+            var newW = document.createElement('span');
+            newW.innerText = words[navigator.language][33];
+            document.querySelector('#textEnter').append(newW);
+            newH = newW.getBoundingClientRect().height;
+            newW.remove();
+            document.querySelector('#teInput').style.marginBottom = "calc(2em + 5px + "+newH+"px)";
+            document.querySelector('#teInput').style.transition = "0s";
+        }else{
+            document.querySelector('#teInput').style.marginBottom = "calc(2em + 5px + "+document.querySelector('.vs2').getBoundingClientRect.height+"px)";
+            document.querySelector('#teInput').style.transition = "0s"; 
+        }
+        setTimeout(function(){      
+           document.querySelector('#teInput').style.transition = "0s";
+           document.querySelector('#teInput').style.marginBottom = "1em"; 
+           document.querySelector("#teButton").style.display = "block";   
+            document.querySelector("#teButton").innerText = words[navigator.language][33];
+            setTimeout(function(){
+            document.querySelector("#teButton").style.opacity = "1";
+            document.querySelector('#teInput').style.transition = 0;
+            },100);
+           
+            console.log('palestine1');
+            var a = true;
+        let jintt = setInterval(function(){ 
+            console.log('palestine');
+             console.log([
+                jintI,
+                document.querySelector("#teButton").innerText
+            ])
+            var amharic = Array.from(document.querySelector("#teButton").innerText)
+            amharic.splice(jintArr[jintI],1);
+            document.querySelector("#teButton").innerText = amharic.join('');
+            if(a === true){
+                console.log(a);
+                jintI++;
+            }
+            if(jintI > 17){a = false; clearInterval(jintt)}},100);
+    
+},1000);
+        }
+function fkAround(){
+    jintI = 0;
+ document.querySelector("#teButton").style.display = "none";
+    document.querySelector('#teInput').addEventListener('keyup',fkAround2)
+}
 function enterName() {
-    var i = document.querySelector("#teInput");
+    var i = document.querySelector("#teInput");   
     userName = i.value;
     if (userName == "") {
         userName = words[navigator.language][5]
+    }else{
+        
     }
     var ni = document.querySelector("#uNameplate");
     ni.innerText = words[navigator.language][11] + words[navigator.language][12] + userName + words[navigator.language][10] + words[navigator.language][6];
@@ -926,7 +998,10 @@ function enterName() {
         makeShapes(user.year,' ','y',true);  
         swapTe(8, generatePreferences, 4, generatePreferences)
 
-    }, 4, {})
+    }, 4, {});
+    setTimeout(function(){
+   fkAround();
+   },2000)
     localStorage.setItem('nostalgiaTokName', userName);
 }
 var shapes = ['circle', 'rounded square'];
