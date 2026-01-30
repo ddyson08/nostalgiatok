@@ -20,6 +20,7 @@
     --font: 'GlacialIndifference';
     --ballSize: 10em;
     --oj: #c17767;
+    --swText: #f5f5dc;
 }
 *{
     background-color: var(--bg);
@@ -27,6 +28,10 @@
     font-family: var(--font), system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     font-size: 24px;
     line-height: 1.2;
+    user-select: none;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
 }
 #titleBar {
     background-color: var(--accent);
@@ -166,6 +171,7 @@ body{
     width: 1em;
     height: 1em;
     background-color: var(--accent);
+    transition: 0.5s;
 }
 #uLine {
     position: absolute;
@@ -174,7 +180,7 @@ body{
     width: 1em;
     left: calc(50% - 0.5em);
     background-color: var(--accent);
-    transition: 1s;
+    transition: 0.5s;
 }
 #uNameplate {
     position: absolute;
@@ -201,7 +207,7 @@ body{
 .teShape {
     background-color: var(--bg);
     position: absolute;
-    border: 0.125em solid var(--second);
+    border: 0.125em dashed var(--second);
     transition: 1s;
     opacity: 0;
     display: grid;
@@ -245,7 +251,7 @@ body{
     border-radius: 5px;
     display: grid;
     place-items:center;
-    padding: 1em;
+    padding: 0.5em;
 }
 #leftButton{
     left: calc((100vw - ((100vh - 9.5em) * (9/16)))/2);
@@ -268,11 +274,11 @@ body{
     align-items: center;
 }
 .swText{
-    color: var(--second);
+    color: var(--swText);
     font-size: 1.6em;
 }
 #swDrag {
-    background-color: var(--second);
+    background-color: var(--swText);
     color: var(--text);
     width: 10em;
     border-radius: 5px;
@@ -289,7 +295,7 @@ body{
     width: calc(100vw - 8em);
     left: 4em;
     height: 0.1em;
-    background-color: var(--second);
+    background-color: var(--swText);
     margin-top: 1em;
 }
 #teInput{

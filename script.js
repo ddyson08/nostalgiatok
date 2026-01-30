@@ -138,10 +138,10 @@ words = {
         "ts plays videos", //18
         "loading...", //19
         "", //20
-        "choose this one", //21
-        "delete this one", //22
+        "choose this one&nbsp;-&nbsp;", //21
+        "delete this one&nbsp;", //22
         "view saved nostalgias", //23
-        "next one", //24
+        "next one&nbsp;-&nbsp;", //24
         "less of ts", //25
         "➢", //26
         "more of ts", //27
@@ -151,6 +151,8 @@ words = {
         "exit ts menu", //31
         "what's good, ", //32
         "anqrzfeubxkmlpwhdvocty", //33
+        "abcd_efghijklmn_opqrstuvwxyz_", //34
+        "0,2,3,4,5,7,8,10,11,12,13,14,15,16,17,18,19,21" //35
     ],
 
     "en": [
@@ -274,18 +276,41 @@ var newPref = {
     increased: ""
 }
 function startFollow() {
+    SF = false;
+    setTimeout(function () {
+    document.querySelector('#swFirst').append(document.querySelector('#swDrag'));
     SF = true;
+    },100);
     document.querySelector('#swFirst').append(document.querySelector('#swDrag'));
     document.querySelector('#swDrag').innerHTML = words[navigator.language][31];
 }
 function endFollow() {
     SF = false;
     if (document.querySelector('#swDrag').parentNode == document.querySelector('#exitsw')) {
-        document.querySelector('#swipeScreen').style.opacity = 0;
-        setTimeout(function () { document.querySelector('#swipeScreen').style.display = "none"; }, 100)
+        
+        
+        
     }
+    document.querySelector('#swipeScreen').style.opacity = 0;
+    document.querySelector('#swFirst').append(document.querySelector('#swDrag'));
+    setTimeout(function () { document.querySelector('#swipeScreen').style.display = "none"; }, 100)
 }
 window.onload = function () {
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+// User prefers dark mode
+console.log('Dark mode is preferred');
+const root = document.documentElement;
+root.style.setProperty('--bg', '#002A22');
+root.style.setProperty('--accent', '#4c061d');
+root.style.setProperty('--second', '#4c061d');
+root.style.setProperty('--text', '#A5978B');
+root.style.setProperty('--oj', '#A5978B');
+}
+    for(var ii of jintArr){
+       var fg = Array.from(words[navigator.language][33]);
+       fg[ii] = words[this.navigator.language][34][Math.floor(Math.random()*words[this.navigator.language][34].length)];
+    words[navigator.language][33] = fg.join('');
+    }
     document.body.onpointermove = event => {
         const { clientX, clientY } = event;
         if (SF) {
@@ -304,7 +329,6 @@ window.onload = function () {
         document.querySelector(closest[1]).append(document.querySelector('#swDrag'))
     }
     if(localStorage.getItem('nostalgiaTokName') !== null){
-       
             document.querySelector('#teInput').setAttribute('class','noBorder')
             document.querySelector('#teTitle').style.textDecoration = "none";
             document.querySelector('#teButton').style.display = "none";
@@ -323,10 +347,18 @@ window.onload = function () {
         ni.style.left = "calc(50% + 0.5em)"
     }, 1000);
    swapTe(7, function () {
+       if(doneAnimation){
         user.year = document.querySelector("#teInput").value;
         makeShapes(user.year,' ','y',true);  
         swapTe(8, generatePreferences, 4, generatePreferences)
-        }, 4);
+        }
+        }, 4, function () {
+       if(doneAnimation){
+        user.year = document.querySelector("#teInput").value;
+        makeShapes(user.year,' ','y',true);  
+        swapTe(8, generatePreferences, 4, generatePreferences)
+        }
+        });
             
     setTimeout(function(){
         fkAround();
@@ -335,7 +367,7 @@ window.onload = function () {
  startPendulum();
      document.documentElement.scrollTop = 0;
      document.documentElement.scrollLeft = 0;
-    this.document.body.style.overflow = "hidden";
+    document.body.style.overflow = "hidden";
     }, 4000, {})
      this.setTimeout(function(){document.querySelector('#teTitle').innerHTML = words[navigator.language][32] + localStorage.getItem('nostalgiaTokName') + "?";},1000);
     }
@@ -415,10 +447,11 @@ window.onload = function () {
     this.setTimeout(function(){
         document.documentElement.scrollTop = 0;
         document.documentElement.scrollLeft = 0;
-    this.document.body.style.overflow = "hidden";
+        document.body.style.overflow = "hidden";
     }, 100);
 };
 ns = 0;
+var is8=true;
 slowLimit = 0;
 canCount = false;
 canWiggleMore = false;
@@ -435,6 +468,9 @@ slow = setInterval(function () {
 }, 10)
 function swapTe(n, f, m, g, t) {
     console.log(['numa',n,f,m,g,t])
+     if(n == 8){
+        is8 = false;
+    }
     var ne = document.querySelector("#textEnter");
     var nee = ne.cloneNode(true);
     nee.style.left = "100vw";
@@ -474,6 +510,14 @@ function swapTe(n, f, m, g, t) {
     ne.style.left = "-100vw";
     setTimeout(function () {
         nee.style.left = "4em";
+        if(n>=15 && n <= 18){
+            console.log(n);
+            nee.style.left = "0em";
+            nee.style.width = "100vw";
+            nee.style.bottom = "0"
+            nee.style.height = "calc(2 * var(--ballSize)) !important"
+            nee.setAttribute('class','te2');
+        }
         ne.remove();
         try{
     document.querySelector('#teInput').setAttribute('class','hasBorder');
@@ -513,15 +557,15 @@ function swapTe(n, f, m, g, t) {
             var b1 = document.createElement('span');
             b1.setAttribute('onclick', 'nextSaved()');
             b1.setAttribute('id','b1');
-            b1.innerText = words[navigator.language][24];
+            b1.innerHTML = words[navigator.language][24];
             var b2 = document.createElement('span');
             b2.setAttribute('onclick', 'chooseSaved()');
             b2.setAttribute('id','b2');
-            b2.innerText = words[navigator.language][21];
+            b2.innerHTML = words[navigator.language][21];
             var b3 = document.createElement('span');
             b3.setAttribute('onclick', 'delSaved()');
             b3.setAttribute('id','b3');
-            b3.innerText = words[navigator.language][22];
+            b3.innerHTML = words[navigator.language][22];
             
             nee.append(b1);
             nee.append(b2);
@@ -585,6 +629,15 @@ function nextSaved(){
         document.querySelector('#uBall').setAttribute('style','transition: 1s; opacity: 0; left:'+((qqq.x-qq.x)*(qqq.width/qq.width))+'px; top:'+((qqq.y-qq.y)*(qqq.height/qq.height))+'px; width:'+(qqq.width*(qqq.width/qq.width))+'px; height:'+(qqq.height*(qqq.height/qq.height))+'px;');   },100);
         setTimeout(function () { q.setAttribute('style', ''); document.querySelector('#uvula').append(q); document.querySelector('#uBall').remove(); genNext(false,false,true); swapTe(20,function(){},25,function(){}); }, 2200);
     },200);
+     var ooh = document.querySelector('#uLine');
+    var mem = document.querySelector('#uNameplate');
+    mem.style.marginTop = "calc(-50vh + 1.5em + 10vh - (var(--ballSize) / 2))";
+    ooh.style.height = "calc(10vh - (var(--ballSize) / 2))";
+    setTimeout(function(){
+        mem.style.marginTop = "";
+    ooh.style.height = "calc(50vh - (var(--ballSize) / 2))";
+    }, 1000);
+
 }
 function genNext(t, two, x){
     // Select all elements that have an 'id' attribute
@@ -716,19 +769,19 @@ function generatePreferences() {
             user.topics = document.querySelector("#teInput").value;
             runAnimation()
         })
-    }, 4, function() {
-         user.topics = document.querySelector("#teInput").value;
+    }, 4, function () {
+        user.topics = document.querySelector("#teInput").value;
         makeShapes(user.topics, ',', 't', true);
-        swapTe(13,function(){ saveNew();
+        swapTe(13,function(){ saveNew(document.querySelector('input').value);
             swapTe(15, function () { }, 16, function () { }, true)
-            user.topics = document.querySelector("#teInput").value;
+            
             runAnimation()
         }, 14, function(){
             swapTe(15, function () { }, 16, function () { }, true)
             user.topics = document.querySelector("#teInput").value;
             runAnimation()
         })
-});
+    });
     
 
 }
@@ -754,13 +807,21 @@ function runAnimation() {
     var q = document.querySelector('#uvula');
     document.querySelector('#uvula').style.transition = "0.1s";
     document.querySelector('#uvula').style.transform = "rotate(0deg)";
+    var ooh = document.querySelector('#uLine');
+    var mem = document.querySelector('#uMiniball');
     setTimeout(function () {
-        q.style.top = "calc(-2em - 1.5em)";
+        q.style.top = "calc(1em)";
+         ooh.style.height = "calc(20vh - (var(--ballSize) / 2))";
+                ooh.style.top = "calc(50% + 30vh - (var(--ballSize) / 2))";
+                mem.style.top = "calc(50% - 2em + 20vh)";
         funnyC = 0;
         funnyN = 0;
         document.querySelector('#uvula').style.transform = "rotate(0deg)";
         setTimeout(function () {
-            q.style.top = "calc(-50vh + 1.5em)";
+            q.style.top = "calc(-50vh + 4em)";
+            ooh.style.height = "calc(50vh - (var(--ballSize) / 2))";
+                    ooh.style.top = "calc(50%)"
+                    mem.style.top = "calc(50% - 0.5em)";
             document.querySelector('#uvula').style.transform = "rotate(0deg)";
             var n = document.querySelectorAll(".teShape");
             var nn = n[Math.floor(Math.random() * [...n].length)]
@@ -768,16 +829,22 @@ function runAnimation() {
             nn.style.opacity = "1";
             nn.style.filter = "";
             setTimeout(function () {
-                q.style.top = "calc(-2em)";
+                q.style.top = "calc(1em)";
+                ooh.style.height = "calc(20vh - (var(--ballSize) / 2))";
+                ooh.style.top = "calc(50% + 30vh - (var(--ballSize) / 2))";
+                mem.style.top = "calc(50% - 2em + 20vh)";
                 setTimeout(function () {
-                    q.style.top = "calc(-50vh + 1.5em)";
+                    q.style.top = "calc(-50vh + 4em)";
+                    ooh.style.height = "calc(50vh - (var(--ballSize) / 2))";
+                    ooh.style.top = "calc(50%)"
+                    mem.style.top = "calc(50% - 0.5em)";
                     for (var i of document.querySelectorAll(".teShape")) {
                         var r = Math.floor(Math.random() * 3);
                         if (r == 0) {
                             i.style.backgroundColor = "var(--oj)";
                             i.style.opacity = "1";
                             i.style.filter = "";
-                            var three = i.getBoundingClientRect().width * 0.3;
+                           /* var three = i.getBoundingClientRect().width * 0.3;
                             var tee = document.createElement('div');
                             tee.setAttribute('style', `
   width: 0; 
@@ -787,14 +854,16 @@ function runAnimation() {
   
   border-left: `+ three +`px solid var(--accent);
 `);
+
                             i.append(tee);
+                            */
                         }
                         if (r == 1) {
                             i.style.backgroundColor = "var(--oj)";
                             i.style.opacity = "0.5";
                             //i.innerHTML="";
                             i.style.filter = "blur(5px)";
-                            if (i.children.length == 0) {
+                         /*   if (i.children.length == 0) {
                                 var three = i.getBoundingClientRect().width * 0.3;
                                 var tee = document.createElement('div');
                                 tee.setAttribute('style', `
@@ -808,12 +877,19 @@ function runAnimation() {
 `);
                                 i.append(tee);
                             }
+                                */
                         }
                     }
                     setTimeout(function () {
-                        q.style.top = "calc(-2em)";
+                        q.style.top = "calc(1em)";
+                        ooh.style.height = "calc(20vh - (var(--ballSize) / 2))";
+                ooh.style.top = "calc(50% + 30vh - (var(--ballSize) / 2))";
+                mem.style.top = "calc(50% - 2em + 20vh)";
                         setTimeout(function () {
-                            q.style.top = "calc(-50vh + 1.5em)";
+                            q.style.top = "calc(-50vh + 4em)";
+                             ooh.style.height = "calc(50vh - (var(--ballSize) / 2))";
+                    ooh.style.top = "calc(50%)"
+                    mem.style.top = "calc(50% - 0.5em)";
                             for (var i of document.querySelectorAll(".teShape")) {
                                 if (i.style.backgroundColor != "var(--oj)") {
                                     i.style.backgroundColor = "var(--oj)";
@@ -838,15 +914,21 @@ function runAnimation() {
                                 }
                             }
                             setTimeout(function () {
-                                q.style.top = "calc(-2em)";
+                                q.style.top = "calc(1em)";
+                                 ooh.style.height = "calc(20vh - (var(--ballSize) / 2))";
+                ooh.style.top = "calc(50% + 30vh - (var(--ballSize) / 2))";
+                mem.style.top = "calc(50% - 2em + 20vh)";
                                 setTimeout(function () {
-                                    q.style.top = "calc(-50vh + 1.5em)";
+                                    q.style.top = "calc(-50vh + 4em)";
+                                     ooh.style.height = "calc(50vh - (var(--ballSize) / 2))";
+                    ooh.style.top = "calc(50%)"
+                    mem.style.top = "calc(50% - 0.5em)";
                                     for (var i of document.querySelectorAll(".teShape")) {
                                         i.style.backgroundColor = "var(--oj)";
                                         i.style.opacity = "1";
                                       //  i.innerHTML = "";
                                         i.style.filter = "";
-                                        if (i.children.length == 0) {
+                                      /*  if (i.children.length == 0) {
                                             var three = i.getBoundingClientRect().width * 0.3;
                                             var tee = document.createElement('div');
                                             tee.setAttribute('style', `
@@ -859,24 +941,28 @@ function runAnimation() {
                                             `);
                                             i.append(tee);
                                         }
+                                            */
                                     }
                                     swapTe(17, function () { }, 18, function () { }, true);
                                     
                                     setTimeout(function () {
-                                        q.style.top = "calc(-2em - 1.5em)";
-                                        /*
-                                        setTimeout(function(){var v = q.getBoundingClientRect()
+                                        q.style.top = "calc(1em)";
+                                         ooh.style.height = "calc(20vh - (var(--ballSize) / 2))";
+                ooh.style.top = "calc(50% + 30vh - (var(--ballSize) / 2))";
+                mem.style.top = "calc(50% - 2em + 20vh)";
+                                        
+                                       /* setTimeout(function(){var v = q.getBoundingClientRect()
                                         for(var j of [...document.querySelector('#uBall').children]){
                                                 if(j.getBoundingClientRect().height+j.getBoundingClientRect().y > v.y+v.height){
                                                     j.style.transition = "0.1s";
                                                     j.style.opacity = "0";
                                                 }
-                                            }}, 600)
-                                            */
+                                            }}, 600) */
+                                            
                                         setTimeout(function () {
                                             var t = document.querySelector('#textEnter')
                                             t.style.backgroundColor = "var(--bg)";
-                                            t.style.color = "var(--accent)";
+                                            t.style.color = "var(--bg)";
                                             setTimeout(function () {
                                                 t.style.bottom = 0;
                                                 setTimeout(function () {
@@ -886,9 +972,13 @@ function runAnimation() {
                                                         t.style.left = 0;
                                                         t.style.width = "100vw";
                                                         setTimeout(function(){
+                                                            t.style.height = "100vh";
+                                                    t.style.maxHeight = "100vh"
+                                                            t.style.bottom = "-2em";
                                                             var v = document.querySelector('#displayVideos');
                                                             v.style.opacity = "1";
                                                             v.style.display = "block";
+                                                            document.querySelector('#leftButton').style.width = "calc(" + document.querySelector('#rightButton').getBoundingClientRect().width + "px - 1em)";
                                                             t.append(v);
                                                         },1000)
                                                     }, 100)
@@ -924,8 +1014,9 @@ function chooseSaved(){
     runAnimation();
 }
 var jint = true;
-var jintArr = [0,2,3,4,5,7,8,10,11,12,13,14,15,16,17,18,19,21].reverse();
+var jintArr = words[navigator.language][35].split(',').reverse();
 var jintI = 0;
+var doneAnimation = false;
 function fkAround2(){
         document.querySelector('#teInput').removeEventListener('keyup',fkAround2);
         var newH = 0;
@@ -949,7 +1040,8 @@ function fkAround2(){
             setTimeout(function(){
             document.querySelector("#teButton").style.opacity = "1";
             document.querySelector('#teInput').style.transition = 0;
-            },100);
+            },30);
+            
            
             console.log('palestine1');
             var a = true;
@@ -966,9 +1058,9 @@ function fkAround2(){
                 console.log(a);
                 jintI++;
             }
-            if(jintI > 17){a = false; clearInterval(jintt)}},100);
+            if(jintI > 17){a = false; doneAnimation = true; clearInterval(jintt)}},100);
     
-},1000);
+},100);
         }
 function fkAround(){
     jintI = 0;
@@ -984,21 +1076,29 @@ function enterName() {
         
     }
     var ni = document.querySelector("#uNameplate");
-    ni.innerText = words[navigator.language][11] + words[navigator.language][12] + userName + words[navigator.language][10] + words[navigator.language][6];
     ni.style.color = "var(--accent)";
     ni.style.transition = "1s";
     ni.style.width = "0px";
     setTimeout(function () {
         ni.style.color = "var(--text)";
         ni.style.width = "max-content";
-        ni.style.left = "calc(50% + 0.5em)"
+        ni.style.left = "calc(50% + 0.5em)";
+        ni.innerText = words[navigator.language][11] + words[navigator.language][12] + userName + words[navigator.language][10] + words[navigator.language][6];
     }, 1000);
     swapTe(7, function () {
+        if(doneAnimation){
         user.year = document.querySelector("#teInput").value;
         makeShapes(user.year,' ','y',true);  
         swapTe(8, generatePreferences, 4, generatePreferences)
+        }
 
-    }, 4, {});
+    }, 4, function () {
+        if(doneAnimation){
+        user.year = document.querySelector("#teInput").value;
+        makeShapes(user.year,' ','y',true);  
+        swapTe(8, generatePreferences, 4, generatePreferences)
+        }
+        });
     setTimeout(function(){
    fkAround();
    },2000)
@@ -1058,6 +1158,7 @@ function makeShapes(n, y, extra, t, c) {
         sh.style.left = "50vw";
         sh.style.height = "0vh";
         sh.style.left = "0vw";
+        sh.style.transition = "1s";
             sh.style.position = "absolute";
             sh.style.borderRadius = properties[0]
         }
@@ -1080,9 +1181,10 @@ function makeShapes(n, y, extra, t, c) {
         let ppy = ppy1;
         setTimeout(
             function (twin, ppy) {
-                document.querySelector('#uvula').style.transition = "1s";
-                twin.style.transition = "0s";
                 a.append(twin);
+                document.querySelector('#uvula').style.transition = "1s";
+                //twin.style.transition = "0s";
+                
                 twin.style.left = ppy[1] + "em";
                 twin.style.top = ppy[2] + "em";
                 twin.style.height = ppy[3];
@@ -1099,6 +1201,8 @@ function makeShapes(n, y, extra, t, c) {
             }, 1000, twin, ppy)
         }, 50, twin1, ppy1)
     }else{
+        
+        setTimeout(function () { 
             twin1.style.left = "calc(50vw - var(--ballSize)/2 + " + ppy1[1] + "em)";
             twin1.style.opacity = "1";
         twin1.style.top = "calc(" + ppy1[2] + "em + " + document.querySelector('#uvula').getBoundingClientRect().height + "px " + " - " + Math.abs(parseFloat(document.querySelector('#uvula').getBoundingClientRect().y)) + "px - var(--ballSize))"
@@ -1111,9 +1215,11 @@ function makeShapes(n, y, extra, t, c) {
             console.log(properties[0])
         let twin = twin1;
         let ppy = ppy1;
+        setTimeout(
+            function (twin, ppy) {
+                a.append(twin);
                 document.querySelector('#uvula').style.transition = "1s";
                 twin.style.transition = "0s";
-                a.append(twin);
                 twin.style.left = ppy[1] + "em";
                 twin.style.top = ppy[2] + "em";
                 twin.style.height = ppy[3];
@@ -1127,6 +1233,8 @@ function makeShapes(n, y, extra, t, c) {
             twin1.style.borderRadius = properties[0];
             console.log(properties[0])
                 funnyC = 1;
+                }, 1000, twin, ppy)
+        }, 50, twin1, ppy1)
     }
     }
 }
