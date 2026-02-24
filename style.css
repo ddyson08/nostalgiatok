@@ -67,6 +67,16 @@ b,#teTitle{
     text-decoration: underline;
     font-weight: normal;
 }
+#background {
+    background: repeating-linear-gradient( -45deg, rgba(0,0,0,0.3) 2px, rgba(0,0,0,0) 3px, rgba(0,0,0,0) 4px, rgba(0,0,0,0.3) 7px);
+    position: absolute;
+    top:-50vh;
+    left:0px;
+    width: 100vw;
+    height: 150vh;
+    z-index: 0;
+    transition: 0.5s;
+}
 #textEnter{
     transition: 1s;
     background-color: var(--second);
@@ -113,6 +123,7 @@ html, body {
     margin: 0;
     padding: 0;
     box-sizing: border-box; /* Ensures consistent sizing */
+    position: absolute;
 }
 #teTitle{
     display: flex;
@@ -150,11 +161,11 @@ body{
     left: calc(50vw - (var(--ballSize) / 2));
     z-index: 1;
     background-color: rgba(0,0,0,0);
-    transform: rotate(0deg);
-    transition: 1s;
+    transition: 0s;
     opacity: 0;
+    transform: rotateZ(0deg);
 }
-#uBall{
+.uBall,.palestine{
     position: absolute;
     border-radius: 50%;
     top: calc(100% - var(--ballSize));
@@ -162,6 +173,10 @@ body{
     width: var(--ballSize);
     height: var(--ballSize);
     background-color: var(--accent);
+    overflow: hidden;
+}
+#teButton{
+    display: none;
 }
 #uMiniball {
     position: absolute;
