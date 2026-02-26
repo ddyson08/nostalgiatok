@@ -29,12 +29,12 @@
 </head>
 <body>
     <div id="titleBar"><div><img src="logo.png" id="logo"><span words="1">nostalgiaTok</span> <span words="0"></span> <span words="2" href="">FM Da$ani</span></div></div>
-    <div id="textEnter">
+    <div id="textEnter" class="teTextEnter">
         <b id="teTitle" words="3"></b>
         <input n="0" type="text" class="hasBorder" id="teInput"/>
-        <span id="teButton" words="4" onclick='if(doneAnimation && is8){user.year = document.querySelector("#teInput").value;makeShapes(user.year,"","y",true); swapTe(8, generatePreferences, 4, generatePreferences); document.querySelector("#teButton").removeAttribute("onclick","");}'></span>
-        <span id="viewSaved"></span>
-        <span id="saveThis"></span>
+        <button id="teButton" words="4" onclick='if(doneAnimation && is8){user.year = document.querySelector("#teInput").value;makeShapes(user.year,"","y",true); swapTe(8, generatePreferences, 4, generatePreferences); document.querySelector("#teButton").removeAttribute("onclick","");}'></button>
+        <button id="viewSaved"></button>
+        <button id="saveThis"></button>
     </div>
     <div id="uvula" style="transform: rotateZ(0deg)">
         <div id="uBalance"></div>

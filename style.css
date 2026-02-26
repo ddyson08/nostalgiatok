@@ -60,7 +60,7 @@ img{
     width: 1em;
     vertical-align: middle;
 }
-b,a,span{
+b,a,span, button{
     background-color: inherit;
 }
 b,#teTitle{
@@ -94,8 +94,12 @@ b,#teTitle{
     z-index: 100;
     overflow: hidden;
 }
-#textEnter :is(span){
+#textEnter :is(span, button){
     transition: 1s;
+}
+button {
+    border: 0px;
+    text-align: left;
 }
 .hasBorder{
     border-bottom: 0.0625em dashed var(--text);
@@ -108,11 +112,32 @@ b,#teTitle{
     border: 0.0625em solid var(--second);
     display: none;
 }
-#textEnter :is(span, input, b, #teTitle, #teButton){
+#textEnter :is(span, input, #teButton, button) {
     width: 100%;
     min-height: 0;
     margin-top: 1em;
     margin-bottom: 1em;
+    padding: 0 !important;
+}
+#b1, #b2, #b3 {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    width: 100%;
+    min-height: 0;
+    padding: 0 !important;
+}
+#teTitle {
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+    width: 100%;
+    min-height: 0;
+    padding: 0 !important;
+}
+#b4 {
+    margin-top: 0.5em;
+    margin-bottom: 1em;
+    width: 100%;
+    min-height: 0;
     padding: 0 !important;
 }
 #teButton{
@@ -128,8 +153,6 @@ html, body {
 #teTitle{
     display: flex;
     align-items: center;
-    margin-top: 1em !important;
-    margin-bottom: 1em !important;
 }
 #viewSaved{
     display: none;
@@ -152,7 +175,7 @@ body{
     padding:0;
 }
 *{margin:0}
-#uvula{
+#uvula {
     will-change: transform;
     position: relative;
     width: var(--ballSize);
@@ -161,19 +184,20 @@ body{
     left: calc(50vw - (var(--ballSize) / 2));
     z-index: 1;
     background-color: rgba(0,0,0,0);
-    transition: 0s;
+    transition: opacity 1s, top 1s, z-index 1s, background-color 1s, margin-top 1s, width 1s, height 1s, position 1s, left 1s, margin-left 1s, filter 1s !important;
     opacity: 0;
     transform: rotateZ(0deg);
 }
-.uBall,.palestine{
+.uBall, .palestine {
     position: absolute;
     border-radius: 50%;
     top: calc(100% - var(--ballSize));
-    left:0;
+    left: 0;
     width: var(--ballSize);
     height: var(--ballSize);
     background-color: var(--accent);
     overflow: hidden;
+    transition: opacity 1s, top 1s, z-index 1s, background-color 1s, margin-top 1s, width 1s, height 1s, position 1s, left 1s, margin-left 1s, filter 1s !important;
 }
 #teButton{
     display: none;
