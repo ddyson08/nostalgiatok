@@ -1183,44 +1183,40 @@ function runAnimation() {
                                                                     document.querySelector('#leftButton').style.width = "calc(" + document.querySelector('#rightButton').getBoundingClientRect().width + "px - 1em)";
                                                                     t.append(v);
                                                                     funnyC = 1;
+                                                                    v.style.top = "4em";
+                                                                    var tOo = document.querySelector('#touchOverlay');
+                                                                    tOo.style.top = "4em";
+                                                                    tOo.style.display = "block";
+                                                                    v.style.bottom = "2em";
                                                                     happeningNow = false;
-                                                                    window.addEventListener
-                                                                        ('touchstart', function (event) {
-                                                                            initialTouchX =
-                                                                                event.touches[0].clientX;
-                                                                            initialTouchY =
-                                                                                event.touches[0].clientY;
-                                                                        });
-                                                                    window.addEventListener
-                                                                        ('onmouseup', function (event) {
-                                                                            initialTouchX =
-                                                                                event.touches[0].clientX;
-                                                                            initialTouchY =
-                                                                                event.touches[0].clientY;
-                                                                        });
+                                                                    document.body.addEventListener('touchstart', function (event) {
+                                                                        console.log("ts");
+                                                                        initialTouchX = event.touches[0].clientX;
+                                                                        initialTouchY = event.touches[0].clientY;
+                                                                    });
 
-                                                                    window.addEventListener
-                                                                        ('touchend', function (event) {
-                                                                            finalTouchX = event.
-                                                                                changedTouches[0].clientX;
-                                                                            finalTouchY = event.
-                                                                                changedTouches[0].clientY;
+                                                                    // TOUCH END
+                                                                    document.body.addEventListener('touchend', function (event) {
+                                                                        console.log("te");
+                                                                        finalTouchX = event.changedTouches[0].clientX;
+                                                                        finalTouchY = event.changedTouches[0].clientY;
+                                                                        handleTouch(initialTouchX, finalTouchX, swipeUp, swipeDown);
+                                                                    });
 
+                                                                    // MOUSE DOWN
+                                                                    document.body.addEventListener('mousedown', function (event) {
+                                                                        console.log("md");
+                                                                        initialTouchX = event.clientX;
+                                                                        initialTouchY = event.clientY;
+                                                                    });
 
-                                                                            handleTouch(initialTouchX,
-                                                                                finalTouchX, swipeUp, swipeDown);
-                                                                        });
-                                                                    window.addEventListener
-                                                                        ('onmousedown', function (event) {
-                                                                            finalTouchX = event.
-                                                                                changedTouches[0].clientX;
-                                                                            finalTouchY = event.
-                                                                                changedTouches[0].clientY;
-
-
-                                                                            handleTouch(initialTouchX,
-                                                                                finalTouchX, swipeUp, swipeDown);
-                                                                        });
+                                                                    // MOUSE UP
+                                                                    document.body.addEventListener('mouseup', function (event) {
+                                                                        console.log("mu");
+                                                                        finalTouchX = event.clientX;
+                                                                        finalTouchY = event.clientY;
+                                                                        handleTouch(initialTouchX, finalTouchX, swipeUp, swipeDown);
+                                                                    });
                                                                 }, 1000)
                                                             }, 100)
                                                         }, 100)
@@ -1604,7 +1600,7 @@ function makeShapes(n, y, extra, t, c) {
 
                     }, 18);
                 } else {
-                    var tempvar = 5                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbmmmmmmmmmmmbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbmmmmmmmmmmmmmmmmbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbmmmmmmmmmmmmmmbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbmmmmmmmmmmmmmmmbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbmbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbmbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbmbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbmmmmmm;
+                    var tempvar = 5
                 }
                 /*document.querySelector('#uvula').style.transition = "opacity 1s, top 1s, z-index 1s, background-color 1s, margin-top 1s, width 1s, height 1s, position 1s, left 1s, margin-left 1s, transform 1s, filter 1s";
                 document.querySelector('.uBall').style.transition = "opacity 1s, top 1s, z-index 1s, background-color 1s, margin-top 1s, width 1s, height 1s, position 1s, left 1s, margin-left 1s, transform 1s, filter 1s";
@@ -1763,6 +1759,12 @@ function displaySwipe(lr) {
         }
     }, 100);
 }
+
+var tsMTs = [];
+var tsMT = 0;
+var canSwipe = true;
+var sV = ["calc(((100vw - ((100vh - 9.5em) * (9/16)))/2) + ((100vh - 9.5em) * (9/16)) + 0.5em)", '1em', "calc(((100vw - ((100vh - 9.5em) * (9/16)))/2) - 0.5em)", 'calc(100vh - 9.5em + 0.5em)', "calc(((100vw - ((100vh - 9.5em) * (9/16)))/2) - 1em)", "calc((100vh - 9.5em) * (9/16))", "calc(100vh - 9.5em)", "calc((100vw - ((100vh - 9.5em) * (9/16)))/2)", "1.5em"]
+
 var initialTouchX, initialTouchY,
     finalTouchX, finalTouchY;
 var swipeThreshold = 100;
@@ -1779,93 +1781,111 @@ function handleTouch(startX, endX,
     var verticalDistance =
         finalTouchY - initialTouchY;
 
-    if (Math.abs(horizontalDistance) <
-        Math.abs(verticalDistance) &&
+    if (Math.abs(verticalDistance) >
+        Math.abs(horizontalDistance) &&
         Math.abs(verticalDistance) >
         swipeThreshold) {
-        if (finalTouchXY -
+        if (finalTouchY -
             initialTouchY < 0) {
-            onSwipeUp();
+            swipeUp();
         } else {
-            onSwipeDown();
+            swipeDown();
         }
     }
 }
 
-var tsMTs = [];
-var tsMT = 0;
-var canSwipe = true;
-var swipeUp = () => {
+function swipeUp() {
     if (canSwipe) {
         //var bcr = document.querySelector('#videoFrame').boundingClientRect();
         canSwipe = true;
         var orbit = document.createElement('div');
-        orbit.style.borderRadius = "50%";
+        orbit.style.borderRadius = "5px";
+        orbit.style.zIndex = "100";
         orbit.style.width = "0.5em";
         orbit.style.height = "0.5em";
-        orbit.style.backgroundColor = "var(--bg)";
+        orbit.style.opacity = "1";
+        orbit.style.backgroundColor = "var(--swText)";
         orbit.style.position = "absolute";
-        orbit.style.left = "calc(((100vw - ((100vh - 9.5em) * (9/16)))/2) - 0.5em)";
-        orbit.style.top = '1em';
-        tsMT = (Math.round(Math.random() * 100) / 100);
-        orbit.style.transition = (tsMT * 0.1) + "s";
-        document.append(orbit);
+        orbit.style.left = "calc(((100vw - ((100vh - 10em) * (9/16)))/2) + calc(calc(100vh - 10em) * (9/16)))";
+        orbit.style.top = '3.5em';
+        tsMT = Math.random();
+        orbit.style.transition = "0.25s";
+        document.body.append(orbit);
         tsMTs.push(tsMT);
         setTimeout(function () {
-            orbit.style.left = "calc(((100vw - ((100vh - 9.5em) * (9/16)))/2) + ((100vh - 9.5em) * (9/16)) + 0.5em)";
-            orbit.style.top = '1em';
+            // Move RIGHT
+            orbit.style.left = "calc(((100vw - ((100vh - 10em) * (9/16)))/2) + calc((100vh - 10em) * (9/16)))";
+            orbit.style.top = "calc(100vh - 10em + 4em)";
+
             setTimeout(function () {
+                // Move UP
                 orbit.style.transform = "rotate(90deg)";
-                orbit.style.left = "calc(((100vw - ((100vh - 9.5em) * (9/16)))/2) + ((100vh - 9.5em) * (9/16)) + 0.5em)";
-                orbit.style.top = 'calc(100vh - 9.5em + 0.5em)';
+                orbit.style.left = "calc(((100vw - ((100vh - 10em) * (9/16)))/2) - 0.5em)";
+                orbit.style.top = "calc(100vh - 10em + 4em)";
+
                 setTimeout(function () {
+                    // Move LEFT
                     orbit.style.transform = "rotate(180deg)";
-                    orbit.style.left = "calc(((100vw - ((100vh - 9.5em) * (9/16)))/2) - 1em)";
-                    orbit.style.top = 'calc(100vh - 9.5em + 0.5em)';
+                    orbit.style.left = "calc(((100vw - ((100vh - 10em) * (9/16)))/2) - 0.5em)";
+                    orbit.style.top = "3.5em";
+
                     setTimeout(function () {
+                        // Move DOWN
                         orbit.style.transform = "rotate(270deg)";
-                        orbit.style.left = "calc(((100vw - ((100vh - 9.5em) * (9/16)))/2) - 0.5em)";
-                        orbit.style.top = '1em';
+                        orbit.style.left = "calc(((100vw - ((100vh - 10em) * (9/16)))/2) + calc((100vh - 10em) * (9/16)) + 0.5em)";
+                        orbit.style.top = "3.5em";
+
                         setTimeout(function () {
                             orbit.style.transform = "rotate(360deg)";
-                        }, 0.025)
-                    }, 0.025)
-                }, 0.025)
-            }, 0.025)
-        }, 0.025)
+                        }, 250);
+
+                    }, 250);
+
+                }, 250);
+
+            }, 250);
+
+        }, 250);
+
         setTimeout(function () {
             var bigJu = orbit.cloneNode();
             var theBigJu = orbit.getBoundingClientRect();
-            bigJu.style.left = theBigJu.left;
-            bigJu.style.top = theBigJu.top;
-            document.append(bigJu);
-            bigJu.style.backgroundColor = "var(--textColor)";
+            bigJu.style.left = theBigJu.x + "px";
+            console.log(theBigJu.left);
+            bigJu.style.top = theBigJu.y + "px";
+            console.log(theBigJu.top);
+            document.body.append(bigJu);
+            console.log([theBigJu, tsMT]);
+            bigJu.style.backgroundColor = "var(--swText)";
             var bigJu2 = orbit.cloneNode();
-            bigJu2.style.left = theBigJu.left;
-            document.append(bigJu2);
-            bigJu2.style.top = theBigJu.top;
-            bigJu2.style.backgroundColor = "var(--textColor)";
+            bigJu2.style.left = theBigJu.x + "px";
+            document.body.append(bigJu2);
+            bigJu2.style.top = theBigJu.y + "px";
+            bigJu2.style.backgroundColor = "var(--swText)";
             bigJu2.style.opacity = "0.2";
-            bigJu2.setAttribute('id', tsMt);
+            bigJu2.setAttribute('id', 'j' + tsMT.toString().replace('.', 'o'));
             orbit.remove();
             bigJu.style.transition = "0.1s";
             setTimeout(function () {
-                bigJu.style.width = "calc((100vh - 9.5em) * (9/16))";
-                bigJu.style.height = "calc(100vh - 9.5em)";
-                bigJu.style.left = "calc((100vw - ((100vh - 9.5em) * (9/16)))/2)";
-                bigJu.style.top = "1.5em";
+                bigJu.style.width = "calc((100vh - 10em) * (9/16))";
+                bigJu.style.height = "calc(100vh - 10em)";
+                bigJu.style.left = "calc((100vw - ((100vh - 10em) * (9/16)))/2)";
+                bigJu.style.borderRadius = "5px";
+                bigJu.style.top = "4em";
                 bigJu.style.transform = "rotate(360deg)";
-                bigJu.style.backgroundColor = "var(--bg)";
+                bigJu.style.backgroundColor = "var(--swText)";
                 setTimeout(function () {
-                    bigJu.remove();
+                    bigJu.style.opacity = 0;
+                    setTimeout(function () {
+                        bigJu.remove();
+                    }, 200)
                     canSwipe = true;
-                }, 0.1)
-            }, 0.1)
-        }, (0.1 * tsMt))
+                }, 200)
+            }, 100)
+        }, (tsMT * 1000))
     }
 };
-var sV = ["calc(((100vw - ((100vh - 9.5em) * (9/16)))/2) + ((100vh - 9.5em) * (9/16)) + 0.5em)", '1em', "calc(((100vw - ((100vh - 9.5em) * (9/16)))/2) - 0.5em)", 'calc(100vh - 9.5em + 0.5em)', "calc(((100vw - ((100vh - 9.5em) * (9/16)))/2) - 1em)", "calc((100vh - 9.5em) * (9/16))", "calc(100vh - 9.5em)", "calc((100vw - ((100vh - 9.5em) * (9/16)))/2)", "1.5em"]
-var swipeDown = () => {
+function swipeDown() {
     if (canSwipe) {
         canSwipe = false;
         //var bcr = document.querySelector('#videoFrame').boundingClientRect();
@@ -1873,45 +1893,62 @@ var swipeDown = () => {
         orbit.style.borderRadius = "50%";
         orbit.style.width = "0.5em";
         orbit.style.height = "0.5em";
-        orbit.style.backgroundColor = "var(--bg)";
+        orbit.style.backgroundColor = "var(--swText)";
         orbit.style.position = "absolute";
         orbit.style.left = sV[0];
+        console.log('svo' + sV[0]);
         orbit.style.top = sV[1];
-        tsMT = (1 - tsMTs[tsMTs.length - 1]);
-        orbit.style.transition = (tsMT * 0.1) + "s";
-        document.append(orbit);
+        orbit.style.zIndex = "100";
+        tsMT = (tsMTs[tsMTs.length - 1]);
+        tsMTs.pop();
+        orbit.style.transition = (tsMT) + "s";
+        console.log(orbit.style.transition);
+        document.body.append(orbit);
         setTimeout(function () {
-            orbit.style.left = sV[2];
-            orbit.style.top = sV[1];
+            // Move LEFT
+            orbit.style.left = "calc(((100vw - ((100vh - 10em) * (9/16)))/2) - 0.5em)";
+            orbit.style.top = "calc(100vh - 10em + 4em + 0.5em)";
+
             setTimeout(function () {
-                orbit.style.transform = "rotate(90deg)";
-                orbit.style.left = sV[0];
-                orbit.style.top = sV[3];
+                // Move UP
+                orbit.style.transform = "rotate(-90deg)";
+                orbit.style.left = "calc(((100vw - ((100vh - 10em) * (9/16)))/2) - 0.5em)";
+                orbit.style.top = "3.5em";
+
                 setTimeout(function () {
-                    orbit.style.transform = "rotate(180deg)";
-                    orbit.style.left = sV[2];
-                    orbit.style.top = sV[3];
+                    // Move RIGHT
+                    orbit.style.transform = "rotate(-180deg)";
+                    orbit.style.left = "calc(((100vw - ((100vh - 10em) * (9/16)))/2) + calc((100vh - 10em) * (9/16)) + 0.5em)";
+                    orbit.style.top = "3.5em";
+
                     setTimeout(function () {
-                        orbit.style.transform = "rotate(270deg)";
-                        orbit.style.left = sV[5];
-                        orbit.style.top = sV[1];
+                        // Move DOWN
+                        orbit.style.transform = "rotate(-270deg)";
+                        orbit.style.left = "calc(((100vw - ((100vh - 10em) * (9/16)))/2) + calc((100vh - 10em) * (9/16)) + 0.5em)";
+                        orbit.style.top = "calc(100vh - 10em + 4em + 0.5em)";
+
                         setTimeout(function () {
-                            orbit.style.transform = "rotate(360deg)";
-                        }, 0.025)
-                    }, 0.025)
-                }, 0.025)
-            }, 0.025)
-        }, 0.025)
+                            orbit.style.transform = "rotate(-360deg)";
+                        }, 250);
+
+                    }, 250);
+
+                }, 250);
+
+            }, 250);
+
+        }, 250);
+
         setTimeout(function () {
             var bigJu = orbit.cloneNode();
             var theBigJu = orbit.getBoundingClientRect();
             bigJu.style.left = theBigJu.left;
             bigJu.style.top = theBigJu.top;
-            document.append(bigJu);
-            bigJu.style.backgroundColor = "var(--textColor)";
+            document.body.append(bigJu);
+            bigJu.style.backgroundColor = "var(--swText)";
             orbit.remove();
             bigJu.style.transition = "0.1s";
-            document.querySelector('#' + tsMTs[tsMTs.length - 1]).remove();
+            document.querySelector('#j' + tsMTs[tsMTs.length - 1].toString().replace('.', 'o')).remove();
             tsMTs.pop();
             setTimeout(function () {
                 bigJu.style.width = sV[6];
@@ -1919,14 +1956,12 @@ var swipeDown = () => {
                 bigJu.style.left = sV[8];
                 bigJu.style.top = sV[9];
                 bigJu.style.transform = "rotate(360deg)";
-                bigJu.style.backgroundColor = "var(--bg)";
+                bigJu.style.backgroundColor = "var(--swText)";
                 setTimeout(function () {
                     bigJu.remove();
                     canSwipe = true;
-                }, 0.1)
-            }, 0.1)
-        }, (0.1 * tsMt))
+                }, 100)
+            }, 100)
+        }, (tsMT * 1000))
     }
 };
-
-
