@@ -12,7 +12,7 @@
     font-style: normal;
     font-display: swap;
 }
-:root{
+:root {
     --bg: #f5f5dc;
     --accent: #77867f;
     --second: #4c061d;
@@ -20,7 +20,8 @@
     --font: 'GlacialIndifference';
     --ballSize: 10em;
     --oj: #c17767;
-    --swText: #f5f5dc;
+    --swText: rgba(245, 245, 220);
+    --lightTxt: rgba(245, 245, 220, 0.2);
 }
 *{
     background-color: var(--bg);
@@ -48,6 +49,17 @@
     top: calc(100vh - 4em);
     left: 10vw;
     z-index: 150;
+}
+div#buttonHolder::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: calc((100vh - 10em) * (9/16));
+    height: 1%;
+    transform: translateX(-50%) translateY(9900%);
+    background: var(--lightTxt);
+    border-radius: 5px;
 }
 #titleBar :is(div) {
     display: block;
@@ -248,11 +260,11 @@ body{
     display: grid;
     place-items: center;
 }
-#displayVideos{
+#displayVideos {
     transition: 1s;
     opacity: 0;
     width: 100vw;
-    height: calc(100vh - 4em);
+    height: calc(100vh - 6em);
     max-height: calc(100vh - 4em);
     background-color: var(--bg);
     color: var(--text);
@@ -260,39 +272,39 @@ body{
     left: 0;
     top: 0;
 }
-#displayVideos :is(iframe){
-    top: 1.5em;
-    position: absolute;
-    left: calc((100vw - ((100vh - 9.5em) * (9/16)))/2);
-    height: calc(100vh - 9.5em);
-    width: calc((100vh - 9.5em) * (9/16));
-    background-color: var(--second);
-    border-radius: 5px;
-}
-#buttonHolder{
+    #displayVideos :is(iframe), #touchOverlay {
+        /* top: 1.5em; */
+        position: absolute;
+        left: calc((100vw - ((100vh - 10em) * (9/16)))/2);
+        height: calc(100vh - 10em);
+        width: calc(calc(100vh - 10em) * (9/16));
+        background-color: var(--second);
+        border-radius: 5px;
+    }
+#buttonHolder {
     position: absolute;
     width: 100vw;
     display: grid;
-    height: 4em;
+    height: 4em !important;
     place-items: center;
-    top: calc(100vh - 7em);
+    top: calc((100vh - 10em));
     left: 0em;
 }
-#buttonHolder :is(div){
-    position: absolute;
-    background-color: var(--second);
-    color: var(--text);
-    border: 0px solid black !important;
-    border-radius: 5px;
-    display: grid;
-    place-items:center;
-    padding: 0.5em;
-}
+    #buttonHolder :is(div) {
+        position: absolute;
+        background-color: var(--second);
+        color: var(--text);
+        border: 0px solid black !important;
+        border-radius: 5px;
+        display: grid;
+        place-items: center;
+        padding: 0.5em;
+    }
 #leftButton{
-    left: calc((100vw - ((100vh - 9.5em) * (9/16)))/2);
+    left: calc((100vw - ((100vh - 10em) * (9/16)))/2);
 }
 #rightButton{
-    right: calc((100vw - ((100vh - 9.5em) * (9/16)))/2);
+    right: calc((100vw - ((100vh - 10em) * (9/16)))/2);
 }
 #swipeScreen{
     display: none;
@@ -336,4 +348,10 @@ body{
 #teInput{
     font-size: 20px;
     height: 30px;
+}
+#touchOverlay {
+    position: absolute;
+    z-index: 9999;
+    background: transparent;
+    display: none;
 }

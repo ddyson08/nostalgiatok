@@ -408,7 +408,7 @@ window.onload = function () {
     jumpLogo();
     pendulum = document.querySelector("#uvula");
     wiggleNumber = 1;
-    funnyC = 1;
+    funnyC = 1; console.log('HERE');
   
     console.log(8);
     function startPendulum() {
@@ -758,7 +758,7 @@ function nextSaved() {
                 document.getElementById('uvula').style.transition = "opacity 0s, top 0s, z-index 0s, background-color 0s, margin-top 0s, width 0s, height 0s, position 0s, left 0s, margin-left 0s, filter 0s";
                 setTimeout(function () {
                     console.warn("6 cleanup:", document.querySelector('#textEnter').innerHTML);
-                    funnyC = 1;
+                    funnyC = 1; console.log('HERE');
                     happeningNow = false;
                 }, 100);
             }, 2200);
@@ -1182,21 +1182,23 @@ function runAnimation() {
                                                                     v.style.display = "block";
                                                                     document.querySelector('#leftButton').style.width = "calc(" + document.querySelector('#rightButton').getBoundingClientRect().width + "px - 1em)";
                                                                     t.append(v);
-                                                                    funnyC = 1;
+                                                                    funnyC = 1; console.log('HERE');
                                                                     v.style.top = "4em";
                                                                     var tOo = document.querySelector('#touchOverlay');
                                                                     tOo.style.top = "4em";
                                                                     tOo.style.display = "block";
                                                                     v.style.bottom = "2em";
                                                                     happeningNow = false;
-                                                                    document.body.addEventListener('touchstart', function (event) {
+                                                                    var TOOO = document.querySelector('#touchOverlay');
+                                                                    document.querySelector('#teTitle').style = "opacity:0; transition: 1s;";
+                                                                    TOOO.addEventListener('touchstart', function (event) {
                                                                         console.log("ts");
                                                                         initialTouchX = event.touches[0].clientX;
                                                                         initialTouchY = event.touches[0].clientY;
                                                                     });
 
                                                                     // TOUCH END
-                                                                    document.body.addEventListener('touchend', function (event) {
+                                                                    TOOO.addEventListener('touchend', function (event) {
                                                                         console.log("te");
                                                                         finalTouchX = event.changedTouches[0].clientX;
                                                                         finalTouchY = event.changedTouches[0].clientY;
@@ -1204,14 +1206,14 @@ function runAnimation() {
                                                                     });
 
                                                                     // MOUSE DOWN
-                                                                    document.body.addEventListener('mousedown', function (event) {
+                                                                    TOOO.addEventListener('mousedown', function (event) {
                                                                         console.log("md");
                                                                         initialTouchX = event.clientX;
                                                                         initialTouchY = event.clientY;
                                                                     });
 
                                                                     // MOUSE UP
-                                                                    document.body.addEventListener('mouseup', function (event) {
+                                                                    TOOO.addEventListener('mouseup', function (event) {
                                                                         console.log("mu");
                                                                         finalTouchX = event.clientX;
                                                                         finalTouchY = event.clientY;
@@ -1321,13 +1323,13 @@ function reverseUball() {
             document.querySelector('#background').style.top = "-50vh";
             setTimeout(function () {
                 document.querySelector('.uBall').innerHTML = "";
-                funnyC = 1;
+                funnyC = 1; console.log('HERE');
                 funnyN = 20.94395;
                 doNow = true;
                 for (var jh of document.querySelectorAll('.palestine')) {
                     jh.remove();
                 }
-                funnyC = 1;
+                funnyC = 1; console.log('HERE');
                 happeningNow = false;
             }, (2000));
             var e1 = document.createElement('button');
@@ -1437,6 +1439,25 @@ function chooseSaved() {
     ra = true;
     swapTe(15, function () { }, 16, function () { }, true);
     runAnimation();
+    var minHeight;
+    var mH;
+    for (var Yuval of document.querySelector('.uBall').children) {
+        if ([...document.querySelector('.uBall').children].indexOf(Yuval) == 0) {
+            minHeight = parseFloat(Yuval.style.top);
+            mH = Yuval;
+        } else {
+            if ((parseFloat(Yuval.style.top) < minHeight) && Yuval.getBoundingClientRect().width >= 1) {
+                minHeight = parseFloat(Yuval.style.top);
+                mH = Yuval;
+            }
+        }
+    }
+    mH.children[0].style.width = "0";
+    mH.children[0].style.height = "0";
+    mH.children[0].style.transition = "1s";
+    setTimeout(function () {
+        mH.children[0].remove();
+    },1000)
 }
 var jint = true;
 var jintArr = words[navigator.language][35].split(',').reverse();
@@ -1542,6 +1563,9 @@ function makeShapes(n, y, extra, t, c) {
     }
     var properties = [];
     console.log([a.innerHTML, t]);
+    var Shapez = [];
+    var Shapez2 = [];
+    var tempvar;
     for (var i of n.split(y)) {
         var m = new Math.seedrandom(i + (n.split(y).indexOf(i)) + extra);
         var Mm = m().toString();
@@ -1571,16 +1595,19 @@ function makeShapes(n, y, extra, t, c) {
         //console.log(properties)
         pp = ((parseInt(window.getComputedStyle(document.documentElement).getPropertyValue('--ballSize').replace("em", "")) * 0.70) / 999 - (0.02 / 999) + (parseInt(window.getComputedStyle(document.documentElement).getPropertyValue('--ballSize').replace("em", "")) * 0.17) / 999);
         properties = [properties[0], (parseInt(q.slice(1, 4)) * pp + 0.01 / 999), (parseInt(q.slice(4, 7)) * pp + 0.01 / 999), ((0.5 * parseInt(q.slice(7, 8))) + 0.5) + "em", (parseInt(q.slice(7, 8)) * 50) - 100 + "deg"];
+        Shapez2.push(properties);
         var sh = document.createElement('div');
         sh.setAttribute('style', 'border-radius:' + properties[0])
         console.log(properties);
+        Shapez.push(sh);
+        console.warn(Shapez);
         if (t) {
             if (posinar == 0) {
                 if (!happeningNow) {
                     happeningNow = true;
                     funnyC = 0;
                     savefunnyn = funnyN;
-                    var tempvar = Math.abs(funnyN - (Math.floor(funnyN / 41.89) * 41.89) + 20.94) * 18;
+                    tempvar = Math.abs(funnyN - (Math.floor(funnyN / 41.89) * 41.89) + 20.94) * 18;
                     console.log(tempvar);
                     const closest0 = (Math.floor(funnyN / 42) * 42) + 20.94;
                     console.log(savefunnyn + 'soupppppppppp');
@@ -1600,7 +1627,7 @@ function makeShapes(n, y, extra, t, c) {
 
                     }, 18);
                 } else {
-                    var tempvar = 5
+                    tempvar = 5
                 }
                 /*document.querySelector('#uvula').style.transition = "opacity 1s, top 1s, z-index 1s, background-color 1s, margin-top 1s, width 1s, height 1s, position 1s, left 1s, margin-left 1s, transform 1s, filter 1s";
                 document.querySelector('.uBall').style.transition = "opacity 1s, top 1s, z-index 1s, background-color 1s, margin-top 1s, width 1s, height 1s, position 1s, left 1s, margin-left 1s, transform 1s, filter 1s";
@@ -1611,22 +1638,7 @@ function makeShapes(n, y, extra, t, c) {
                 }, 1000);
                 */
                 //document.querySelector('#uvula').style.transform = "rotateZ(0deg)";
-                setTimeout(function () {
-                    document.body.append(sh);
-                    sh.style.borderRadius = properties[0];
-                    sh.setAttribute('class', 'teShape');
-                    sh.style.top = "90vh";
-                    sh.style.left = "50vw";
-                    sh.style.height = "0vh";
-                    sh.style.left = "0vw";
-                    sh.style.transition = "1s";
-                    sh.style.position = "absolute";
-                    sh.style.borderRadius = properties[0];
-                    setTimeout(function () {
-                        funnyC = 1;
-                        happeningNow = false;
-                    }, 1000)
-                }, tempvar);
+
             } else {
                 document.body.append(sh);
                 sh.style.borderRadius = properties[0];
@@ -1637,60 +1649,63 @@ function makeShapes(n, y, extra, t, c) {
                 sh.style.left = "0vw";
                 sh.style.transition = "1s";
                 sh.style.position = "absolute";
+                sh.style.transform = "rotate(" + properties[4] + ")";
                 sh.style.borderRadius = properties[0];
-                funnyC = 1;
+                funnyC = 1; console.log('HERE');
             }
         }
         setTimeout(function () {
             let twin1 = sh;
             let ppy1 = properties;
             if (posinar > 0) {
-                document.querySelector('.uBall').style.filter = "blur(0.25em)";
-                setTimeout(function () {
-                    twin1.style.left = "calc(50vw - var(--ballSize)/2 + " + ppy1[1] + "em)";
-                    twin1.style.opacity = "1";
-                    twin1.style.top = "calc(" + ppy1[2] + "em + " + document.querySelector('#uvula').getBoundingClientRect().height + "px " + " - " + Math.abs(parseFloat(document.querySelector('#uvula').getBoundingClientRect().y)) + "px - var(--ballSize))"
-                    twin1.style.height = ppy1[3];
-                    twin1.style.width = ppy1[3];
-                    twin1.style.zIndex = "50";
-                    twin1.style.transform = "rotateZ(" + ppy1[4] + ")";
-                    twin1.setAttribute('class', 'teShape');
-                    twin1.style.borderRadius = properties[0];
-                    console.log(properties[0])
-                    let twin = twin1;
-                    let ppy = ppy1;
-                    setTimeout(
-                        function (twin, ppy) {
-                            document.querySelector('.uBall').style.filter = "";
-                            a.append(twin);
-                            // document.querySelector('#uvula').style.transition = "1s";
-                            //twin.style.transition = "0s";
+                if (false) {
+                    document.querySelector('.uBall').style.filter = "blur(0.25em)";
+                    setTimeout(function () {
+                        twin1.style.left = "calc(50vw - var(--ballSize)/2 + " + ppy1[1] + "em)";
+                        twin1.style.opacity = "1";
+                        twin1.style.top = "calc(" + ppy1[2] + "em + " + document.querySelector('#uvula').getBoundingClientRect().height + "px " + " - " + Math.abs(parseFloat(document.querySelector('#uvula').getBoundingClientRect().y)) + "px - var(--ballSize))"
+                        twin1.style.height = ppy1[3];
+                        twin1.style.width = ppy1[3];
+                        twin1.style.zIndex = "50";
+                        twin1.style.transform = "rotateZ(" + ppy1[4] + ")";
+                        twin1.setAttribute('class', 'teShape');
+                        twin1.style.borderRadius = properties[0];
+                        console.log(properties[0])
+                        let twin = twin1;
+                        let ppy = ppy1;
+                        setTimeout(
+                            function (twin, ppy) {
+                                document.querySelector('.uBall').style.filter = "";
+                                a.append(twin);
+                                // document.querySelector('#uvula').style.transition = "1s";
+                                //twin.style.transition = "0s";
 
 
-                            twin.style.left = ppy[1] + "em";
-                            twin.style.top = ppy[2] + "em";
-                            twin.style.height = ppy[3];
-                            twin.style.width = ppy[3];
-                            twin.style.transform = "rotate(" + ppy[4] + ")";
-                            console.log([twin.style.transform, "rotateZ(" + ppy[4] + ")", ppy[4]])
-                            twin.style.transition = "1s";
-                            twin.style.zIndex = "5";
-                            twin.style.border = "0px solid black"
-                            twin.setAttribute('class', 'teShape');
-                            twin1.style.borderRadius = properties[0];
-                            console.log(properties[0])
-                           // funnyC = 0;
-                            
-
-                            //funnyN = secondFunnyN;
-                            doNow = true;
-                            for (var yi of document.querySelector('.uBall').children) {
-                                yi.style.boxShadow = "inset 0px 0px 10px rgba(0, 0, 0, 0.5)";
-                            }
+                                twin.style.left = ppy[1] + "em";
+                                twin.style.top = ppy[2] + "em";
+                                twin.style.height = ppy[3];
+                                twin.style.width = ppy[3];
+                                twin.style.transform = "rotate(" + ppy[4] + ")";
+                                console.log([twin.style.transform, "rotateZ(" + ppy[4] + ")", ppy[4]])
+                                twin.style.transition = "1s";
+                                twin.style.zIndex = "5";
+                                twin.style.border = "0px solid black"
+                                twin.setAttribute('class', 'teShape');
+                                twin1.style.borderRadius = properties[0];
+                                console.log(properties[0])
+                                // funnyC = 0;
 
 
-                        }, 1000, twin, ppy)
-                }, 50, twin1, ppy1)
+                                //funnyN = secondFunnyN;
+                                doNow = true;
+                                for (var yi of document.querySelector('.uBall').children) {
+                                    yi.style.boxShadow = "inset 0px 0px 10px rgba(0, 0, 0, 0.5)";
+                                }
+
+
+                            }, 1000, twin, ppy)
+                    }, 50, twin1, ppy1)
+                }
             } else {
 
                 setTimeout(function () {
@@ -1724,14 +1739,88 @@ function makeShapes(n, y, extra, t, c) {
                             twin.setAttribute('class', 'teShape');
                             twin1.style.borderRadius = properties[0];
                             console.log(properties[0])
-                            funnyC = 1;
-                            doNow = true;
+                            setTimeout(function () {
+                                funnyC = 1; console.log('HERE');
+                                happeningNow = false;
+                                doNow = true;
+                            }, Math.abs(tempvar - 1000 + 500))
                             for (var yi of document.querySelector('.uBall').children) {
                                 yi.style.boxShadow = "inset 0px 0px 10px rgba(0, 0, 0, 0.5)";
                             }
                         }, 1000, twin, ppy)
                 }, 50, twin1, ppy1)
             }
+        }, tempvar)
+    }
+    if (t && posinar == 0) {
+        var sh3 = [...Shapez];
+        setTimeout(function () {
+            for (var j of Shapez) {
+                let sh = j
+                var sh2 = j.style;
+                document.body.append(sh);
+                sh.style.borderRadius = properties[0];
+                sh.setAttribute('class', 'teShape');
+                sh.style.top = "90vh";
+                sh.style.left = "50vw";
+                sh.style.height = "0vh";
+                sh.style.left = "0vw";
+                sh.style.transition = "1s";
+                sh.style.position = "absolute";
+                sh.style.transform = "rotate(" + properties[4] + ")";
+                sh.style.borderRadius = properties[0];
+
+            }
+        }, tempvar); setTimeout(function () {
+            setTimeout(function () {
+                for (sh of Shapez) {
+                    let ppyy = Shapez2[Shapez.indexOf(sh)]
+                    sh.style.left = "calc(50vw - var(--ballSize)/2 + " + ppyy[1] + "em)";
+                    sh.style.opacity = "1";
+                    sh.style.top = "calc(" + ppyy[2] + "em + " + document.querySelector('#uvula').getBoundingClientRect().height + "px " + " - " + Math.abs(parseFloat(document.querySelector('#uvula').getBoundingClientRect().y)) + "px - var(--ballSize))"
+                    sh.style.height = ppyy[3];
+                    sh.style.width = ppyy[3];
+                    sh.style.zIndex = "50";
+                    sh.style.transform = "rotateZ(" + ppyy[4] + ")";
+                    sh.setAttribute('class', 'teShape');
+                    sh.style.borderRadius = properties[0];
+                    console.log(properties[0])
+                    let twin = sh;
+                    let ppy = ppyy;
+                    setTimeout(
+                        function (twin, ppy) {
+                            document.querySelector('.uBall').style.filter = "";
+                            a.append(twin);
+                            // document.querySelector('#uvula').style.transition = "1s";
+                            //twin.style.transition = "0s";
+
+
+                            twin.style.left = ppy[1] + "em";
+                            twin.style.top = ppy[2] + "em";
+                            twin.style.height = ppy[3];
+                            twin.style.width = ppy[3];
+                            twin.style.transform = "rotate(" + ppy[4] + ")";
+                            console.log([twin.style.transform, "rotateZ(" + ppy[4] + ")", ppy[4]])
+                            twin.style.transition = "1s";
+                            twin.style.zIndex = "5";
+                            twin.style.border = "0px solid black"
+                            twin.setAttribute('class', 'teShape');
+                            sh.style.borderRadius = properties[0];
+                            console.log(properties[0])
+                            // funnyC = 0;
+
+
+                            //funnyN = secondFunnyN;
+                            doNow = true;
+                            for (var yi of document.querySelector('.uBall').children) {
+                                yi.style.boxShadow = "inset 0px 0px 10px rgba(0, 0, 0, 0.5)";
+                            }
+
+
+                        }, 1000, twin, ppy)
+                }
+                }, 50)
+        
         }, tempvar)
     }
 }
@@ -1810,6 +1899,7 @@ function swipeUp() {
         orbit.style.top = '3.5em';
         tsMT = Math.random();
         orbit.style.transition = "0.25s";
+        orbit.setAttribute('class', "videoOrbit");
         document.body.append(orbit);
         tsMTs.push(tsMT);
         setTimeout(function () {
@@ -1875,10 +1965,14 @@ function swipeUp() {
                 bigJu.style.transform = "rotate(360deg)";
                 bigJu.style.backgroundColor = "var(--swText)";
                 setTimeout(function () {
-                    bigJu.style.opacity = 0;
+                    bigJu.style.transition = "1s";
                     setTimeout(function () {
-                        bigJu.remove();
-                    }, 200)
+                        bigJu.style.backgroundColor = "var(--accent)";
+                       
+                        setTimeout(function () {
+                            bigJu.remove();
+                        }, 500);
+                    }, 500)
                     canSwipe = true;
                 }, 200)
             }, 100)
@@ -1887,6 +1981,93 @@ function swipeUp() {
 };
 function swipeDown() {
     if (canSwipe) {
+        var orbit = [...document.querySelectorAll('.videoOrbit')];
+        orbit = orbit[orbit.length - 1];
+        orbit.style.transition = "0.25s";
+        var o2 = orbit.getBoundingClientRect();
+        var bj = document.createElement('div');
+        bj.style.width = "calc((100vh - 10em) * (9/16))";
+        bj.style.height = "calc(100vh - 10em)";
+        bj.style.left = "calc((100vw - ((100vh - 10em) * (9/16)))/2)";
+        bj.style.borderRadius = "5px";
+        bj.style.top = "4em";
+        bj.style.transform = "rotate(360deg)";
+        bj.style.transition = "0.25s";
+        bj.style.backgroundColor = "var(--swText)";
+        bj.style.position = "absolute";
+        bj.style.zIndex = 10000;
+        document.body.append(bj);
+       // orbit.style.opacity = 0;
+        setTimeout(function () {
+            bj.style.left = o2.left + "px";
+            bj.style.top = o2.top + "px";
+            bj.style.width = o2.width + "px";
+            bj.style.height = o2.height + "px";
+            bj.style.transform = "rotate(0deg)";
+            bj.style.borderRadius = "5px";
+            setTimeout(function () { bj.remove();},255)
+            if (o2.x >= window.innerWidth / 2 && o2.y < (window.innerHeight - (6 * (parseFloat(getComputedStyle(orbit.parentNode).fontSize))
+            ))) {
+               // bj.remove();
+                setTimeout(function () {
+                    orbit.style.left = "calc(((100vw - ((100vh - 10em) * (9/16)))/2) + calc(calc(100vh - 10em) * (9/16)))";
+                    orbit.style.top = '3.5em';
+                }, 250);
+                
+                setTimeout(function () {
+                    orbit.remove();
+                   // bj.remove();
+                }, 500)
+            }
+            if (o2.x < window.innerWidth / 2 && o2.y < (window.innerHeight - (6 * (parseFloat(getComputedStyle(orbit.parentNode).fontSize))
+            ))) {
+                setTimeout(function () {
+                   // bj.remove();
+                    orbit.style.transform = "rotate(90deg)";
+                    orbit.style.left = "calc(((100vw - ((100vh - 10em) * (9/16)))/2) - 0.5em)";
+                    orbit.style.top = "calc(100vh - 10em + 4em)";
+                   
+                    setTimeout(function () {
+
+                        orbit.style.left = "calc(((100vw - ((100vh - 10em) * (9/16)))/2) + calc((100vh - 10em) * (9/16)))";
+                        orbit.style.top = "calc(100vh - 10em + 4em)";
+                        setTimeout(function () {
+
+                            orbit.style.left = "calc(((100vw - ((100vh - 10em) * (9/16)))/2) + calc(calc(100vh - 10em) * (9/16)))";
+                            orbit.style.top = '3.5em';
+                            
+                            setTimeout(function () {
+                                orbit.remove();
+                                //bj.remove();
+                            }, 250)
+                        }, 250);
+                    }, 250);
+                }, 250);
+            }
+
+            if (o2.y >= (window.innerHeight - (6.1 * (parseFloat(getComputedStyle(orbit.parentNode).fontSize))
+            ))) {
+                setTimeout(function () {
+                   // bj.remove();
+
+                    orbit.style.left = "calc(((100vw - ((100vh - 10em) * (9/16)))/2) + calc((100vh - 10em) * (9/16)))";
+                    orbit.style.top = "calc(100vh - 10em + 4em)";
+                    
+                    setTimeout(function () {
+                        
+                        orbit.style.left = "calc(((100vw - ((100vh - 10em) * (9/16)))/2) + calc(calc(100vh - 10em) * (9/16)))";
+                        orbit.style.top = '3.5em';
+                       
+                        setTimeout(function () {
+                            orbit.remove();
+                           // bj.remove();
+                        }, 250)
+                    }, 250);
+                }, 250);
+            }
+        }, 250);
+
+        /*
         canSwipe = false;
         //var bcr = document.querySelector('#videoFrame').boundingClientRect();
         var orbit = document.createElement('div');
@@ -1963,5 +2144,6 @@ function swipeDown() {
                 }, 100)
             }, 100)
         }, (tsMT * 1000))
+        */
     }
 };
