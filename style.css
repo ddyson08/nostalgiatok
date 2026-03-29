@@ -23,6 +23,15 @@
     --swText: rgba(245, 245, 220);
     --lightTxt: rgba(245, 245, 220, 0.2);
 }
+#fullscreenButton {
+    position: absolute;
+    top: calc(100% - 2em);
+    right: 0;
+    width: max-content;
+    height: 1em;
+    margin:0.5em;
+    z-index: 9999;
+}
 *{
     background-color: var(--bg);
     color: var(--text);

@@ -114,7 +114,9 @@ async function readStringStore() {
 
 // Run the example function to see it work:
 // usageExample();
+function newConsoleLog(message) {
 
+}
 words = {
     "en-US": [
         "by", //0
@@ -307,7 +309,7 @@ function endFollow() {
 window.onload = function () {
     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
         // User prefers dark mode
-        console.log('Dark mode is preferred');
+        newConsoleLog('Dark mode is preferred');
         const root = document.documentElement;
         root.style.setProperty('--bg', '#002A22');
         root.style.setProperty('--accent', '#4c061d');
@@ -315,19 +317,19 @@ window.onload = function () {
         root.style.setProperty('--text', '#A5978B');
         root.style.setProperty('--oj', '#A5978B');
     }
-    console.log(1);
+    newConsoleLog(1);
     for (var ii of jintArr) {
         var fg = Array.from(words[navigator.language][33]);
         fg[ii] = words[this.navigator.language][34][Math.floor(Math.random() * words[this.navigator.language][34].length)];
         words[navigator.language][33] = fg.join('');
     }
-    console.log(2);
+    newConsoleLog(2);
     document.body.onpointermove = event => {
         const { clientX, clientY } = event;
         if (SF) {
-            console.log('q')
+            newConsoleLog('q')
             lilWidth = clientY
-            var closest = [10000000, '']; for (var i of list) { var Aa = document.querySelector(i).getBoundingClientRect(); var Aaa = Aa.y + Aa.height / 2; if (closest[0] > Math.abs(lilWidth - Aaa)) { closest[0] = Math.abs(lilWidth - Aaa); closest[1] = i; console.log(closest) } }
+            var closest = [10000000, '']; for (var i of list) { var Aa = document.querySelector(i).getBoundingClientRect(); var Aaa = Aa.y + Aa.height / 2; if (closest[0] > Math.abs(lilWidth - Aaa)) { closest[0] = Math.abs(lilWidth - Aaa); closest[1] = i; newConsoleLog(closest) } }
             if (closest[1] == "#creator") {
                 document.querySelector('#swDrag').innerText = tsVideo.creator;
             }
@@ -340,7 +342,7 @@ window.onload = function () {
             document.querySelector(closest[1]).append(document.querySelector('#swDrag'))
         }
     }
-    console.log(3);
+    newConsoleLog(3);
     if (localStorage.getItem('nostalgiaTokName') !== null) {
         document.querySelector('#teInput').setAttribute('class', 'noBorder')
         document.querySelector('#teTitle').style.textDecoration = "none";
@@ -372,7 +374,7 @@ window.onload = function () {
                     swapTe(8, generatePreferences, 4, generatePreferences)
                 }
             });
-            console.log(4);
+            newConsoleLog(4);
             setTimeout(function () {
                 fkAround();
             }, 1000);
@@ -382,49 +384,49 @@ window.onload = function () {
             document.documentElement.scrollLeft = 0;
             document.body.style.overflow = "hidden";
         }, 4000, {})
-        console.log(5);
+        newConsoleLog(5);
         this.setTimeout(function () { document.querySelector('#teTitle').innerHTML = words[navigator.language][32] + localStorage.getItem('nostalgiaTokName') + "?"; }, 1000);
     }
-    console.log(6);
+    newConsoleLog(6);
     for (var i of [...document.querySelectorAll('[words]')]) {
         try {
             ah = additions[this.navigator.language][i.getAttribute('words')].split(" ")
         }
         catch (e) {
-            console.log(e);
+            newConsoleLog(e);
             ah = ["", ""]
         }
         try {
             i.innerHTML = ah[0] + words[this.navigator.language][i.getAttribute('words')] + ah[1];
         }
         catch (e) {
-            console.log(e);
+            newConsoleLog(e);
             i.innerHTML = ah[0] + words["en-US"][i.getAttribute('words')] + ah[1];
         }
     }
-    console.log(7);
+    newConsoleLog(7);
 
 
     jumpLogo();
     pendulum = document.querySelector("#uvula");
     wiggleNumber = 1;
-    funnyC = 1; console.log('HERE');
+    funnyC = 1; newConsoleLog('HERE');
   
-    console.log(8);
+    newConsoleLog(8);
     function startPendulum() {
       //  var start = performance.now();
         wiggle = setInterval(function () {
             if (funnyC !== 0) {
                 pendulum.style.transform = "rotateZ(" + (15 * (Math.cos(0.005 * ((funnyN*30) * 0.5)))) + "deg)";
 				if(doNow){
-					console.log(pendulum.style.transform);
+					newConsoleLog(pendulum.style.transform);
 					doNow = false;
 				}
 				funnyN +=1;
             }
         }, 18); // ~60fps
     }
-    console.log(9);
+    newConsoleLog(9);
     function stopPendulum() {
         clearInterval(wiggle);
         var UVU = document.querySelector('#uvula');
@@ -432,7 +434,7 @@ window.onload = function () {
         UVU.style.transform = "";
         UVU.style.transform = "1s";
     }
-    console.log(10);
+    newConsoleLog(10);
 
     document.addEventListener("visibilitychange", function () {
         if (document.hidden) {
@@ -441,7 +443,7 @@ window.onload = function () {
             startPendulum();  // resume when tab is visible
         }
     });
-    console.log(11);
+    newConsoleLog(11);
     document.querySelector("#teInput").addEventListener("keyup", function (e) {
         slowLimit = 5;
         wiggleNumber = 10;
@@ -450,16 +452,16 @@ window.onload = function () {
             enterName();
         }
     });
-    console.log(12);
+    newConsoleLog(12);
     document.querySelector("#teInput").addEventListener("click", function (e) {
         document.querySelector("#uvula").style.opacity = "1";
         startPendulum()
     });
-    console.log(13);
+    newConsoleLog(13);
     document.querySelector("#teButton").addEventListener("click", function (e) {
         enterName();
     });
-    console.log(14);
+    newConsoleLog(14);
     document.querySelector("#leftButton").setAttribute("onclick", "displaySwipe('l')");
     document.querySelector("#rightButton").setAttribute("onclick", "displaySwipe('r')");
     setTimeout(function () {
@@ -467,7 +469,7 @@ window.onload = function () {
         document.documentElement.scrollLeft = 0;
         document.body.style.overflow = "hidden";
     }, 100);
-    console.log(15);
+    newConsoleLog(15);
 };
 ns = 0;
 var is8 = true;
@@ -489,8 +491,8 @@ var tmo = [];
 function swapTe(n, f, m, g, t) {
     //  if (!stopdouble || n >= 19) {
     stopdouble = true;
-    console.log('NNN' + n)
-    console.log(['numa', n, f, m, g, t])
+    newConsoleLog('NNN' + n)
+    newConsoleLog(['numa', n, f, m, g, t])
     if (n == 8) {
         is8 = false;
     }
@@ -530,7 +532,7 @@ function swapTe(n, f, m, g, t) {
     }
     tmo.push(setTimeout(function () {
         if (n >= 19) {
-            console.log("made it >=19");
+            newConsoleLog("made it >=19");
             try {
                 nee.querySelector("#b1").remove();
             } catch (e) {
@@ -576,7 +578,7 @@ function swapTe(n, f, m, g, t) {
         }
 
         ne.style.backgroundColor = "blue";
-        console.log(ne);
+        newConsoleLog(ne);
         ne.remove();
         if (document.querySelectorAll('.teTextEnter').length > 1) {
             document.querySelectorAll('.teTextEnter')[1].remove();
@@ -584,12 +586,12 @@ function swapTe(n, f, m, g, t) {
                 document.querySelectorAll('.teTextEnter')[1].remove();
             }
             catch (e) {
-                console.log(e);
+                newConsoleLog(e);
             }
         }
         nee.style.left = "4em";
         if (n >= 15 && n <= 18) {
-            console.log(n);
+            newConsoleLog(n);
             nee.style.left = "0em";
             nee.style.width = "100vw";
             nee.style.bottom = "0"
@@ -605,8 +607,8 @@ function swapTe(n, f, m, g, t) {
                 document.querySelector('#teButton').style.display = "none";
             }
         }
-        catch (e) { console.log(e) }
-        console.log('NNN' + n)
+        catch (e) { newConsoleLog(e) }
+        newConsoleLog('NNN' + n)
         if (n !== 7) {
             document.querySelector('#teButton').style.display = "block";
         } else {
@@ -631,12 +633,12 @@ function swapTe(n, f, m, g, t) {
                 nee.innerHTML += `<button style="display: block" id="viewSaved" class = "vs2" onclick="swapTe(19,function(){},25,function(){}); getSaved();">` + words[navigator.language][23] + `</button>`
             }
         } else {
-            console.log('>=8')
+            newConsoleLog('>=8')
             try {
                 document.querySelector("#viewSaved").remove();
                 document.querySelector("#viewSaved").remove();
             } catch (e) {
-                console.log('errr' + e);
+                newConsoleLog('errr' + e);
             }
         }
         document.querySelector('#teButton').setAttribute('onclick', "var raeleigh = " + f + "; raeleigh();");
@@ -646,7 +648,7 @@ function swapTe(n, f, m, g, t) {
 }
 var userName = "";
 async function saveNew(val) {
-    //  console.log(val);
+    //  newConsoleLog(val);
     if (isPWA()) {
         await appendToStringStore('[NOSTALGIATOKSPLIT]' + val + '[NTS2]' + JSON.stringify(user))
     } else {
@@ -662,10 +664,11 @@ function nextSaved() {
         happeningNow = true;
         funnyC = 0;
         savefunnyn = funnyN;
-        var tempvar = Math.abs(funnyN - (Math.floor(funnyN / 41.89) * 41.89) + 20.94) * 18;
-        console.log(tempvar);
-        const closest0 = (Math.floor(funnyN / 42) * 42) + 20.94;
-        console.log(savefunnyn + 'soupppppppppp');
+        var tempvar = Math.abs(funnyN - (20.94 + Math.floor(funnyN / ((Math.PI)/0.075))*((Math.PI)/0.075))) * 18;
+            //console.log(tempvar +":"+ (15 * ((20.94 + Math.floor(funnyN / ((Math.PI)/0.075))*((Math.PI)/0.075)));
+            const closest0 = (20.94 + Math.floor(funnyN / ((Math.PI)/0.075))*((Math.PI)/0.075));
+            
+        newConsoleLog(savefunnyn + 'soupppppppppp');
         var msi = setInterval(function () {
             document.querySelector('#uvula').style.transform = "rotateZ(" + (15 * (Math.cos(0.005 * ((funnyN * 30) * 0.5)))) + "deg)";
             if (funnyN >= closest0) {
@@ -758,7 +761,7 @@ function nextSaved() {
                 document.getElementById('uvula').style.transition = "opacity 0s, top 0s, z-index 0s, background-color 0s, margin-top 0s, width 0s, height 0s, position 0s, left 0s, margin-left 0s, filter 0s";
                 setTimeout(function () {
                     console.warn("6 cleanup:", document.querySelector('#textEnter').innerHTML);
-                    funnyC = 1; console.log('HERE');
+                    funnyC = 1; newConsoleLog('HERE');
                     happeningNow = false;
                 }, 100);
             }, 2200);
@@ -792,7 +795,7 @@ function genNext(t, two, x) {
 
         // If the ID has been seen before, remove the current element
         if (seenIds.has(id) && element.getAttribute('special') !== "true") {
-           // console.log(element.getAttribute('special'))
+           // newConsoleLog(element.getAttribute('special'))
             element.remove();
         } else {
             // If the ID is new, add it to the Set
@@ -821,7 +824,7 @@ function genNext(t, two, x) {
         if (posinar) {
             setTimeout(function () {
                 console.warn("9 cleanup:", document.querySelector('#textEnter').innerHTML);
-                console.log([document.querySelector('.uBall').innerHTML, document.querySelector('.uBall').children])
+                newConsoleLog([document.querySelector('.uBall').innerHTML, document.querySelector('.uBall').children])
                 var minHeight;
                 var mH;
                 for (var Yuval of document.querySelector('.uBall').children) {
@@ -860,7 +863,7 @@ function genNext(t, two, x) {
         } else {
             setTimeout(function () {
                 console.warn("9 cleanup:", document.querySelector('#textEnter').innerHTML);
-                console.log([document.querySelector('.uBall').innerHTML, document.querySelector('.uBall').querySelector('.teShape')])
+                newConsoleLog([document.querySelector('.uBall').innerHTML, document.querySelector('.uBall').querySelector('.teShape')])
                 var minHeight;
                 var mH;
                 for (var Yuval of document.querySelector('.uBall').querySelectorAll('.teShape')) {
@@ -965,17 +968,18 @@ user = {
 
 }
 var ra = false;
-function runAnimation() {
+function runAnimation() { 
     ra = true;
     setTimeout(function () {
+try{
         if (!happeningNow) {
             happeningNow = true;
             funnyC = 0;
             savefunnyn = funnyN;
-            var tempvar = Math.abs(funnyN - (Math.floor(funnyN / 41.89) * 41.89) + 20.94) * 18;
-            console.log(tempvar);
-            const closest0 = (Math.floor(funnyN / 42) * 42) + 20.94;
-            console.log(savefunnyn + 'soupppppppppp');
+            var tempvar = Math.abs(funnyN - (20.94 + Math.floor(funnyN / ((Math.PI)/0.075))*((Math.PI)/0.075))) * 18;
+            //console.log(tempvar +":"+ (15 * ((20.94 + Math.floor(funnyN / ((Math.PI)/0.075))*((Math.PI)/0.075)));
+            const closest0 = (20.94 + Math.floor(funnyN / ((Math.PI)/0.075))*((Math.PI)/0.075));
+            newConsoleLog(savefunnyn + 'soupppppppppp');
             var msi = setInterval(function () {
                 document.querySelector('#uvula').style.transform = "rotateZ(" + (15 * (Math.cos(0.005 * ((funnyN * 30) * 0.5)))) + "deg)";
                 if (funnyN >= closest0) {
@@ -989,10 +993,18 @@ function runAnimation() {
                         clearInterval(msi);
                     }
                 }
+            
+            
 
             }, 18);
+        
+            
         } else {
             var tempvar = 0;
+        }
+        } catch(e){
+            alert(e);
+            newConsoleLog(e);
         }
         var q = document.querySelector('#uvula');
      //   document.querySelector('#uvula').style.transition = "opacity 1s, top 1s, z-index 1s, background-color 1s, margin-top 1s, width 1s, height 1s, position 1s, left 1s, margin-left 1s, transform 1s, filter 1s";
@@ -1001,7 +1013,7 @@ function runAnimation() {
             //document.querySelector('#uvula').style.transition = "opacity 1s, top 1s, z-index 1s, background-color 1s, margin-top 1s, width 1s, height 1s, position 1s, left 1s, margin-left 1s, transform: 0s, filter 1s";
             //document.querySelector('.uBall').style.transition = "opacity 1s, top 1s, z-index 1s, background-color 1s, margin-top 1s, width 1s, height 1s, position 1s, left 1s, margin-left 1s, transform: 0s, filter 1s";
 
-        }, 1000);
+        }, tempvar);
         //document.querySelector('#uvula').style.transform = "rotateZ(0deg)";
         var ooh = document.querySelector('#uLine');
         var mem = document.querySelector('#uMiniball');
@@ -1182,7 +1194,7 @@ function runAnimation() {
                                                                     v.style.display = "block";
                                                                     document.querySelector('#leftButton').style.width = "calc(" + document.querySelector('#rightButton').getBoundingClientRect().width + "px - 1em)";
                                                                     t.append(v);
-                                                                    funnyC = 1; console.log('HERE');
+                                                                    funnyC = 1; newConsoleLog('HERE');
                                                                     v.style.top = "4em";
                                                                     var tOo = document.querySelector('#touchOverlay');
                                                                     tOo.style.top = "4em";
@@ -1192,14 +1204,14 @@ function runAnimation() {
                                                                     var TOOO = document.querySelector('#touchOverlay');
                                                                     document.querySelector('#teTitle').style = "opacity:0; transition: 1s;";
                                                                     TOOO.addEventListener('touchstart', function (event) {
-                                                                        console.log("ts");
+                                                                        newConsoleLog("ts");
                                                                         initialTouchX = event.touches[0].clientX;
                                                                         initialTouchY = event.touches[0].clientY;
                                                                     });
 
                                                                     // TOUCH END
                                                                     TOOO.addEventListener('touchend', function (event) {
-                                                                        console.log("te");
+                                                                        newConsoleLog("te");
                                                                         finalTouchX = event.changedTouches[0].clientX;
                                                                         finalTouchY = event.changedTouches[0].clientY;
                                                                         handleTouch(initialTouchX, finalTouchX, swipeUp, swipeDown);
@@ -1207,14 +1219,14 @@ function runAnimation() {
 
                                                                     // MOUSE DOWN
                                                                     TOOO.addEventListener('mousedown', function (event) {
-                                                                        console.log("md");
+                                                                        newConsoleLog("md");
                                                                         initialTouchX = event.clientX;
                                                                         initialTouchY = event.clientY;
                                                                     });
 
                                                                     // MOUSE UP
                                                                     TOOO.addEventListener('mouseup', function (event) {
-                                                                        console.log("mu");
+                                                                        newConsoleLog("mu");
                                                                         finalTouchX = event.clientX;
                                                                         finalTouchY = event.clientY;
                                                                         handleTouch(initialTouchX, finalTouchX, swipeUp, swipeDown);
@@ -1238,6 +1250,39 @@ function runAnimation() {
 
     }, 1000);
 }
+function requestTheFullscreen(a) {
+    var video = document.querySelector('iframe');
+    var touchOverlay = document.querySelector('#touchOverlay');
+    var fullscreenButton = document.querySelector('#fullscreenButton');
+    var Tee = document.querySelector('#textEnter');
+    if(a){
+    video.style.width = "100vw";
+    video.style.height = "100vh";
+    video.style.left = "0";
+    video.style.top = "-4em";
+     touchOverlay.style.width = "100vw";
+    touchOverlay.style.height = "100vh";
+    touchOverlay.style.left = "0";
+    touchOverlay.style.top = "0";
+    Tee.style.zIndex = "152";
+    video.style.zIndex = "152";
+    touchOverlay.style.zIndex = "153";
+    fullscreenButton.setAttribute('onclick','requestTheFullscreen(false)')
+    }else{
+        video.style.width = "calc(calc(100vh - 10em) * (9/16))";
+        video.style.height = "calc(-10em + 100vh)";
+        video.style.left = "calc((100vw - ((100vh - 10em) * (9/16)))/2)";
+        video.style.top = "4em";
+        touchOverlay.style.width = "calc(calc(100vh - 10em) * (9/16))";
+        touchOverlay.style.height = "calc(100vh - 10em)";
+        touchOverlay.style.left = "calc((100vw - ((100vh - 10em) * (9/16)))/2)"
+        touchOverlay.style.top = "4em";
+        fullscreenButton.setAttribute('onclick','requestTheFullscreen(true)') 
+         Tee.style.zIndex = "0";
+    video.style.zIndex = "0";
+    touchOverlay.style.zIndex = "0";
+    }
+}
 function removeAllEventListeners(element) {
     if (!(element instanceof Element)) {
         throw new Error("Provided argument is not a DOM element.");
@@ -1252,10 +1297,11 @@ function reverseUball() {
         happeningNow = true;
         funnyC = 0;
         savefunnyn = funnyN;
-        var tempvar = Math.abs(funnyN - (Math.floor(funnyN / 41.89) * 41.89) + 20.94) * 18;
-        console.log(tempvar);
-        const closest0 = (Math.floor(funnyN / 42) * 42) + 20.94;
-        console.log(savefunnyn + 'soupppppppppp');
+         var tempvar = Math.abs(funnyN - (20.94 + Math.floor(funnyN / ((Math.PI)/0.075))*((Math.PI)/0.075))) * 18;
+            //console.log(tempvar +":"+ (15 * ((20.94 + Math.floor(funnyN / ((Math.PI)/0.075))*((Math.PI)/0.075)));
+            const closest0 = (20.94 + Math.floor(funnyN / ((Math.PI)/0.075))*((Math.PI)/0.075));
+            
+        newConsoleLog(savefunnyn + 'soupppppppppp');
         var msi = setInterval(function () {
             document.querySelector('#uvula').style.transform = "rotateZ(" + (15 * (Math.cos(0.005 * ((funnyN * 30) * 0.5)))) + "deg)";
             if (funnyN >= closest0) {
@@ -1290,7 +1336,7 @@ function reverseUball() {
             setTimeout(function () {
                 try {
                     i.style.transition = "0.5s";
-                    console.log('GAZA' + i);
+                    newConsoleLog('GAZA' + i);
                     var juheeValues = document.querySelector('.uBall').getBoundingClientRect();
                     i.setAttribute('style', '');
                     i.style.transition = "0.5s";
@@ -1315,7 +1361,7 @@ function reverseUball() {
                     }, 100);
                 }
                 catch (ee) {
-                    console.log(ee);
+                    newConsoleLog(ee);
                 }
             }, ((1000 / plList.length) * countt) + 1000)
         }
@@ -1323,13 +1369,13 @@ function reverseUball() {
             document.querySelector('#background').style.top = "-50vh";
             setTimeout(function () {
                 document.querySelector('.uBall').innerHTML = "";
-                funnyC = 1; console.log('HERE');
+                funnyC = 1; newConsoleLog('HERE');
                 funnyN = 20.94395;
                 doNow = true;
                 for (var jh of document.querySelectorAll('.palestine')) {
                     jh.remove();
                 }
-                funnyC = 1; console.log('HERE');
+                funnyC = 1; newConsoleLog('HERE');
                 happeningNow = false;
             }, (2000));
             var e1 = document.createElement('button');
@@ -1347,31 +1393,31 @@ function reverseUball() {
                 document.querySelector('#textEnter').querySelector('button').remove();
             }
             catch (e) {
-                console.log(e);
+                newConsoleLog(e);
             }
             try {
                 document.querySelector('#textEnter').querySelector('#b4').remove();
             }
             catch (e) {
-                console.log(e);
+                newConsoleLog(e);
             }
             try {
                 document.querySelector('#textEnter').querySelector('#b3').remove();
             }
             catch (e) {
-                console.log(e);
+                newConsoleLog(e);
             }
             try {
                 document.querySelector('#textEnter').querySelector('#b2').remove();
             }
             catch (e) {
-                console.log(e);
+                newConsoleLog(e);
             }
             try {
                 document.querySelector('#textEnter').querySelector('#b1').remove();
             }
             catch (e) {
-                console.log(e);
+                newConsoleLog(e);
             }
             //document.querySelector('#textEnter').append(document.querySelector('#textEnter').querySelector('button'));
 
@@ -1489,11 +1535,11 @@ function fkAround2() {
         }, 30);
 
 
-        console.log('palestine1');
+        newConsoleLog('palestine1');
         var a = true;
         let jintt = setInterval(function () {
-            console.log('palestine');
-            console.log([
+            newConsoleLog('palestine');
+            newConsoleLog([
                 jintI,
                 document.querySelector("#teButton").innerText
             ])
@@ -1501,7 +1547,7 @@ function fkAround2() {
             amharic.splice(jintArr[jintI], 1);
             document.querySelector("#teButton").innerText = amharic.join('');
             if (a === true) {
-                console.log(a);
+                newConsoleLog(a);
                 jintI++;
             }
             if (jintI > 17) { a = false; doneAnimation = true; clearInterval(jintt) }
@@ -1562,7 +1608,7 @@ function makeShapes(n, y, extra, t, c) {
         a = c;
     }
     var properties = [];
-    console.log([a.innerHTML, t]);
+    newConsoleLog([a.innerHTML, t]);
     var Shapez = [];
     var Shapez2 = [];
     var tempvar;
@@ -1592,13 +1638,13 @@ function makeShapes(n, y, extra, t, c) {
                 properties[0] = "5px";
                 break;
         }
-        //console.log(properties)
+        //newConsoleLog(properties)
         pp = ((parseInt(window.getComputedStyle(document.documentElement).getPropertyValue('--ballSize').replace("em", "")) * 0.70) / 999 - (0.02 / 999) + (parseInt(window.getComputedStyle(document.documentElement).getPropertyValue('--ballSize').replace("em", "")) * 0.17) / 999);
         properties = [properties[0], (parseInt(q.slice(1, 4)) * pp + 0.01 / 999), (parseInt(q.slice(4, 7)) * pp + 0.01 / 999), ((0.5 * parseInt(q.slice(7, 8))) + 0.5) + "em", (parseInt(q.slice(7, 8)) * 50) - 100 + "deg"];
         Shapez2.push(properties);
         var sh = document.createElement('div');
         sh.setAttribute('style', 'border-radius:' + properties[0])
-        console.log(properties);
+        newConsoleLog(properties);
         Shapez.push(sh);
         console.warn(Shapez);
         if (t) {
@@ -1607,10 +1653,11 @@ function makeShapes(n, y, extra, t, c) {
                     happeningNow = true;
                     funnyC = 0;
                     savefunnyn = funnyN;
-                    tempvar = Math.abs(funnyN - (Math.floor(funnyN / 41.89) * 41.89) + 20.94) * 18;
-                    console.log(tempvar);
-                    const closest0 = (Math.floor(funnyN / 42) * 42) + 20.94;
-                    console.log(savefunnyn + 'soupppppppppp');
+                     var tempvar = Math.abs(funnyN - (20.94 + Math.floor(funnyN / ((Math.PI)/0.075))*((Math.PI)/0.075))) * 18;
+            //console.log(tempvar +":"+ (15 * ((20.94 + Math.floor(funnyN / ((Math.PI)/0.075))*((Math.PI)/0.075)));
+            const closest0 = (20.94 + Math.floor(funnyN / ((Math.PI)/0.075))*((Math.PI)/0.075));
+            
+                    newConsoleLog(savefunnyn + 'soupppppppppp');
                     var msi = setInterval(function () {
                         document.querySelector('#uvula').style.transform = "rotateZ(" + (15 * (Math.cos(0.005 * ((funnyN * 30) * 0.5)))) + "deg)";
                         if (funnyN >= closest0) {
@@ -1651,7 +1698,7 @@ function makeShapes(n, y, extra, t, c) {
                 sh.style.position = "absolute";
                 sh.style.transform = "rotate(" + properties[4] + ")";
                 sh.style.borderRadius = properties[0];
-                funnyC = 1; console.log('HERE');
+                funnyC = 1; newConsoleLog('HERE');
             }
         }
         setTimeout(function () {
@@ -1670,7 +1717,7 @@ function makeShapes(n, y, extra, t, c) {
                         twin1.style.transform = "rotateZ(" + ppy1[4] + ")";
                         twin1.setAttribute('class', 'teShape');
                         twin1.style.borderRadius = properties[0];
-                        console.log(properties[0])
+                        newConsoleLog(properties[0])
                         let twin = twin1;
                         let ppy = ppy1;
                         setTimeout(
@@ -1686,13 +1733,13 @@ function makeShapes(n, y, extra, t, c) {
                                 twin.style.height = ppy[3];
                                 twin.style.width = ppy[3];
                                 twin.style.transform = "rotate(" + ppy[4] + ")";
-                                console.log([twin.style.transform, "rotateZ(" + ppy[4] + ")", ppy[4]])
+                                newConsoleLog([twin.style.transform, "rotateZ(" + ppy[4] + ")", ppy[4]])
                                 twin.style.transition = "1s";
                                 twin.style.zIndex = "5";
                                 twin.style.border = "0px solid black"
                                 twin.setAttribute('class', 'teShape');
                                 twin1.style.borderRadius = properties[0];
-                                console.log(properties[0])
+                                newConsoleLog(properties[0])
                                 // funnyC = 0;
 
 
@@ -1718,7 +1765,7 @@ function makeShapes(n, y, extra, t, c) {
                     twin1.style.transform = "rotateZ(" + ppy1[4] + "deg)"
                     twin1.setAttribute('class', 'teShape');
                     twin1.style.borderRadius = properties[0];
-                    console.log(properties[0])
+                    newConsoleLog(properties[0])
                     let twin = twin1;
                     let ppy = ppy1;
                     setTimeout(
@@ -1732,15 +1779,15 @@ function makeShapes(n, y, extra, t, c) {
                             twin.style.height = ppy[3];
                             twin.style.width = ppy[3];
                             twin.style.transform = "rotateZ(" + ppy[4] + ")";
-                            console.log[twin.style.transform, "rotateZ(" + ppy[4] + ")", ppy[4]]
+                            newConsoleLog[twin.style.transform, "rotateZ(" + ppy[4] + ")", ppy[4]]
                             twin.style.transition = "1s";
                             twin.style.zIndex = "5";
                             twin.style.border = "0px solid black"
                             twin.setAttribute('class', 'teShape');
                             twin1.style.borderRadius = properties[0];
-                            console.log(properties[0])
+                            newConsoleLog(properties[0])
                             setTimeout(function () {
-                                funnyC = 1; console.log('HERE');
+                                funnyC = 1; newConsoleLog('HERE');
                                 happeningNow = false;
                                 doNow = true;
                             }, Math.abs(tempvar - 1000 + 500))
@@ -1784,7 +1831,7 @@ function makeShapes(n, y, extra, t, c) {
                     sh.style.transform = "rotateZ(" + ppyy[4] + ")";
                     sh.setAttribute('class', 'teShape');
                     sh.style.borderRadius = properties[0];
-                    console.log(properties[0])
+                    newConsoleLog(properties[0])
                     let twin = sh;
                     let ppy = ppyy;
                     setTimeout(
@@ -1800,13 +1847,13 @@ function makeShapes(n, y, extra, t, c) {
                             twin.style.height = ppy[3];
                             twin.style.width = ppy[3];
                             twin.style.transform = "rotate(" + ppy[4] + ")";
-                            console.log([twin.style.transform, "rotateZ(" + ppy[4] + ")", ppy[4]])
+                            newConsoleLog([twin.style.transform, "rotateZ(" + ppy[4] + ")", ppy[4]])
                             twin.style.transition = "1s";
                             twin.style.zIndex = "5";
                             twin.style.border = "0px solid black"
                             twin.setAttribute('class', 'teShape');
                             sh.style.borderRadius = properties[0];
-                            console.log(properties[0])
+                            newConsoleLog(properties[0])
                             // funnyC = 0;
 
 
@@ -1941,11 +1988,11 @@ function swipeUp() {
             var bigJu = orbit.cloneNode();
             var theBigJu = orbit.getBoundingClientRect();
             bigJu.style.left = theBigJu.x + "px";
-            console.log(theBigJu.left);
+            newConsoleLog(theBigJu.left);
             bigJu.style.top = theBigJu.y + "px";
-            console.log(theBigJu.top);
+            newConsoleLog(theBigJu.top);
             document.body.append(bigJu);
-            console.log([theBigJu, tsMT]);
+            newConsoleLog([theBigJu, tsMT]);
             bigJu.style.backgroundColor = "var(--swText)";
             var bigJu2 = orbit.cloneNode();
             bigJu2.style.left = theBigJu.x + "px";
@@ -2077,13 +2124,13 @@ function swipeDown() {
         orbit.style.backgroundColor = "var(--swText)";
         orbit.style.position = "absolute";
         orbit.style.left = sV[0];
-        console.log('svo' + sV[0]);
+        newConsoleLog('svo' + sV[0]);
         orbit.style.top = sV[1];
         orbit.style.zIndex = "100";
         tsMT = (tsMTs[tsMTs.length - 1]);
         tsMTs.pop();
         orbit.style.transition = (tsMT) + "s";
-        console.log(orbit.style.transition);
+        newConsoleLog(orbit.style.transition);
         document.body.append(orbit);
         setTimeout(function () {
             // Move LEFT
