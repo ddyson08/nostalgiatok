@@ -29,52 +29,76 @@
 </head>
 <body>
     <div id="titleBar"><div><img src="logo.png" id="logo"><span words="1">nostalgiaTok</span> <span words="0"></span> <span words="2" href="">FM Da$ani</span></div></div>
-    <div id="textEnter" class="teTextEnter">
-        <b id="teTitle" words="3"></b>
-        <input n="0" type="text" class="hasBorder" id="teInput" />
-        <button id="teButton" words="4" onclick='if(doneAnimation && is8){user.year = document.querySelector("#teInput").value;makeShapes(user.year,"","y",true); swapTe(8, generatePreferences, 4, generatePreferences); document.querySelector("#teButton").removeAttribute("onclick","");}'></button>
-        <button id="viewSaved"></button>
-        <button id="saveThis"></button>
-    </div>
-    <div id="uvula" style="transform: rotateZ(0deg)">
-        <div id="uBalance"></div>
-        <div id="uLine"></div>
-        <div id="uMiniball"></div>
-        <div class="uBall"></div>
-        <div id="uNameplate"></div>
-    </div>
-    <div id="displayVideos">
-        <iframe id="videoFrame" src="" frameborder="0" allow="autoplay">
-        </iframe>
-        <div id="buttonHolder">
-            <div id="leftButton" class="sideButton" words="25"></div>
-            <div id="saveButton" class="sideButton" words="26"></div>
-            <div id="rightButton" class="sideButton" words="27"></div>
-        </div>
-    </div>
-    <div id="background"></div>
-    <div id="swipeScreen" ontouchend="endFollow()" onmouseup="endFollow()">
-        <div id="swFirst">
-            <p class="swText"></p>
-            <div id="swDrag" words="30" onmousedown="startFollow()" ontouchstart="startFollow()" ontouchend="endFollow()" onmouseup="endFollow()"></div>
-        </div>
-        <div id="swLine"></div>
-        <div id="creator">
-            <p class="swText" words="28"></p>
-            <div class="swGive"></div>
-        </div>
-        <div id="swTopic">
-            <p class="swText" words="29"></p>
-            <div class="swGive"></div>
-        </div>
-        <div id="exitsw">
-            <p class="swText" words="31"></p>
-            <div class="swGive"></div>
-        </div>
-    </div>
-   <div id="touchOverlay">
-        <div id = "fullscreenButton" onclick="requestTheFullscreen(true)">fullscreen</div>
-   </div>
+    <div id= "playground">
+        <div class="pgMain" dir="right">
+            <div class="pgP">
+                <p class="pgFlex"><span>year:</span><span class="pgData"></span></p>
+                <p class="pgFlex">
+                    <span>creator(s):</span><span class="pgData"></span>
+                </p>
+                <p class="pgFlex">
+                    <span>topic(s):</span><span class="pgData"></span>
+                </p>
+                <div class="pgButtonHold">
+                    <button style="display:none" onclick="eMA2(false, this)">search this now</button><button onclick="eMA2(true, this)">search again!</button><button id="pgSN" onclick="eMA2(true, this, true)">search new</button>
+                </div>
+            </div>
+            <div class="pgCover">
 
+            </div>
+    </div>
+        </div>
+    <div id="allHold">
+        <div id="textEnter" class="teTextEnter">
+            <b id="teTitle" words="3"></b>
+            <input n="0" type="text" class="hasBorder" id="teInput" />
+            <button id="teButton" words="4" onclick='if(doneAnimation && is8){user.year = document.querySelector("#teInput").value;makeShapes(user.year,"","y",true); swapTe(8, generatePreferences, 4, generatePreferences); document.querySelector("#teButton").removeAttribute("onclick","");}'></button>
+            <button id="viewSaved"></button>
+            <button id="saveThis"></button>
+        </div>
+        <div id="uvula" style="transform: rotateZ(0deg)">
+            <div id="uBalance"></div>
+            <div id="uLine"></div>
+            <div id="uMiniball"></div>
+            <div class="uBall"></div>
+            <div id="uNameplate"></div>
+        </div>
+        <div id="displayVideos">
+            <iframe id="videoFrame" src="" frameborder="0" allow="autoplay">
+            </iframe>
+            <div id="buttonHolder">
+                <div id="leftButton" class="sideButton" words="25"></div>
+                <div id="saveButton" class="sideButton" words="26"></div>
+                <div id="rightButton" class="sideButton" words="27"></div>
+            </div>
+        </div>
+        <div id="background"></div>
+        <div id="swipeScreen" ontouchend="endFollow()" onmouseup="endFollow()">
+            <div id="swFirst">
+                <p class="swText"></p>
+                <div id="swDrag" words="30" onmousedown="startFollow()" ontouchstart="startFollow()" ontouchend="endFollow()" onmouseup="endFollow()"></div>
+            </div>
+            <div id="swLine"></div>
+            <div id="creator">
+                <p class="swText" words="28"></p>
+                <div class="swGive"></div>
+            </div>
+            <div id="swTopic">
+                <p class="swText" words="29"></p>
+                <div class="swGive"></div>
+            </div>
+            <div id="swDiff">
+                <p class="swText">search different</p>
+                <div class="swGive"></div>
+            </div>
+            <div id="exitsw">
+                <p class="swText" words="31"></p>
+                <div class="swGive"></div>
+            </div>
+        </div>
+        <div id="touchOverlay">
+            <div id="fullscreenButton" onclick="requestTheFullscreen(true)">fullscreen</div>
+        </div>
+    </div>
 </body>
 </html>

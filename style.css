@@ -57,7 +57,7 @@
     position: absolute;
     top: calc(100vh - 4em);
     left: 10vw;
-    z-index: 150;
+    z-index: 2000;
 }
 div#buttonHolder::before {
     content: "";
@@ -138,14 +138,13 @@ button {
 #textEnter :is(span, input, #teButton, button) {
     width: 100%;
     min-height: 0;
-    padding: 0 !important;
+   // padding: 0;
 }
 #b1, #b2, #b3, button {
     margin-top: 0.25em;
     margin-bottom: 0.25em;
     width: 100%;
     min-height: 0;
-    padding: 0 !important;
 }
 #teTitle {
     width: 100%;
@@ -155,7 +154,7 @@ button {
 #b4 {
     width: 100%;
     min-height: 0;
-    padding: 0 !important;
+
 }
 #teButton{
     opacity: 0;
@@ -322,7 +321,7 @@ body{
     opacity: 0;
     transition: 0.5s;
 }
-#swFirst, #creator, #swTopic, #exitsw {
+#swFirst, #creator, #swDiff, #swTopic, #exitsw {
     padding-top: 1em;
     display: flex;
     gap: 2em;
@@ -363,4 +362,78 @@ body{
     z-index: 9999;
     background: transparent;
     display: none;
+}
+#playground{
+    position: absolute;
+    left:0;
+    top:2em;
+    height: calc(100vh - 2em);
+    width: 100vw;
+    overflow-y: scroll;
+    text-wrap: normal;
+    z-index:5;
+    opacity:0;
+}
+.pgMain{
+    display: flex;
+    width: 100vw;
+    height: 4em;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    margin-bottom:0.5em;
+    margin-top:0.5em;
+}
+.pgData{
+    overflow-x:scroll !important;
+}
+.pgButtonHold {
+    display: flex;
+    transition: 0s;
+}
+.pgP {
+    display: grid;
+    left: 2em;
+	position:absolute;
+}
+.pgCover {
+	position:absolute;
+    left: calc(100vw - 2em - (4em * var(--screenWidthRatio)));
+    height: 4em !important;
+    width: calc((4em * var(--screenWidthRatio)));
+    border-radius: 5px !important;
+    border: 1px solid var(--textColor) !important;
+    opacity:0 !important;
+}
+#allHold{
+    z-index: 6;
+    position: absolute;
+    left: 0;
+    top:0;
+    width:100vw;
+    height: 100vh;
+	transition: 1s;
+}
+body, #allHold, #playground{
+	overflow-x: hidden;
+}
+*::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+* {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+.pgFlex{
+    display: flex;
+}
+button {
+    border: 1px solid var(--text);
+    margin-right: 1em;
+    border-radius: 5px;
+    line-height: 1em;
+    padding-left: 0.25em;
+    display: inline-block;
+    max-width: calc((100vw - 4em) / 3);
 }
