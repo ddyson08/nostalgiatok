@@ -5,6 +5,7 @@
  * Checks if the current browser session is running in a PWA-like display mode.
  * @returns {boolean} True if installed (standalone, fullscreen, or minimal-ui), false otherwise (browser tab).
  */
+try{
 function isPWA() {
     const displayModes = ["fullscreen", "standalone", "minimal-ui"];
 
@@ -2844,3 +2845,7 @@ function swipeDown() {
         */
     }
 };
+}
+catch(e){
+	alert(e);
+}
