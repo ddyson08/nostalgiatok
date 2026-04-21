@@ -725,7 +725,7 @@ window.addEventListener('scroll', () => {
         if (tb.getBoundingClientRect().top + tb.getBoundingClientRect().height > 0) { sht.style.top = "calc(1em + " + tb.getBoundingClientRect().top + tb.getBoundingClientRect().height + "px)" } else { sht.style.top = 0 }
     }
     });
-	document.body.addEventListener('touchmove', function (e) {
+	window.addEventListener('touchmove', function (e) {
    if (!e.target.closest('.scrollable')) {
        e.preventDefault(); // Prevents page scrolling
    }
