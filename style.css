@@ -12,6 +12,10 @@
     font-style: normal;
     font-display: swap;
 }
+body {
+    padding-top: env(safe-area-inset-top);
+}
+
 html, body {
    overscroll-behavior: none; /* Prevents scroll chaining and rubber-banding */
    height: 100%; /* Ensures proper layout */
