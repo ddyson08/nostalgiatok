@@ -14,7 +14,7 @@
 }
 body {
     padding-top: env(safe-area-inset-top);
-	top: env(safe-area-inset-top) !important;
+	top: env(safe-area-inset-top);
 }
 
 html, body {
