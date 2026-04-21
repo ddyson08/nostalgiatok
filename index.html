@@ -4,9 +4,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/seedrandom/3.0.5/seedrandom.min.js"></script>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <!-- Add this line to the <head> of your index.html file -->
-<script src="cdn.jsdelivr.net"></script>
-<link rel="icon" type="image/png" href="logo.png" />
+    <script src="cdn.jsdelivr.net"></script>
+    <link rel="icon" type="image/png" href="logo.png" />
 
 
     <title>nostalgiaTok</title>
@@ -29,7 +30,9 @@
 </head>
 <body>
     <div id="titleBar"><div><img src="logo.png" id="logo"><span words="1">nostalgiaTok</span> <span words="0"></span> <span words="2" href="">FM Da$ani</span></div></div>
-    <div id= "playground">
+    <div id="pgTitle" style="display: flex;"><button onclick="pgCancel(this.innerText)">X</button><b>Search History</b></div>
+    <div id="playground">
+
         <div class="pgMain" dir="right">
             <div class="pgP">
                 <p class="pgFlex"><span>year:</span><span class="pgData"></span></p>
@@ -46,10 +49,10 @@
             <div class="pgCover">
 
             </div>
-    </div>
         </div>
+    </div>
     <div id="allHold">
-        <div id="textEnter" class="teTextEnter">
+        <div id="textEnter" class="teTextEnter card">
             <b id="teTitle" words="3"></b>
             <input n="0" type="text" class="hasBorder" id="teInput" />
             <button id="teButton" words="4" onclick='if(doneAnimation && is8){user.year = document.querySelector("#teInput").value;makeShapes(user.year,"","y",true); swapTe(8, generatePreferences, 4, generatePreferences); document.querySelector("#teButton").removeAttribute("onclick","");}'></button>
@@ -97,7 +100,7 @@
             </div>
         </div>
         <div id="touchOverlay">
-            <div id="fullscreenButton" onclick="requestTheFullscreen(true)">fullscreen</div>
+            <div id="fullscreenButton" onclick="requestTheFullscreen(true)">↘</div>
         </div>
     </div>
 </body>

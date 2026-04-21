@@ -233,11 +233,11 @@ function jumpLogo() {
     for (var i of logo.children[0].children) {
         i.style.display = "none";
     }
-    logo.style.transition = "0.5s";
+    logo.style.transition = "0.25s";
     logo.style.transitionTimingFunction = "ease-in";
     var l = logo.style.top;
     logo.style.top = "20vh";
-    setTimeout(function (l) { logo.style.transform = "rotateZ(360deg)"; }, 400, l);
+    setTimeout(function (l) { logo.style.transform = "rotateZ(360deg)"; }, 200, l);
     setTimeout(function () {
         logo.style.transitionTimingFunction = "ease-out";
         logo.style.top = l;
@@ -253,14 +253,14 @@ function jumpLogo() {
                 setTimeout(function () {
                     x.style.opacity = 1;
                     logo.style.width = "max-content";
-                }, 50 * j);
-            }, 100 * j);
+                }, 25 * nsTimesNumber * j);
+            }, 50 * nsTimesNumber * j);
         }
-    }, 900);
+    }, 450 * nsTimesNumber);
     setTimeout(function () {
-        logo.style.transition = "1s";
+        logo.style.transition = "0.5s";
         logo.style.top = 0;
-        logo.style.transition = "1s";
+        logo.style.transition = "0.5s";
         var ll = logo.getBoundingClientRect().width;
         logo.style.width = ll + "px";
         document.querySelector("#textEnter").style.left = "4em";
@@ -268,9 +268,9 @@ function jumpLogo() {
             logo.style.left = 0;
             setTimeout(function () {
                 logo.style.width = "100vw";
-            }, 500)
-        }, 1000)
-    }, 2600)
+            }, 250 * nsTimesNumber)
+        }, 500 * nsTimesNumber)
+    }, 1000 * nsTimesNumber)
 
 }
 var stopdouble = false;
@@ -310,13 +310,13 @@ function endFollow() {
     setTimeout(function () { document.querySelector('#swipeScreen').style.display = "none"; }, 100)
 }
 var Arr = [];
-var posinar = 1;
+var posinar = 0;
 var whatYouScrolled = [];
 var oldSearches = [];
 var canEMAog = true;
 function openAh() {
     var ah = document.querySelector('#allHold');
-    ah.style.transition = "1s";
+    ah.style.transition = "0.5s";
     ah.style.top = "0";
     ah.style.left = "0";
     ah.style.width = "100vw";
@@ -325,13 +325,17 @@ function openAh() {
     document.querySelector('#playground').style.opacity = 0;
 }
 function editModeAnimation() {
-   
+    document.querySelector('#pgTitle').style.display = "fixed";
+    oldUser.year = user.year;
+    oldUser.preferences = user.preferences;
+    oldUser.topics = user.topics;
+    onScroll = true;
     if (canEMAog) {
         canEMAog = false;
          //Step 1, shrink body
         var ah = document.querySelector('#allHold');
         ah.setAttribute('onclick','openAh();')
-        ah.style.transition = "1s";
+        ah.style.transition = "0.5s";
         var pg = document.querySelector('#playground');
         pg.scrollTo(0, pg.scrollHeight);
         var pg1 = pg.querySelectorAll('.pgMain')[pg.querySelectorAll('.pgMain').length - 1];
@@ -352,7 +356,7 @@ function editModeAnimation() {
         }
         var ahBcr = pg1.querySelector('.pgCover').getBoundingClientRect();
         ah.style.width = ahBcr.width + "px";
-        ah.style.top = "calc(" + (pg1.offsetTop) + "px + 3em)";
+        ah.style.top = "calc(" + (pg1.getBoundingClientRect().top) + "px + 1em)";
         ah.style.left = ahBcr.x + "px";
         ah.style.height = ahBcr.height + "px";
         ah.style.borderRadius = "5px";
@@ -362,9 +366,9 @@ function editModeAnimation() {
         setTimeout(function () {
             ah.style.transition = "0s";
             pg1.append(ah);
-            ah.style.top = "calc("+(pg1.offsetTop) + "px + 1em)";
+            ah.style.top = "calc(" + (pg1.offsetTop) + "px + 1em)";
             canEMAog = true;
-        }, 1000)
+        }, 500)
     }
 }
 var canEMA = true;
@@ -387,7 +391,10 @@ function pgFormat(text) {
     tbr = tbr.join(', ');
     return tbr;
 }
+var oldUser = {};
 function eMA2(simmilar, pgGivenData, neww) {
+    var pg = document.querySelector('#playground');
+    pg.scrollTo(0, pg.scrollHeight);
     if (canEMA) {
         canEMA = false;
         var ah = document.querySelector('#allHold');
@@ -398,7 +405,7 @@ function eMA2(simmilar, pgGivenData, neww) {
         //to put in a timeout
         var pg2 = pg1.cloneNode(true);
         var button = pg1.querySelector('#pgSN');
-        button.style.transition = "1s";
+        button.style.transition = "0.5s";
         button.style.opacity = "0";
         setTimeout(function () {
             button.remove()
@@ -406,13 +413,14 @@ function eMA2(simmilar, pgGivenData, neww) {
         var pqb = [...pg2.querySelectorAll('button')];
         pqb[0].style.display = "block";
         pqb[1].innerText = "search simmilar";
-        
+        var pg = document.querySelector('#playground');
+        pg.scrollTo(0, pg.scrollHeight);
         pg.append(pg2);
         // Source - https://stackoverflow.com/a/11715670
         // Posted by Zhihao, modified by community. See post 'Timeline' for change history
         // Retrieved 2026-04-16, License - CC BY-SA 4.0
 
-        pg.scrollTo(0, document.body.scrollHeight);
+        pg.scrollTo(0, pg.scrollHeight);
 
         pg2.style.transition = "0s";
         pg2.style.opacity = 0;
@@ -426,58 +434,129 @@ function eMA2(simmilar, pgGivenData, neww) {
             pg2.querySelector('.pgCover').style.left = "calc(100vw - 2em - (4em * var(--screenWidthRatio)))";
             pg2.setAttribute('dir', 'right');
         }
+        pg.scrollTo(0, pg.scrollHeight);
+
         setTimeout(function () {
-        pg2.style.transition = "1s";
-        pg2.style.opacity = 1;
+            pg.scrollTo(0, pg.scrollHeight);
+
+            pg2.style.transition = "0.5s";
+            pg2.style.opacity = 1;
+            setTimeout(function () {
+                //pg2.style.marginTop = "-6em";
+                pg2.querySelector('#allHold').remove();
+                var pg = document.querySelector('#playground');
+                pg.scrollTo(0, pg.scrollHeight);
+                //add the data
+                var pg2Data = [...pg2.querySelectorAll('.pgData')];
+                for (var i in pg2Data) {
+                    pg2Data[i].innerText = pgFormat(user[['year', 'preferences', 'topics'][i]])
+                }
+                //animate the allHold
+                ah.style.transition = "0s";
+                ah.style.top = "calc(" + (pg1.getBoundingClientRect().top) + "px + 1em)";
+                document.body.append(pg1.querySelector('#allHold'));
+                ah = document.querySelector('#allHold');
+
+                var ahBcr = ah.getBoundingClientRect();
+                ah.style.width = ahBcr.width;
+                var pg = document.querySelector('#playground');
+                pg.scrollTo(0, pg.scrollHeight);
+                ah.style.transition = "0.3s";
+                //kghghj
+                // ah.style.top = "calc(" + (pg1.getBoundingClientRect().top) + "px + 1em)";
+
+                ah.style.top = "calc(" + (pg2.getBoundingClientRect().top) + "px + 1em)";
+                ah.style.left = ahBcr.x + "px";
+                ah.style.height = ahBcr.height;
+                ah.style.transition = "0.5s";
+
+                pg.scrollTo(0, pg.scrollHeight);
+                ahBcr = pg2.querySelector('.pgCover').getBoundingClientRect();
+                var ahBcrOG = pg1.querySelector('.pgCover').getBoundingClientRect();
+                ah.style.width = ahBcr.width + "px";
+                ah.style.top = "calc(" + (pg2.getBoundingClientRect().top) + "px + 1em)";
+                ah.style.left = ahBcr.x + "px";
+                ah.style.height = ahBcr.height + "px";
+                editModeFunction(simmilar, pgGivenData, neww);
+            }, 500);
+            setTimeout(function () {
+                ah.style.transition = "0s";
+                ah = document.querySelector('#allHold');
+                var ahBcr = ah.getBoundingClientRect();
+                ah.style.width = ahBcr.width;
+                pg.scrollTo(0, pg.scrollHeight);
+                ah.style.top = "calc(" + (pg2.getBoundingClientRect().top) + "px + 1em)";
+                ah.style.left = ahBcr.x + "px";
+                ah.style.height = ahBcr.height;
+                ah.style.transition = "0.5s";
+                ah.style.top = "0";
+                ah.style.left = "0";
+                ah.style.width = "100vw";
+                ah.style.height = "100vh";
+                canEMA = true;
+            }, 1000)
+        }, 50)
+    }
+
+}
+function pgCancel(text) {
+    var ah = document.querySelector('#allHold');
+    var pg = document.querySelector('#playground');
+    var pg1 = pg.querySelectorAll('.pgMain')[pg.querySelectorAll('.pgMain').length - 1];
+    user.year = oldUser.year;
+    user.preferences = oldUser.preferences;
+    user.topics = oldUser.topics;
+    if (text == "X") {
+        ah.style.transition = "0s";
+        ah = document.querySelector('#allHold');
+        var ahBcr = ah.getBoundingClientRect();
+        ah.style.width = ahBcr.width;
+        pg.scrollTo(0, pg.scrollHeight);
+        ah.style.top = "calc(" + (pg1.getBoundingClientRect().top) + "px + 1em)";
+        ah.style.left = ahBcr.x + "px";
+        ah.style.height = ahBcr.height + "px";
+        ah.style.width = ahBcr.width + "px";
+        document.body.append(ah);
+        ah.style.transition = "0.5s";
         setTimeout(function () {
-            //pg2.style.marginTop = "-6em";
-            pg2.querySelector('#allHold').remove();
-            
-           
-            //add the data
-            var pg2Data = [...pg2.querySelectorAll('.pgData')];
-            for (var i in pg2Data) {
-                pg2Data[i].innerText = pgFormat(user[['year','preferences','topics'][i]])
-            }
-            //animate the allHold
-            ah.style.transition = "0s";
-            document.body.append(pg1.querySelector('#allHold'));
-            ah = document.querySelector('#allHold');
-            
-            var ahBcr = ah.getBoundingClientRect();
-            ah.style.width = ahBcr.width;
-            ah.style.top = "calc(" + (pg2.offsetTop) + "px + 3em)";
-            ah.style.left = ahBcr.x + "px";
-            ah.style.height = ahBcr.height;
-            ah.style.transition = "1s";
-            ahBcr = pg2.querySelector('.pgCover').getBoundingClientRect();
-            var ahBcrOG = pg1.querySelector('.pgCover').getBoundingClientRect();
-            ah.style.width = ahBcr.width + "px";
-            ah.style.top = "calc(" + (pg2.offsetTop) + "px + 3em)";
-            ah.style.left = ahBcr.x + "px";
-            ah.style.height = ahBcr.height + "px";
-            editModeFunction(simmilar, pgGivenData, neww);
-        }, 1000);
-        setTimeout(function () {
-            ah.style.transition = "0s";
-            ah = document.querySelector('#allHold');
-            var ahBcr = ah.getBoundingClientRect();
-            ah.style.width = ahBcr.width;
-            ah.style.top = "calc(" + (pg2.offsetTop) + "px + 1em)";
-            ah.style.left = ahBcr.x + "px";
-            ah.style.height = ahBcr.height;
-            ah.style.transition = "1s";
             ah.style.top = "0";
             ah.style.left = "0";
             ah.style.width = "100vw";
             ah.style.height = "100vh";
             canEMA = true;
-        }, 2000)
-        }, 100)
+            document.querySelector('#pgTitle').style.display = "none";
+        }, 100);
+    } else {
+        pg1.remove();
+        if ([...document.querySelectorAll('.pgButtonHold')].length < 2) {
+            document.querySelector('.pgButtonHold').innerHTML = `<button style="display:none" onclick="eMA2(false, this)">search this now</button><button onclick="eMA2(true, this)">search again!</button><button id="pgSN" onclick="eMA2(true, this, true)">search new</button>`;
+        }
+       
+        document.querySelector('.uBall').innerHTML = `<div class='teShape'></div><div class='teShape'></div>`;
+        swapTe(17, function () { }, 18, function () { }, true);
+        document.querySelector('#textEnter').innerHTML += ` <div id="displayVideos">
+            <iframe id="videoFrame" src="" frameborder="0" allow="autoplay">
+            </iframe>
+            <div id="buttonHolder">
+                <div id="leftButton" class="sideButton" words="25"></div>
+                <div id="saveButton" class="sideButton" words="26"></div>
+                <div id="rightButton" class="sideButton" words="27"></div>
+            </div>
+        </div>`;
+        document.querySelector('#fullscreenButton').style.display = "block";
+        runAnimation(true);
+        editModeAnimation();
+        var pgt = document.querySelector('#pgTitle');
+        pgt.querySelector('button').innerText = "X";
+        document.querySelector('#uvula').style.display = "none";
+        pgt.querySelector('b').innerText = "Search History";
     }
-            
 }
+
 function editModeFunction(simmilar, pgGivenData, neww) {
+    //document.querySelector('#playground').scrollTo(0, 0);
+    onScroll = false;
+    var ah = document.querySelector('#allHold');
     ah.setAttribute('onclick', '');
     var pggd = [...pgGivenData.parentNode.parentNode.querySelectorAll('.pgData')];
     for (var i in pggd) {
@@ -490,6 +569,11 @@ function editModeFunction(simmilar, pgGivenData, neww) {
     
     //
     if (simmilar) {
+        document.querySelector('#uvula').style.display = "block";
+        document.querySelector('.uBall').innerHTML = "";
+        var pg = document.querySelector('#pgTitle');
+        pg.querySelector('button').innerText = "<";
+        pg.querySelector('b').innerText = "Searching...";
 
         var teTee = document.querySelector('#textEnter');
         var uv = document.querySelector('#uvula');
@@ -498,7 +582,7 @@ function editModeFunction(simmilar, pgGivenData, neww) {
         teTee.style.left = "100vw";
         setTimeout(function () {
             teTee.innerHTML = `
-<b id="teTitle" words="3" style="text-decoration: underline;">what time period are you nostalgic for?</b>
+<b id="teTitle" words="7" style="text-decoration: underline;">what time period are you nostalgic for?</b>
         <input n="0" type="text" class="hasBorder" id="teInput" />
 <button id="teButton" words="4" onclick="var raeleigh = function () {
                  document.querySelector('#teButton').remove();
@@ -629,7 +713,21 @@ var sVl;
 var sVt;
 var fullsc;
 var itzLater = false;
+var onScroll = false;
+var nsTimesNumber = 1;
+
+window.addEventListener('scroll', () => {
+    if (onScroll) {
+        // Get the current vertical scroll position (in pixels)
+        var sht = document.querySelector('#pgTitle');
+        var tb = document.querySelector('#titleBar');
+        if (tb.getBoundingClientRect().top + tb.getBoundingClientRect().height > 0) { sht.style.top = "calc(1em + " + tb.getBoundingClientRect().top + tb.getBoundingClientRect().height + "px)" } else { sht.style.top = 0 }
+    }
+    });
 window.onload = function () {
+    if (localStorage.getItem('nostalgiaTokName') !== null) {
+        nsTimesNumber = 1;
+    }
     let root = document.documentElement;
 
   
@@ -639,7 +737,7 @@ window.onload = function () {
 
     fullsc = 'no';
     sVl = {
-        no: ["calc(((100vw - ((100vh - 10em) * (9/16)))/2) + calc((100vh - 10em) * (9/16)))", "calc(((100vw - ((100vh - 10em) * (9/16)))/2) - 0.5em)", "calc(((100vw - ((100vh - 10em) * (9/16)))/2) + calc((100vh - 10em) * (9/16)) + 0.5em)"],
+        no: ["calc(((100vw - ((100vh - 10em) * (9/16)))/2) + calc((100vh - 10em) * (9/16)))", "calc(((100vw - ((100vh - 10em) * (9/16)))/2) - 0.5em)", "calc(((100vw - ((100vh - 10em) * (9/16)))/2) + calc((100vh - 10em) * (9/16)))"],
         yes: ["calc(100vw - 0.25em)", "-0.25em", "calc(100vw - 0.25em)"]
     }
     sVt = {
@@ -705,14 +803,14 @@ window.onload = function () {
             var ni = document.querySelector("#uNameplate");
 
             ni.style.color = "var(--accent)";
-            ni.style.transition = "1s";
+            ni.style.transition = "0.5s";
             ni.style.width = "0px";
             setTimeout(function () {
                 ni.innerText = words[navigator.language][11] + words[navigator.language][12] + userName + words[navigator.language][10] + words[navigator.language][6];
                 ni.style.color = "var(--text)";
                 ni.style.width = "max-content";
                 ni.style.left = "calc(50% + 0.5em)"
-            }, 1000);
+            }, 500);
             swapTe(7, function () {
                 if (doneAnimation) {
                     user.year = document.querySelector("#teInput").value;
@@ -729,13 +827,13 @@ window.onload = function () {
             newConsoleLog(4);
             setTimeout(function () {
                 fkAround();
-            }, 1000);
+            }, 500);
             document.querySelector("#uvula").style.opacity = "1";
             startPendulum();
             document.documentElement.scrollTop = 0;
             document.documentElement.scrollLeft = 0;
             document.querySelector("#allHold").style.overflow = "hidden";
-        }, 4000, {})
+        }, 2000, {})
         newConsoleLog(5);
         this.setTimeout(function () { document.querySelector('#teTitle').innerHTML = words[navigator.language][32] + localStorage.getItem('nostalgiaTokName') + "?"; }, 1000);
     }
@@ -785,7 +883,7 @@ window.onload = function () {
         var UVU = document.querySelector('#uvula');
         UVU.style.transition = "0s";
         UVU.style.transform = "";
-        UVU.style.transform = "1s";
+        UVU.style.transform = "0.5s";
     }
     newConsoleLog(10);
 
@@ -870,7 +968,7 @@ function swapTe(n, f, m, g, t) {
         nee.style.height = "calc(var(--ballSize) + 1em)  ";
     }
     nee.querySelector("button").innerHTML = words[navigator.language][m];
-    nee.querySelector("button").addEventListener("click", g);
+    //nee.querySelector("button").addEventListener("click", g);
     if (n == 19 || n >= 19) {
         if (nee.querySelector("button") !== null) {
             nee.querySelector("button").remove();
@@ -904,7 +1002,7 @@ function swapTe(n, f, m, g, t) {
         }
     }
     ne.style.left = "-100vw";
-    document.querySelector('#teButton').setAttribute('onclick', "var raeleigh = " + f + "; raeleigh();");
+    document.querySelector('#teButton').setAttribute('onclick', "var raeleigh = " + g + "; raeleigh();");
     if (n !== 7 && document.querySelector('#teButton') !== "undefined") {
         document.querySelector('#teButton').style.display = "block";
     } else {
@@ -953,7 +1051,7 @@ function swapTe(n, f, m, g, t) {
                 nee.append(b2);
                 nee.append(b3);
                 nee.append(b4);
-            }, 100);
+            }, 50);
 
         }
 
@@ -1033,9 +1131,9 @@ function swapTe(n, f, m, g, t) {
                 newConsoleLog('errr' + e);
             }
         }
-        document.querySelector('#teButton').setAttribute('onclick', "var raeleigh = " + f + "; raeleigh();");
+        document.querySelector('#teButton').setAttribute('onclick', "var raeleigh = " + g + "; raeleigh();");
         stopdouble = false;
-    }, 500));
+    }, 250));
     // }
 }
 var userName = "";
@@ -1130,13 +1228,13 @@ function nextSaved() {
                 //funnyN = secondFunnyN;
                 document.querySelector("#allHold").append(q);
                 q.setAttribute('style', 'left:' + (qq.x) + 'px; top:' + (qq.y) + 'px; opacity: 1; background-color: var(--accent); width:' + (qq.width) + 'px; height:' + (qq.height) + 'px; filter: blur(0.25em);');
-            }, 100)
+            }, 50)
             setTimeout(function () {
                 console.warn("4 cleanup:", document.querySelector('#textEnter').innerHTML);
                 q.setAttribute('style', 'transition: 2s; left:' + (qqq.x) + 'px; top:' + (qqq.y) + 'px; opacity: 1; background-color: var(--accent); width:' + (qqq.width) + 'px; height:' + (qqq.height) + 'px; z-index: 1000; filter: blur(0.25em);');
                 document.querySelector('.uBall').setAttribute('style', 'position: fixed; opacity: 0; left: -70vw; top:-20vh; width: 180vw; height: 180vw; filter: blur(0.25em);');
               //  document.querySelector('#uvula').style.transition = "opacity 1s, top 1s, z-index 1s, background-color 1s, margin-top 1s, width 1s, height 1s, position 1s, left 1s, transform 0s, margin-left 1s, filter 1s  ";
-            }, 200);
+            }, 100);
             setTimeout(function () {
                 console.warn("5 cleanup:", document.querySelector('#textEnter').innerHTML);
                 q.setAttribute('style', '');
@@ -1160,9 +1258,9 @@ function nextSaved() {
                     console.warn("6 cleanup:", document.querySelector('#textEnter').innerHTML);
                     funnyC = 1; newConsoleLog('HERE');
                     happeningNow = false;
-                }, 100);
-            }, 2200);
-        }, 20);
+                }, 50);
+            }, 900);
+        }, 10);
         setTimeout(function () {
             var ooh = document.querySelector('#uLine');
             var mem = document.querySelector('#uNameplate');
@@ -1173,8 +1271,8 @@ function nextSaved() {
                 ooh.style.height = "calc(50vh - (var(--ballSize) / 2))";
                 document.getElementById('uvula').style.transition = "opacity 0s, top 0s, z-index 0s, background-color 0s, margin-top 0s, width 0s, height 0s, position 0s, left 0s, margin-left 0s, filter 0s";
                 console.warn("7 cleanup:", document.querySelector('#textEnter').innerHTML);
-            }, 1000);
-        }, 100)
+            }, 500);
+        }, 50)
         //document.getElementById('uvula').style.transition = "opacity 0s, top 0s, z-index 0s, background-color 0s, margin-top 0s, width 0s, height 0s, position 0s, left 0s, margin-left 0s, filter 0s";
     }, tempvar)
 }
@@ -1238,7 +1336,7 @@ function genNext(t, two, x) {
                 clone.style.width = "0px";
                 clone.style.length = "0px";
                 clone.style.opacity = "0";
-                clone.style.transition = "1s";
+                clone.style.transition = "0.5s";
                     mH.append(clone);
                     clone.setAttribute('id', 'clonedUball' + Math.random());
                     //document.querySelector("#allHold").append(clone);
@@ -1278,7 +1376,7 @@ function genNext(t, two, x) {
                 clone.style.width = "0px";
                 clone.style.length = "0px";
                 clone.style.opacity = "0";
-                clone.style.transition = "1s";
+                clone.style.transition = "0.5s";
                     console.warn([mH, clone]);
                     clone.setAttribute('id', 'clonedUball');
                     clone.style.width = "50%";
@@ -1329,9 +1427,7 @@ list = ['#creator', '#swTopic', '#swDiff','#exitsw'];
 function generatePreferences() {
     user.preferences = document.querySelector("#teInput").value;
     makeShapes(user.preferences, ',', 'p', true);
-    if (editMode) {
-        setTimeout(function () { document.querySelector('#teInput').value = user.topics; }, 1000)
-    }
+   
 
     swapTe(9, function () {
 
@@ -1340,24 +1436,21 @@ function generatePreferences() {
         swapTe(13, function () {
             saveNew(document.querySelector('input').value);
             swapTe(15, function () { }, 16, function () { }, true)
-
             runAnimation()
         }, 14, function () {
             swapTe(15, function () { }, 16, function () { }, true)
-            user.topics = document.querySelector("#teInput").value;
             runAnimation()
         })
     }, 4, function () {
-        user.topics = document.querySelector("#teInput").value;
+        user.topics = document.querySelector('input').value;
 
         makeShapes(user.topics, ',', 't', true);
         swapTe(13, function () {
+            saveNew(document.querySelector('input').value);
             swapTe(15, function () { }, 16, function () { }, true)
-
             runAnimation()
         }, 14, function () {
             swapTe(15, function () { }, 16, function () { }, true)
-            user.topics = document.querySelector("#teInput").value;
             runAnimation()
         })
     });
@@ -1371,7 +1464,11 @@ user = {
 
 }
 var ra = false;
-function runAnimation() { 
+function runAnimation(bypass) {
+    var multiplier = 1;
+    if (bypass) {
+        multiplier = 0.1
+    }
  if (isPWA()) {
       //  await appendToStringStore('[NOSTALGIATOKSPLIT][NOSTALGIATOK973LASTTIMEINUSERLANGUAGE][NTS2]' + JSON.stringify(user))
  } else {
@@ -1527,17 +1624,6 @@ try{
                                             // i.style.filter = "blur(0.25em)";
                                             if (i.children.length == 0) {
                                                 var three = i.getBoundingClientRect().width * 0.3;
-                                                var tee = document.createElement('div');
-                                                tee.setAttribute('style', `
-  width: 0; 
-  height: 0; 
-  opacity: 50%;
-  border-top: `+ three + `px solid var(--oj);
-  border-bottom: `+ three + `px solid var(--oj);
-  
-  border-left: `+ three + `px solid var(--accent);
-`);
-                                                i.append(tee);
                                             }
                                             break;
                                         }
@@ -1572,13 +1658,16 @@ try{
                                                   }
                                                       */
                                             }
-                                            swapTe(17, function () { }, 18, function () { }, true);
+                                            if (!bypass) {
+                                                swapTe(17, function () { }, 18, function () { }, true);
+                                            }
 
                                             setTimeout(function () {
                                                 q.style.top = "calc(1em)";
                                                 ooh.style.height = "calc(20vh - (var(--ballSize) / 2))";
                                                 ooh.style.top = "calc(50% + 30vh - (var(--ballSize) / 2))";
                                                 mem.style.top = "calc(50% - 2em + 20vh)";
+                                                document.querySelector('#textEnter').style.background = "";
 
                                                 /* setTimeout(function(){var v = q.getBoundingClientRect()
                                                  for(var j of [...document.querySelector('.uBall').children]){
@@ -1592,6 +1681,8 @@ try{
                                                     var t = document.querySelector('#textEnter')
                                                     t.style.backgroundColor = "var(--bg)";
                                                     t.style.color = "var(--bg)";
+                                                    t.style.opacity = "1";
+                                                    t.style.background = "radial-gradient( circle at 100%, var(--bg), rgba(0,0,0,0.2) 50%, var(--bg) 75%, rgba(0,0,0,0.05) 75% );";
                                                     setTimeout(function () {
                                                         t.style.bottom = 0;
                                                         setTimeout(function () {
@@ -1646,24 +1737,24 @@ try{
                                                                         finalTouchY = event.clientY;
                                                                         handleTouch(initialTouchX, finalTouchX, swipeUp, swipeDown);
                                                                     });
-                                                                }, 1000)
-                                                            }, 100)
-                                                        }, 100)
-                                                    }, 1250)
-                                                }, 1700)
-                                            }, 1700)
-                                        }, 500)
-                                    }, 500)
-                                }, 500)
-                            }, 500)
-                        }, 500)
-                    }, 500)
-                }, 500)
-            }, 1100)
+                                                                }, 500 * multiplier)
+                                                            }, 50 * multiplier)
+                                                        }, 50 * multiplier)
+                                                    }, 625 * multiplier)
+                                                }, 950 * multiplier)
+                                            }, 850 * multiplier)
+                                        }, 250 * multiplier)
+                                    }, 250 * multiplier)
+                                }, 250 * multiplier)
+                            }, 250 * multiplier)
+                        }, 250 * multiplier)
+                    }, 250 * multiplier)
+                }, 250 * multiplier)
+            }, 550 * multiplier)
         }, tempvar);
 
 
-    }, 1000);
+    }, 500);
 }
 function requestTheFullscreen(a) {
     var video = document.querySelector('iframe');
@@ -1686,6 +1777,7 @@ function requestTheFullscreen(a) {
     video.style.zIndex = "152";
     touchOverlay.style.zIndex = "153";
         fullscreenButton.setAttribute('onclick', 'requestTheFullscreen(false)');
+        fullscreenButton.innerText = '↖';
         for (var yes of [...document.querySelectorAll('.yes')]) {
             yes.style.opacity = 1;
         }
@@ -1702,7 +1794,8 @@ function requestTheFullscreen(a) {
         touchOverlay.style.height = "calc(100vh - 10em)";
         touchOverlay.style.left = "calc((100vw - ((100vh - 10em) * (9/16)))/2)"
         touchOverlay.style.top = "4em";
-        fullscreenButton.setAttribute('onclick','requestTheFullscreen(true)') 
+        fullscreenButton.setAttribute('onclick', 'requestTheFullscreen(true)')
+        fullscreenButton.innerText = '↘';
          Tee.style.zIndex = "0";
     video.style.zIndex = "0";
         touchOverlay.style.zIndex = "1";
@@ -1789,12 +1882,12 @@ function reverseUball() {
                         i.style.backgroundColor = "var(--accent)";
                         count2++;
                         i.style.zIndex = (100 * count2)
-                    }, 100);
+                    }, 50);
                 }
                 catch (ee) {
                     newConsoleLog(ee);
                 }
-            }, ((1000 / plList.length) * countt) + 1000)
+            }, ((1000 / plList.length) * countt) + 500)
         }
         setTimeout(function () {
             document.querySelector('#background').style.top = "-50vh";
@@ -1808,7 +1901,7 @@ function reverseUball() {
                 }
                 funnyC = 1; newConsoleLog('HERE');
                 happeningNow = false;
-            }, (2000));
+            }, (1000));
             var e1 = document.createElement('button');
             e1.setAttribute('id', 'teButton');
             e1.style.opacity = 1;
@@ -1867,7 +1960,7 @@ function reverseUball() {
                 document.querySelector('#teInput').addEventListener('keyup', fkAround2);
                 dontRun = false;
             }, 505);
-        }, (2000))
+        }, (1000))
     }, tempvar);
 }
 function nvm() {
@@ -1896,7 +1989,7 @@ function nvm() {
         bg.style.top = "0px";
         setTimeout(function () {
             reverseUball();
-        }, 500)
+        }, 250)
 
     }
 }
@@ -1932,7 +2025,7 @@ function chooseSaved() {
     }
     mH.children[0].style.width = "0";
     mH.children[0].style.height = "0";
-    mH.children[0].style.transition = "1s";
+    mH.children[0].style.transition = "0.5s";
     setTimeout(function () {
         mH.children[0].remove();
     },1000)
@@ -1983,9 +2076,9 @@ function fkAround2() {
                 jintI++;
             }
             if (jintI > 17) { a = false; doneAnimation = true; clearInterval(jintt) }
-        }, 100);
+        }, 30);
 
-    }, 100);
+    }, 30);
 }
 var secondfunnyN = 20.94395;
 function fkAround() {
@@ -2003,7 +2096,7 @@ function enterName() {
     }
     var ni = document.querySelector("#uNameplate");
     ni.style.color = "var(--accent)";
-    ni.style.transition = "1s";
+    ni.style.transition = "0.5s";
     ni.style.width = "0px";
     setTimeout(function () {
         ni.style.color = "var(--text)";
@@ -2027,7 +2120,7 @@ function enterName() {
     });
     setTimeout(function () {
         fkAround();
-    }, 2000)
+    }, 2000 * nsTimesNumber)
     localStorage.setItem('nostalgiaTokName', userName);
 }
 var shapes = ['circle', 'rounded square'];
@@ -2160,7 +2253,7 @@ function makeShapes(n, y, extra, t, c) {
                                 function (twin, ppy) {
                                     document.querySelector('.uBall').style.filter = "";
                                     a.append(twin);
-                                    // document.querySelector('#uvula').style.transition = "1s";
+                                    // document.querySelector('#uvula').style.transition = "0.5s";
                                     //twin.style.transition = "0s";
 
 
@@ -2170,7 +2263,7 @@ function makeShapes(n, y, extra, t, c) {
                                     twin.style.width = ppy[3];
                                     twin.style.transform = "rotate(" + ppy[4] + ")";
                                     newConsoleLog([twin.style.transform, "rotateZ(" + ppy[4] + ")", ppy[4]])
-                                    twin.style.transition = "1s";
+                                    twin.style.transition = "0.5s";
                                     twin.style.zIndex = "5";
                                     twin.style.border = "0px solid black"
                                     twin.setAttribute('class', 'teShape');
@@ -2186,7 +2279,7 @@ function makeShapes(n, y, extra, t, c) {
                                     }
 
 
-                                }, 1000, twin, ppy)
+                                }, 500, twin, ppy)
                         }, 50, twin1, ppy1)
                     }
                 } else {
@@ -2207,7 +2300,7 @@ function makeShapes(n, y, extra, t, c) {
                         setTimeout(
                             function (twin, ppy) {
                                 a.append(twin);
-                                // document.querySelector('#uvula').style.transition = "1s";
+                                // document.querySelector('#uvula').style.transition = "0.5s";
 
                                 twin.style.transition = "0s";
                                 twin.style.left = ppy[1] + "em";
@@ -2216,7 +2309,7 @@ function makeShapes(n, y, extra, t, c) {
                                 twin.style.width = ppy[3];
                                 twin.style.transform = "rotateZ(" + ppy[4] + ")";
                                 newConsoleLog[twin.style.transform, "rotateZ(" + ppy[4] + ")", ppy[4]]
-                                twin.style.transition = "1s";
+                                twin.style.transition = "0.5s";
                                 twin.style.zIndex = "5";
                                 twin.style.border = "0px solid black"
                                 twin.setAttribute('class', 'teShape');
@@ -2230,7 +2323,7 @@ function makeShapes(n, y, extra, t, c) {
                                 for (var yi of document.querySelector('.uBall').children) {
                                     yi.style.boxShadow = "inset 0px 0px 10px rgba(0, 0, 0, 0.5)";
                                 }
-                            }, 1000, twin, ppy)
+                            }, 500, twin, ppy)
                     }, 50, twin1, ppy1)
                 }
             }, tempvar)
@@ -2249,7 +2342,7 @@ function makeShapes(n, y, extra, t, c) {
                     sh.style.left = "50vw";
                     sh.style.height = "0vh";
                     sh.style.left = "0vw";
-                    sh.style.transition = "1s";
+                    sh.style.transition = "0.5s";
                     sh.style.position = "absolute";
                     sh.style.transform = "rotate(" + properties[4] + ")";
                     sh.style.borderRadius = properties[0];
@@ -2275,7 +2368,7 @@ function makeShapes(n, y, extra, t, c) {
                             function (twin, ppy) {
                                 document.querySelector('.uBall').style.filter = "";
                                 a.append(twin);
-                                // document.querySelector('#uvula').style.transition = "1s";
+                                // document.querySelector('#uvula').style.transition = "0.5s";
                                 //twin.style.transition = "0s";
 
 
@@ -2285,7 +2378,7 @@ function makeShapes(n, y, extra, t, c) {
                                 twin.style.width = ppy[3];
                                 twin.style.transform = "rotate(" + ppy[4] + ")";
                                 newConsoleLog([twin.style.transform, "rotateZ(" + ppy[4] + ")", ppy[4]])
-                                twin.style.transition = "1s";
+                                twin.style.transition = "0.5s";
                                 twin.style.zIndex = "5";
                                 twin.style.border = "0px solid black"
                                 twin.setAttribute('class', 'teShape');
@@ -2301,7 +2394,7 @@ function makeShapes(n, y, extra, t, c) {
                                 }
 
 
-                            }, 1000, twin, ppy)
+                            }, 500, twin, ppy)
                     }
                 }, 50)
 
@@ -2377,23 +2470,23 @@ function handleTouch(startX, endX,
 function swipeUp() {
     if (canSwipe) {
         //var bcr = document.querySelector('#videoFrame').boundingClientRect();
-        canSwipe = true;
+        canSwipe = false;
 
         var orbit = document.createElement('div');
         var orbitf = document.createElement('div');
         if (fullsc == 'yes') {
-            orbit.style.opacity = 0;
-            orbitf.style.opacity = 0.25;
+            orbit.style.opacity = "0";
+            orbitf.style.opacity = "0.25";
         } else {
-            orbitf.style.opacity = 0;
-            orbit.style.opacity = 0.25;
-        } 
+            orbitf.style.opacity = "0";
+            orbit.style.opacity = "0.25";
+        }
         orbit.setAttribute('class', 'videoOrbit no');
         orbit.style.borderRadius = "5px";
         orbit.style.zIndex = "200";
         orbit.style.width = "0.5em";
         orbit.style.height = "0.5em";
-       // orbit.style.opacity = "1";
+        // orbit.style.opacity = "1";
         orbit.style.backgroundColor = "var(--swText)";
         orbit.style.position = "absolute";
         orbit.style.left = sVl['no'][0];
@@ -2403,17 +2496,17 @@ function swipeUp() {
         orbitf.style.zIndex = "200";
         orbitf.style.width = "0.5em";
         orbitf.style.height = "0.5em";
-       // orbitf.style.opacity = "1";
+        // orbitf.style.opacity = "1";
         orbitf.style.backgroundColor = "var(--swText)";
         orbitf.style.position = "absolute";
         orbitf.style.left = sVl['yes'][0];
         orbitf.style.top = sVt['yes'][1];
         tsMT = Math.random();
         orbit.style.transition = "0.25s";
-       // orbit.setAttribute('class', "videoOrbit");
+        // orbit.setAttribute('class', "videoOrbit");
         document.querySelector("#allHold").append(orbit);
         orbitf.style.transition = "0.25s";
-       // orbitf.setAttribute('class', "videoOrbit");
+        // orbitf.setAttribute('class', "videoOrbit");
         document.querySelector("#allHold").append(orbitf);
         tsMTs.push(tsMT);
         setTimeout(function () {
@@ -2424,7 +2517,7 @@ function swipeUp() {
             orbitf.style.top = sVt['yes'][0];
             setTimeout(function () {
                 // Move UP
-              //  orbit.style.transform = "rotate(90deg)";
+                //  orbit.style.transform = "rotate(90deg)";
                 orbit.style.left = sVl['no'][1];
                 orbit.style.top = sVt['no'][0];
                 orbitf.style.left = sVl['yes'][1];
@@ -2432,7 +2525,7 @@ function swipeUp() {
 
                 setTimeout(function () {
                     // Move LEFT
-                 //   orbit.style.transform = "rotate(180deg)";
+                    //   orbit.style.transform = "rotate(180deg)";
                     orbit.style.left = sVl['no'][1];
                     orbit.style.top = sVt['no'][1];
                     orbitf.style.left = sVl['yes'][1];
@@ -2440,15 +2533,15 @@ function swipeUp() {
 
                     setTimeout(function () {
                         // Move DOWN
-                      //  orbit.style.transform = "rotate(270deg)";
+                        //  orbit.style.transform = "rotate(270deg)";
                         orbit.style.left = sVl['no'][2];
                         orbit.style.top = sVt['no'][1];
                         orbitf.style.left = sVl['yes'][2];
                         orbitf.style.top = sVt['yes'][1];
 
                         setTimeout(function () {
-                        //    orbit.style.transform = "rotate(360deg)";
-                        }, 250);
+                            //    orbit.style.transform = "rotate(360deg)";
+                        }, 125);
 
                     }, 250);
 
@@ -2459,103 +2552,108 @@ function swipeUp() {
         }, 250);
 
         setTimeout(function () {
+                var bigJuf = orbitf.cloneNode();
+                var theBigJuf = orbitf.getBoundingClientRect();
 
-            var bigJuf = orbitf.cloneNode();
-            var theBigJuf = orbitf.getBoundingClientRect();
+                var bigJu = orbit.cloneNode();
+                var theBigJu = orbit.getBoundingClientRect();
 
-            var bigJu = orbit.cloneNode();
-            var theBigJu = orbit.getBoundingClientRect();
+                bigJu.style.left = theBigJu.x + "px";
+                newConsoleLog(theBigJu.left);
+                bigJu.style.top = theBigJu.y + "px";
+                newConsoleLog(theBigJu.top);
+                document.querySelector("#allHold").append(bigJu);
+                newConsoleLog([theBigJu, tsMT]);
+                bigJu.style.backgroundColor = "var(--swText)";
+                var bigJu2 = orbit.cloneNode();
+                bigJu2.style.left = theBigJu.x + "px";
+                document.querySelector("#allHold").append(bigJu2);
+                bigJu2.style.top = theBigJu.y + "px";
+                bigJu2.style.backgroundColor = "var(--swText)";
+                // bigJu2.style.opacity = "0.2";
+                bigJu2.setAttribute('id', 'j' + tsMT.toString().replace('.', 'o'));
+                orbit.remove();
+                bigJu.style.transition = "0.1s";
 
-            bigJu.style.left = theBigJu.x + "px";
-            newConsoleLog(theBigJu.left);
-            bigJu.style.top = theBigJu.y + "px";
-            newConsoleLog(theBigJu.top);
-            document.querySelector("#allHold").append(bigJu);
-            newConsoleLog([theBigJu, tsMT]);
-            bigJu.style.backgroundColor = "var(--swText)";
-            var bigJu2 = orbit.cloneNode();
-            bigJu2.style.left = theBigJu.x + "px";
-            document.querySelector("#allHold").append(bigJu2);
-            bigJu2.style.top = theBigJu.y + "px";
-            bigJu2.style.backgroundColor = "var(--swText)";
-           // bigJu2.style.opacity = "0.2";
-            bigJu2.setAttribute('id', 'j' + tsMT.toString().replace('.', 'o'));
-            orbit.remove();
-            bigJu.style.transition = "0.1s";
-
-            bigJuf.style.left = theBigJuf.x + "px";
-            newConsoleLog(theBigJuf.left);
-            bigJuf.style.top = theBigJuf.y + "px";
-            newConsoleLog(theBigJuf.top);
-            document.querySelector("#allHold").append(bigJuf);
-            newConsoleLog([theBigJuf, tsMT]);
-            bigJuf.style.backgroundColor = "var(--swText)";
-            var bigJu2f = orbitf.cloneNode();
-            bigJu2f.style.left = theBigJuf.x + "px";
-            document.querySelector("#allHold").append(bigJu2f);
-            bigJu2f.style.top = theBigJuf.y + "px";
-            bigJu2f.style.backgroundColor = "var(--swText)";
-//bigJu2f.style.opacity = "0.2";
-            bigJu2f.setAttribute('id', 'j' + tsMT.toString().replace('.', 'o'));
-            orbitf.remove();
-            bigJuf.style.transition = "0.1s";
-            if (fullsc == 'yes') {
-                bigJu2f.style.opacity = "0.25";
-            } else {
-                bigJu2.style.opacity = "0.25";
-            }
-
-            setTimeout(function () {
-                if (fullsc == 'no') {
-                    bigJu.style.opacity = 1;
-                    bigJu.style.width = "calc((100vh - 10em) * (9/16))";
-                    bigJu.style.height = "calc(100vh - 10em)";
-                    bigJu.style.left = "calc((100vw - ((100vh - 10em) * (9/16)))/2)";
-                    bigJu.style.borderRadius = "5px";
-                    bigJu.style.top = "4em";
-                    bigJu.style.transform = "rotate(360deg)";
-                    bigJu.style.backgroundColor = "var(--swText)";
-                    setTimeout(function () {
-                        bigJu.style.transition = "1s";
-                        setTimeout(function () {
-                            bigJu.style.backgroundColor = "var(--accent)";
-
-                            setTimeout(function () {
-                                bigJu.remove();
-                                bigJuf.remove();
-                            }, 500);
-                        }, 500)
-                        canSwipe = true;
-                    }, 200)
+                bigJuf.style.left = theBigJuf.x + "px";
+                newConsoleLog(theBigJuf.left);
+                bigJuf.style.top = theBigJuf.y + "px";
+                newConsoleLog(theBigJuf.top);
+                document.querySelector("#allHold").append(bigJuf);
+                newConsoleLog([theBigJuf, tsMT]);
+                bigJuf.style.backgroundColor = "var(--swText)";
+                var bigJu2f = orbitf.cloneNode();
+                bigJu2f.style.left = theBigJuf.x + "px";
+                document.querySelector("#allHold").append(bigJu2f);
+                bigJu2f.style.top = theBigJuf.y + "px";
+                bigJu2f.style.backgroundColor = "var(--swText)";
+                //bigJu2f.style.opacity = "0.2";
+                bigJu2f.setAttribute('id', 'j' + tsMT.toString().replace('.', 'o'));
+                orbitf.remove();
+                bigJuf.style.transition = "0.1s";
+                if (fullsc == 'yes') {
+                    bigJu2f.style.opacity = "0.25";
+                    bigJu2.style.opacity = "0";
                 } else {
-                    bigJu.style.opacity = 1;
-                    bigJuf.style.width = "100vw";
-                    bigJuf.style.height = "100vh";
-                    bigJuf.style.left = "0";
-                    bigJuf.style.borderRadius = "5px";
-                    bigJuf.style.top = "0";
-                    bigJuf.style.transform = "rotate(360deg)";
-                    bigJuf.style.backgroundColor = "var(--swText)";
-                    setTimeout(function () {
-                        bigJuf.style.transition = "1s";
-                        setTimeout(function () {
-                            bigJuf.style.backgroundColor = "var(--accent)";
+                    bigJu2.style.opacity = "0.25";
+                    bigJu2f.style.opacity = "0";
 
-                            setTimeout(function () {
-                                bigJuf.remove();
-                                bigJu.remove();
-                            }, 500);
-                        }, 500)
-                        canSwipe = true;
-                    }, 200)
                 }
+
+                setTimeout(function () {
+                    if (fullsc == 'no') {
+                        bigJu.style.opacity = 1;
+                        bigJu.style.width = "calc((100vh - 10em) * (9/16))";
+                        bigJu.style.height = "calc(100vh - 10em)";
+                        bigJu.style.left = "calc((100vw - ((100vh - 10em) * (9/16)))/2)";
+                        bigJu.style.borderRadius = "5px";
+                        bigJu.style.top = "4em";
+                        bigJu.style.transform = "rotate(360deg)";
+                        bigJu.style.backgroundColor = "var(--swText)";
+                        bigJu.style.opacity = 0.5;
+                        setTimeout(function () {
+                            bigJu.style.transition = "0.1s";
+                            setTimeout(function () {
+                                bigJu.style.backgroundColor = "var(--accent)";
+
+                                setTimeout(function () {
+                                    bigJu.remove();
+                                    bigJuf.remove();
+                                }, 100);
+                            }, 100)
+                            canSwipe = true;
+                        }, 200)
+                    } else {
+                        bigJuf.style.opacity = 1;
+                        bigJuf.style.width = "100vw";
+                        bigJuf.style.height = "100vh";
+                        bigJuf.style.left = "0";
+                        bigJuf.style.borderRadius = "5px";
+                        bigJuf.style.top = "0";
+                        bigJuf.style.transform = "rotate(360deg)";
+                        bigJuf.style.backgroundColor = "var(--swText)";
+                        bigJuf.style.opacity = 0.5;
+                        setTimeout(function () {
+                            bigJuf.style.transition = "0.1s";
+                            setTimeout(function () {
+                                bigJuf.style.backgroundColor = "var(--accent)";
+
+                                setTimeout(function () {
+                                    bigJuf.remove();
+                                    bigJu.remove();
+                                }, 100);
+                            }, 100)
+                            canSwipe = true;
+                        }, 200)
+                    }
                 }, 100)
 
-        }, (tsMT * 1000))
-    }
+            }, (tsMT * 1000))
+}
 };
 function swipeDown() {
     if (canSwipe) {
+        canSwipe = false;
         if (fullsc == 'yes') {
             var orbit = [...document.querySelectorAll('.yes')];
             orbit = orbit[orbit.length - 1];
@@ -2573,16 +2671,25 @@ function swipeDown() {
         orbit.style.transition = "0.25s";
         var o2 = orbit.getBoundingClientRect();
         var bj = document.createElement('div');
-        bj.style.width = "calc((100vh - 10em) * (9/16))";
-        bj.style.height = "calc(100vh - 10em)";
-        bj.style.left = "calc((100vw - ((100vh - 10em) * (9/16)))/2)";
-        bj.style.borderRadius = "5px";
-        bj.style.top = "4em";
+        if (fullsc == "no") {
+            bj.style.width = "calc((100vh - 10em) * (9/16))";
+            bj.style.height = "calc(100vh - 10em)";
+            bj.style.left = "calc((100vw - ((100vh - 10em) * (9/16)))/2)";
+            bj.style.borderRadius = "5px";
+            bj.style.top = "4em";
+        } else {
+            bj.style.width = "100vw";
+            bj.style.height = "100vh";
+            bj.style.left = "0";
+            bj.style.borderRadius = "5px";
+            bj.style.top = "2em";
+        }
         bj.style.transform = "rotate(360deg)";
-        bj.style.transition = "0.25s";
+        bj.style.transition = "0.125s";
         bj.style.backgroundColor = "var(--swText)";
         bj.style.position = "absolute";
         bj.style.zIndex = 10000;
+        bj.style.opacity = 0.5;
         document.querySelector("#allHold").append(bj);
        // orbit.style.opacity = 0;
         setTimeout(function () {
@@ -2599,12 +2706,13 @@ function swipeDown() {
                 setTimeout(function () {
                     orbit.style.left = sVl[fullsc][2];
                     orbit.style.top = sVt[fullsc][1];
-                }, 250);
+                }, 125);
                 
                 setTimeout(function () {
                     orbit.remove();
+                    canSwipe = true;
                    // bj.remove();
-                }, 500)
+                }, 250)
             }
             if (o2.x < window.innerWidth / 2 && o2.y < (window.innerHeight - (6 * (parseFloat(getComputedStyle(orbit.parentNode).fontSize))
             ))) {
@@ -2612,24 +2720,25 @@ function swipeDown() {
                    // bj.remove();
                     orbit.style.transform = "rotate(90deg)";
                     orbit.style.left = sVl[fullsc][1];
-                    orbit.style.top = sVt[fullsc][1];
+                    orbit.style.top = sVt[fullsc][0];
                    
                     setTimeout(function () {
 
-                        orbit.style.left = sVl[fullsc][1];
+                        orbit.style.left = sVl[fullsc][0];
                         orbit.style.top = sVt[fullsc][0];
                         setTimeout(function () {
 
-                            orbit.style.left = sVl[fullsc][0];
-                            orbit.style.top = sVt[fullsc][0];
+                            orbit.style.left = sVl[fullsc][2];
+                            orbit.style.top = sVt[fullsc][1];
                             
                             setTimeout(function () {
                                 orbit.remove();
+                                canSwipe = true;
                                 //bj.remove();
-                            }, 250)
-                        }, 250);
-                    }, 250);
-                }, 250);
+                            }, 125)
+                        }, 125);
+                    }, 125);
+                }, 125);
             }
 
             if (o2.y >= (window.innerHeight - (6.1 * (parseFloat(getComputedStyle(orbit.parentNode).fontSize))
@@ -2637,22 +2746,23 @@ function swipeDown() {
                 setTimeout(function () {
                    // bj.remove();
 
-                    orbit.style.left = sVl[fullsc][1];
-                    orbit.style.top = sVt[fullsc][1];
+                    orbit.style.left = sVl[fullsc][0];
+                    orbit.style.top = sVt[fullsc][0];
                     
                     setTimeout(function () {
                         
-                        orbit.style.left = sVl[fullsc][1];
-                        orbit.style.top = sVt[fullsc][0];
+                        orbit.style.left = sVl[fullsc][2];
+                        orbit.style.top = sVt[fullsc][1];
                        
                         setTimeout(function () {
                             orbit.remove();
+                            canSwipe = true;
                            // bj.remove();
-                        }, 250)
-                    }, 250);
-                }, 250);
+                        }, 125)
+                    }, 125);
+                }, 125);
             }
-        }, 250);
+        }, 125);
 
         /*
         canSwipe = false;

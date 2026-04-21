@@ -31,6 +31,7 @@
     height: 1em;
     margin:0.5em;
     z-index: 9999;
+    background-color: rgba(0,0,0,0);
 }
 *{
     background-color: var(--bg);
@@ -88,18 +89,21 @@ b,#teTitle{
     text-decoration: underline;
     font-weight: normal;
 }
+body {
+    overflow-y: hidden;
+}
 #background {
-    background: repeating-linear-gradient( -45deg, rgba(0,0,0,0.3) 2px, rgba(0,0,0,0) 3px, rgba(0,0,0,0) 4px, rgba(0,0,0,0.3) 7px);
+    background: radial-gradient( circle at 100%, var(--bg), rgba(0,0,0,0.2) 50%, var(--bg) 75%, rgba(0,0,0,0.05) 75% );
     position: absolute;
-    top:-50vh;
-    left:0px;
+    top: -50vh;
+    left: 0px;
     width: 100vw;
     height: 150vh;
     z-index: 0;
     transition: 0.5s;
 }
 #textEnter{
-    transition: 1s;
+    transition: 0.5s;
     background-color: var(--second);
     color: var(--text);
     width: calc(100vw - 10em);
@@ -118,7 +122,7 @@ b,#teTitle{
     overflow: hidden;
 }
 #textEnter :is(span, button){
-    transition: 1s;
+    transition: 0.5s;
 }
 button {
     border: 0px;
@@ -138,7 +142,6 @@ button {
 #textEnter :is(span, input, #teButton, button) {
     width: 100%;
     min-height: 0;
-   // padding: 0;
 }
 #b1, #b2, #b3, button {
     margin-top: 0.25em;
@@ -158,7 +161,7 @@ button {
 }
 #teButton{
     opacity: 0;
-    transition:1s;
+    transition:0.5s;
 }
 html, body {
     margin: 0;
@@ -180,16 +183,26 @@ html, body {
     background: transparent;
     margin-bottom: 1em;
     border-radius: 5px;
-    transition: 1s;
+    transition: 0.5s;
 }
 body{
-    position: relative;
     top: 0vh;
     min-height: 100vh;
     max-height: 100vh;
     margin:0;
     padding:0;
 }
+.card, #textEnter, .uBall, #uBalance, #uLine, #uNameplate, #titleBar {
+    /* Add shadows to create the "card" effect */
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    opacity: 0.9;
+    transition: 0.3s;
+}
+#uNameplate {
+    opacity: 0.7;
+}
+
+    /* On mouse-over, add a deeper shadow */
 *{margin:0}
 #uvula {
     will-change: transform;
@@ -200,7 +213,7 @@ body{
     left: calc(50vw - (var(--ballSize) / 2));
     z-index: 1;
     background-color: rgba(0,0,0,0);
-    transition: opacity 1s, top 1s, z-index 1s, background-color 1s, margin-top 1s, width 1s, height 1s, position 1s, left 1s, margin-left 1s, filter 1s !important;
+    transition: opacity 0.5s, top 0.5s, z-index 0.5s, background-color 0.5s, margin-top 0.5s, width 0.5s, height 0.5s, position 0.5s, left 0.5s, margin-left 0.5s, filter 0.5s !important;
     opacity: 0;
     transform: rotateZ(0deg);
 }
@@ -213,7 +226,7 @@ body{
     height: var(--ballSize);
     background-color: var(--accent);
     overflow: hidden;
-    transition: opacity 1s, top 1s, z-index 1s, background-color 1s, margin-top 1s, width 1s, height 1s, position 1s, left 1s, margin-left 1s, filter 1s !important;
+    transition: opacity 0.5s, top 0.5s, z-index 0.5s, background-color 0.5s, margin-top 0.5s, width 0.5s, height 0.5s, position 0.5s, left 0.5s, margin-left 0.5s, filter 0.5s !important;
 }
 #teButton{
     display: none;
@@ -263,13 +276,14 @@ body{
     background-color: var(--bg);
     position: absolute;
     border: 0.125em dashed var(--second);
-    transition: 1s;
+    transition: 0.5s;
     opacity: 0;
     display: grid;
     place-items: center;
+    mix-blend-mode: destination-out;
 }
 #displayVideos {
-    transition: 1s;
+    transition: 0.5s;
     opacity: 0;
     width: 100vw;
     height: calc(100vh - 6em);
@@ -366,18 +380,19 @@ body{
 #playground{
     position: absolute;
     left:0;
-    top:2em;
+    top:0;
     height: calc(100vh - 2em);
     width: 100vw;
     overflow-y: scroll;
     text-wrap: normal;
     z-index:5;
     opacity:0;
+    padding-top:3em;
 }
 .pgMain{
     display: flex;
     width: 100vw;
-    height: 4em;
+    height: 8em;
     padding-top: 1em;
     padding-bottom: 1em;
     margin-bottom:0.5em;
@@ -411,7 +426,7 @@ body{
     top:0;
     width:100vw;
     height: 100vh;
-	transition: 1s;
+	transition: 0.5s;
 }
 body, #allHold, #playground{
 	overflow-x: hidden;
@@ -435,5 +450,36 @@ button {
     line-height: 1em;
     padding-left: 0.25em;
     display: inline-block;
-    max-width: calc((100vw - 4em) / 3);
+    max-width: max-content;
+}
+#pgTitle {
+    top: 2.5em;
+    display: flex;
+    margin-left: 1em;
+    margin-right: 1.5em;
+    width: max-content;
+    background-color: rgba(0,0,0,0);
+    z-index: 1000;
+}
+    #pgTitle :is(b) {
+        margin-right: 0.5em;
+        width: 50vw;
+        vertical-align: text-bottom;
+        display: flex;
+        justify-content: left;
+        align-items: center;
+    }
+    #pgTitle :is(button) {
+        /* margin-left: 0.5em; */
+        width: 2em;
+        padding-left: 0.5em;
+        margin-right: 0.5em;
+        padding-right: 0.5em;
+    }
+#pgTitle{
+    display:none;
+    margin-top:1em;
+}
+.uBall{
+    transition: 1s;
 }
