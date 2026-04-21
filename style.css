@@ -12,6 +12,15 @@
     font-style: normal;
     font-display: swap;
 }
+html, body {
+   overscroll-behavior: none; /* Prevents scroll chaining and rubber-banding */
+   height: 100%; /* Ensures proper layout */
+   overflow: hidden; /* Disables scrolling */
+}
+scrollable {
+   overflow-y: auto;
+   -webkit-overflow-scrolling: touch; /* Smooth scrolling for iOS */
+}
 :root {
     --bg: #f5f5dc;
     --accent: #77867f;
