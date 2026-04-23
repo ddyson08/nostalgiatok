@@ -26,6 +26,7 @@ html, body {
 
 scrollable {
     overflow-y: auto;
+    overflow-x: hidden;
     -webkit-overflow-scrolling: touch; /* Smooth scrolling for iOS */
 }
 :root {
@@ -43,7 +44,7 @@ scrollable {
 }
 @media (orientation: landscape){
     :root {
-        --margin: var(--margin);
+        --margin: 2em;
     }
 }
 @media (orientation: portrait){
@@ -129,21 +130,21 @@ body {
     z-index: 0;
     transition: 0.5s;
 }
-#textEnter{
+#textEnter {
     transition: 0.5s;
     background-color: var(--second);
     color: var(--text);
-    width: calc(100vw - 10em);
+    width: calc(100vw - (4 * var(--margin)) - 2em);
     height: max-content;
     padding-left: 1em;
     padding-right: 1em;
-    padding-top:1em;
-    padding-bottom:1em;
+    padding-top: 1em;
+    padding-bottom: 1em;
     border-radius: 5px;
     min-height: 0;
     position: absolute;
     bottom: 2em;
-    left: calc(100vw + 4em);
+    left: calc(100vw + (2 * var(--margin)));
     display: block;
     z-index: 100;
     overflow: hidden;
