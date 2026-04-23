@@ -5,7 +5,6 @@
  * Checks if the current browser session is running in a PWA-like display mode.
  * @returns {boolean} True if installed (standalone, fullscreen, or minimal-ui), false otherwise (browser tab).
  */
-try{
 function isPWA() {
     const displayModes = ["fullscreen", "standalone", "minimal-ui"];
 
@@ -122,14 +121,14 @@ words = {
     "en-US": [
         "by", //0
         "nostalgiaTok", //1
-        "petLamed", //2
+        "peiLamed", //2
         "what's your name?", //3
         "next", //4
         "Your", //5
         "nostalgia", //6
         "what time period are you nostalgic for?", //7
-        "what creators (if any) (use commas)?", //8
-        "what topics (if any) (use commas)?", //9
+        "what creators?<br><span class='nstLower'>(use double spaces)</span>", //8
+        "what topics?<br><span class='nstLower'>(use double spaces)</span>", //9
         "'s ", //10
         "", //11
         "", //12
@@ -363,7 +362,7 @@ function editModeAnimation() {
         ah.style.borderRadius = "5px";
         ah.style.zIndex = 300;
         pg.style.opacity = 1;
-        ah.style.border = "1px solid black";
+        ah.style.border = "1px solid var(--swText)";
         setTimeout(function () {
             ah.style.transition = "0s";
             pg1.append(ah);
@@ -414,6 +413,10 @@ function eMA2(simmilar, pgGivenData, neww) {
         var pqb = [...pg2.querySelectorAll('button')];
         pqb[0].style.display = "block";
         pqb[1].innerText = "search simmilar";
+        var pqb2 = [...pg1.querySelectorAll('button')];
+        pqb2[0].setAttribute('class', 'special');
+        pqb2[1].setAttribute('class', 'special');
+        
         var pg = document.querySelector('#playground');
         pg.scrollTo(0, pg.scrollHeight);
         pg.append(pg2);
@@ -427,12 +430,12 @@ function eMA2(simmilar, pgGivenData, neww) {
         pg2.style.opacity = 0;
         //switch the directions
         if (pg2.getAttribute('dir') == 'right') {
-            pg2.querySelector('.pgP').style.left = "calc(100vw - 2em - " + pg2.querySelector('.pgP').getBoundingClientRect().width + "px)";
-            pg2.querySelector('.pgCover').style.left = "2em";
+            pg2.querySelector('.pgP').style.left = "calc(100vw - var(--margin) - " + pg2.querySelector('.pgP').getBoundingClientRect().width + "px)";
+            pg2.querySelector('.pgCover').style.left = "var(--margin)";
             pg2.setAttribute('dir', 'left');
         } else {
-            pg2.querySelector('.pgP').style.left = "2em";
-            pg2.querySelector('.pgCover').style.left = "calc(100vw - 2em - (4em * var(--screenWidthRatio)))";
+            pg2.querySelector('.pgP').style.left = "var(--margin)";
+            pg2.querySelector('.pgCover').style.left = "calc(100vw - var(--margin) - (2*var(--margin) * var(--screenWidthRatio)))";
             pg2.setAttribute('dir', 'right');
         }
         pg.scrollTo(0, pg.scrollHeight);
@@ -583,7 +586,7 @@ function editModeFunction(simmilar, pgGivenData, neww) {
         teTee.style.left = "100vw";
         setTimeout(function () {
             teTee.innerHTML = `
-<b id="teTitle" words="7" style="text-decoration: underline;">what time period are you nostalgic for?</b>
+<b id="teTitle" words="7">what time period are you nostalgic for?</b>
         <input n="0" type="text" class="hasBorder" id="teInput" />
 <button id="teButton" words="4" onclick="var raeleigh = function () {
                  document.querySelector('#teButton').remove();
@@ -724,11 +727,11 @@ window.addEventListener('scroll', () => {
         var tb = document.querySelector('#titleBar');
         if (tb.getBoundingClientRect().top + tb.getBoundingClientRect().height > 0) { sht.style.top = "calc(1em + " + tb.getBoundingClientRect().top + tb.getBoundingClientRect().height + "px)" } else { sht.style.top = 0 }
     }
-    });
-	window.addEventListener('touchmove', function (e) {
-   if (!e.target.closest('.scrollable')) {
-       e.preventDefault(); // Prevents page scrolling
-   }
+});
+window.addEventListener('touchmove', function (e) {
+    if (!e.target.closest('.scrollable')) {
+        e.preventDefault(); // Prevents page scrolling
+    }
 }, { passive: false });
 window.onload = function () {
     if (localStorage.getItem('nostalgiaTokName') !== null) {
@@ -757,11 +760,29 @@ window.onload = function () {
         // User prefers dark mode
         newConsoleLog('Dark mode is preferred');
         const root = document.documentElement;
-        root.style.setProperty('--bg', '#002A22');
-        root.style.setProperty('--accent', '#4c061d');
-        root.style.setProperty('--second', '#4c061d');
-        root.style.setProperty('--text', '#A5978B');
-        root.style.setProperty('--oj', '#A5978B');
+        root.style.setProperty('--bg', 'HSL(60, 2%, 2%)');
+        root.style.setProperty('--accent', 'HSL(152, 6%, 15%)');
+        root.style.setProperty('--second', 'HSL(340, 100%, 10%)');
+        root.style.setProperty('--text', 'HSL(60, 10%, 60%)');
+        root.style.setProperty('--oj', 'HSL(60, 2%, 2%)');
+        root.style.setProperty('--swText', 'HSL(152, 6%, 50%)');
+        root.style.setProperty('--lightText', 'HSL(60, 56%, 10%)');
+        root.style.setProperty('--lightText', 'HSL(60, 56%, 10%)');
+        root.style.setProperty('--emphText', 'HSL(152, 6%, 40%)');
+        root.style.setProperty('--emphBg', 'HSL(60, 2%, 96%)');
+        /*
+         * :root {
+    --bg: HSL(60, 56%, 90%);
+    --accent: HSL(152, 6%, 70%);
+    --second: HSL(340, 85%, 60%);
+    --text: HSL(60, 56%, 90%);
+    --font: 'GlacialIndifference';
+    --ballSize: 10em;
+    --oj: HSL(11, 42%, 58%);
+    --swText: HSL(152, 6%, 50%);
+    --lightTxt: HSL(60, 56%, 90%);
+}
+*/
     }
     newConsoleLog(1);
     for (var ii of jintArr) {
@@ -968,7 +989,7 @@ function swapTe(n, f, m, g, t) {
         const inputEl = nee.querySelector("input");
         inputEl.value = '';
        
-        inputEl.setAttribute("onkeyup", "if (event.keyCode == 13) { var raeleigh = " + f + "; raeleigh();}");
+        inputEl.setAttribute("onkeyup", "if (event.keyCode == 13) { var raeleigh = " + f + "; raeleigh(); this.blur(); document.body.style.top='env(safe - area - inset - top)'; document.body.style.marginTop = 'env(safe - area - inset - top)'}");
     }
     if (t) {
         nee.style.height = "calc(var(--ballSize) + 1em)  ";
@@ -1084,7 +1105,7 @@ function swapTe(n, f, m, g, t) {
         }
         try {
             document.querySelector('#teInput').setAttribute('class', 'hasBorder');
-            document.querySelector('#teTitle').style.textDecoration = "underline";
+            document.querySelector('#teTitle').style.textDecoration = "";
             if (n !== 7 && document.querySelector('#teButton') !== "undefined") {
                 document.querySelector('#teButton').style.display = "block";
             } else {
@@ -1307,7 +1328,7 @@ function genNext(t, two, x) {
     document.querySelector('#uvula').append(document.querySelector('.uBall'));
     var clone = document.querySelector('.uBall').cloneNode();
     clone.style.zIndex = "1000";
-    words[navigator.language][20] = Arr[posinar % Arr.length].split('[NTS2]')[0].replace('[NOSTALGIATOK973LASTTIMEINUSERLANGUAGE]',words[navigator.language][37]) + " (" + (parseFloat(posinar % Arr.length) + 1) + " / " + Arr.length + ")";
+    words[navigator.language][20] = Arr[posinar % Arr.length].split('[NTS2]')[0].replace('[NOSTALGIATOK973LASTTIMEINUSERLANGUAGE]',words[navigator.language][37]) + "<br><span class='nstLower'>(" + (parseFloat(posinar % Arr.length) + 1) + " / " + Arr.length + ")</span>";
     var obj = JSON.parse(Arr[posinar % Arr.length].split('[NTS2]')[1]);
     makeShapes(obj.year, ' ', 'y', false, clone);
     makeShapes(obj.preferences, ',', 'p', false, clone);
@@ -1539,7 +1560,7 @@ try{
             q.style.top = "calc(1em)";
             ooh.style.height = "calc(20vh - (var(--ballSize) / 2))";
             ooh.style.top = "calc(50% + 30vh - (var(--ballSize) / 2))";
-            mem.style.top = "calc(50% - 2em + 20vh)";
+            mem.style.top = "calc(50% - var(--margin) + 20vh)";
             funnyC = 0;
             setTimeout(function () {
 
@@ -1564,7 +1585,7 @@ try{
                         q.style.top = "calc(1em)";
                         ooh.style.height = "calc(20vh - (var(--ballSize) / 2))";
                         ooh.style.top = "calc(50% + 30vh - (var(--ballSize) / 2))";
-                        mem.style.top = "calc(50% - 2em + 20vh)";
+                        mem.style.top = "calc(50% - var(--margin) + 20vh)";
                         setTimeout(function () {
                             q.style.top = "calc(-50vh + 4em)";
                             ooh.style.height = "calc(50vh - (var(--ballSize) / 2))";
@@ -1616,7 +1637,7 @@ try{
                                 q.style.top = "calc(1em)";
                                 ooh.style.height = "calc(20vh - (var(--ballSize) / 2))";
                                 ooh.style.top = "calc(50% + 30vh - (var(--ballSize) / 2))";
-                                mem.style.top = "calc(50% - 2em + 20vh)";
+                                mem.style.top = "calc(50% - var(--margin) + 20vh)";
                                 setTimeout(function () {
                                     q.style.top = "calc(-50vh + 4em)";
                                     ooh.style.height = "calc(50vh - (var(--ballSize) / 2))";
@@ -1638,7 +1659,7 @@ try{
                                         q.style.top = "calc(1em)";
                                         ooh.style.height = "calc(20vh - (var(--ballSize) / 2))";
                                         ooh.style.top = "calc(50% + 30vh - (var(--ballSize) / 2))";
-                                        mem.style.top = "calc(50% - 2em + 20vh)";
+                                        mem.style.top = "calc(50% - var(--margin) + 20vh)";
                                         setTimeout(function () {
                                             q.style.top = "calc(-50vh + 4em)";
                                             ooh.style.height = "calc(50vh - (var(--ballSize) / 2))";
@@ -1672,7 +1693,7 @@ try{
                                                 q.style.top = "calc(1em)";
                                                 ooh.style.height = "calc(20vh - (var(--ballSize) / 2))";
                                                 ooh.style.top = "calc(50% + 30vh - (var(--ballSize) / 2))";
-                                                mem.style.top = "calc(50% - 2em + 20vh)";
+                                                mem.style.top = "calc(50% - var(--margin) + 20vh)";
                                                 document.querySelector('#textEnter').style.background = "";
 
                                                 /* setTimeout(function(){var v = q.getBoundingClientRect()
@@ -1700,14 +1721,14 @@ try{
                                                                 setTimeout(function () {
                                                                     t.style.height = "100vh";
                                                                     t.style.maxHeight = "100vh"
-                                                                    t.style.bottom = "-2em";
+                                                                    t.style.bottom = "-var(--margin)";
                                                                     var v = document.querySelector('#displayVideos');
                                                                     v.style.opacity = "1";
                                                                     v.style.display = "block";
                                                                     document.querySelector('#leftButton').style.width = "calc(" + document.querySelector('#rightButton').getBoundingClientRect().width + "px - 1em)";
                                                                     t.append(v);
                                                                     funnyC = 1; newConsoleLog('HERE');
-                                                                    v.style.top = "4em";
+                                                                    v.style.top = "6em";
                                                                     var tOo = document.querySelector('#touchOverlay');
                                                                     tOo.style.top = "4em";
                                                                     tOo.style.display = "block";
@@ -2049,10 +2070,10 @@ function fkAround2() {
         document.querySelector('#textEnter').append(newW);
         newH = newW.getBoundingClientRect().height;
         newW.remove();
-        document.querySelector('#teInput').style.marginBottom = "calc(2em + 5px + " + newH + "px)";
+        document.querySelector('#teInput').style.marginBottom = "calc(var(--margin) + 5px + " + newH + "px)";
         document.querySelector('#teInput').style.transition = "0s";
     } else {
-        document.querySelector('#teInput').style.marginBottom = "calc(2em + 5px + " + document.querySelector('.vs2').getBoundingClientRect.height + "px)";
+        document.querySelector('#teInput').style.marginBottom = "calc(var(--margin) + 5px + " + document.querySelector('.vs2').getBoundingClientRect.height + "px)";
         document.querySelector('#teInput').style.transition = "0s";
     }
     setTimeout(function () {
@@ -2415,11 +2436,11 @@ function displaySwipe(lr) {
     swsc.setAttribute('style', `
     opacity: 1;
     left: 0;
-    top: 2em;
+    top: var(--margin);
     position: absolute;
     z-index: 500;
     width: 100vw;
-    height: calc(100vh - 2em);
+    height: calc(100vh - var(--margin));
     padding: 4em;
    `)
     swsc.style.display = "block";
@@ -2688,7 +2709,7 @@ function swipeDown() {
             bj.style.height = "100vh";
             bj.style.left = "0";
             bj.style.borderRadius = "5px";
-            bj.style.top = "2em";
+            bj.style.top = "var(--margin)";
         }
         bj.style.transform = "rotate(360deg)";
         bj.style.transition = "0.125s";
@@ -2850,7 +2871,3 @@ function swipeDown() {
         */
     }
 };
-}
-catch(e){
-	alert(e);
-}

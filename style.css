@@ -14,28 +14,42 @@
 }
 body {
     padding-top: env(safe-area-inset-top);
-	top: env(safe-area-inset-top);
+    top: env(safe-area-inset-top);
+    width: 100vw;
 }
 
 html, body {
-   overscroll-behavior: none; /* Prevents scroll chaining and rubber-banding */
-   height: 100%; /* Ensures proper layout */
-   overflow: hidden; /* Disables scrolling */
+    overscroll-behavior: none; /* Prevents scroll chaining and rubber-banding */
+    height: 100%; /* Ensures proper layout */
+    overflow: hidden; /* Disables scrolling */
 }
+
 scrollable {
-   overflow-y: auto;
-   -webkit-overflow-scrolling: touch; /* Smooth scrolling for iOS */
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling for iOS */
 }
 :root {
-    --bg: #f5f5dc;
-    --accent: #77867f;
-    --second: #4c061d;
-    --text: #f5f5dc;
+    --bg: HSL(60, 56%, 90%);
+    --accent: HSL(152, 6%, 70%);
+    --second: HSL(340, 85%, 60%);
+    --text: HSL(60, 56%, 90%);
     --font: 'GlacialIndifference';
     --ballSize: 10em;
-    --oj: #c17767;
-    --swText: rgba(245, 245, 220);
-    --lightTxt: rgba(245, 245, 220, 0.2);
+    --oj: HSL(11, 42%, 58%);
+    --swText: HSL(152, 6%, 50%);
+    --lightTxt: HSL(60, 56%, 90%); 
+    --emphText: HSL(152, 6%, 40%);
+    --emphBg: HSL(60, 2%, 96%);
+}
+@media (orientation: landscape){
+    :root {
+        --margin: var(--margin);
+    }
+}
+@media (orientation: portrait){
+    :root {
+        --margin: 1em;
+    }
 }
 #fullscreenButton {
     position: absolute;
@@ -100,7 +114,6 @@ b,a,span, button{
     background-color: inherit;
 }
 b,#teTitle{
-    text-decoration: underline;
     font-weight: normal;
 }
 body {
@@ -184,7 +197,7 @@ html, body {
     position: absolute;
 }
 #teTitle{
-    display: flex;
+    display: grid;
     align-items: center;
 }
 #viewSaved{
@@ -205,11 +218,6 @@ body{
     max-height: 100vh;
     margin:0;
     padding:0;
-	min-width:100vw;
-	max-width: 100vw;
-	width:100vw;
-	left:0;
-	top:0;
 }
 .card, #textEnter, .uBall, #uBalance, #uLine, #uNameplate, #titleBar {
     /* Add shadows to create the "card" effect */
@@ -357,7 +365,7 @@ body{
 #swFirst, #creator, #swDiff, #swTopic, #exitsw {
     padding-top: 1em;
     display: flex;
-    gap: 2em;
+    gap: var(--margin);
     height: 2em;
     align-items: center;
 }
@@ -400,7 +408,7 @@ body{
     position: absolute;
     left:0;
     top:0;
-    height: calc(100vh - 2em);
+    height: calc(100vh - var(--margin));
     width: 100vw;
     overflow-y: scroll;
     text-wrap: normal;
@@ -408,6 +416,12 @@ body{
     opacity:0;
     padding-top:3em;
 }
+#playground :is(span, text, button){
+    color: var(--swText);
+}
+    #playground :is(button) {
+        border: 1px solid var(--swText);
+    }
 .pgMain{
     display: flex;
     width: 100vw;
@@ -423,20 +437,23 @@ body{
 .pgButtonHold {
     display: flex;
     transition: 0s;
+    width: -webkit-fill-available;
+    margin-top: 0.5em;
 }
 .pgP {
     display: grid;
-    left: 2em;
-	position:absolute;
+    left: var(--margin);
+    position: absolute;
+    width: calc(100vw - 3*var(--margin) - calc(((2*var(--margin) * var(--screenWidthRatio)))));
 }
 .pgCover {
-	position:absolute;
-    left: calc(100vw - 2em - (4em * var(--screenWidthRatio)));
-    height: 4em !important;
-    width: calc((4em * var(--screenWidthRatio)));
+    position: absolute;
+    left: calc(100vw - var(--margin) - (2*var(--margin) * var(--screenWidthRatio)));
+    height: calc(2*var(--margin)) !important;
+    width: calc(2 * var(--margin) * var(--screenWidthRatio));
     border-radius: 5px !important;
     border: 1px solid var(--textColor) !important;
-    opacity:0 !important;
+    opacity: 0 !important;
 }
 #allHold{
     z-index: 6;
@@ -490,7 +507,7 @@ button {
     }
     #pgTitle :is(button) {
         /* margin-left: 0.5em; */
-        width: 2em;
+        width: var(--margin);
         padding-left: 0.5em;
         margin-right: 0.5em;
         padding-right: 0.5em;
@@ -501,4 +518,54 @@ button {
 }
 .uBall{
     transition: 1s;
+}
+.pgP :is(span):not(.pgData) {
+    color: var(--emphText) !important;
+}
+span.pgData {
+    text-align: right;
+    width: -webkit-fill-available;
+}
+.pgButtonHold.special :nth-child(1) {
+    margin-right: 0.5em;
+}
+.pgButtonHold.special :nth-child(2) {
+    margin-left: 0.5em;
+}
+.pgButtonHold.nonspecial :nth-child(1) {
+    margin-right: 0.5em;
+}
+.pgButtonHold.nonspecial :nth-child(2) {
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+}
+.pgButtonHold.nonspecial :nth-child(3) {
+    margin-left: 0.5em;
+}
+button {
+    border: 1px solid var(--text);
+    /* margin-right: 1em; */
+    border-radius: 5px;
+    line-height: 1em;
+    /* padding-left: 0.25em; */
+    display: inline-block;
+    /* max-width: max-content; */
+}
+#b1, #b2, #b3, button {
+    /* padding: 0.25em; */
+    /* margin-bottom: 0.25em; */
+    width: 100%;
+    min-height: 0;
+}
+#playground :is(button) {
+    border: 1px solid var(--swText);
+    width: -webkit-fill-available;
+    background-color: var(--emphBg);
+    /* color: var(--text) !important; */
+}
+.nstLower{
+    color: var(--swText);
+}
+#titleBar :is(a){
+    text-decoration: underline;
 }
