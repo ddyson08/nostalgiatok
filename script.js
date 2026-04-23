@@ -1094,7 +1094,7 @@ function swapTe(n, f, m, g, t) {
                 newConsoleLog(e);
             }
         }
-        nee.style.left = "4em";
+        nee.style.left = "calc(2 * var(--margin))";
         if (n >= 15 && n <= 18) {
             newConsoleLog(n);
             nee.style.left = "0em";
