@@ -263,7 +263,7 @@ function jumpLogo() {
         logo.style.transition = "0.5s";
         var ll = logo.getBoundingClientRect().width;
         logo.style.width = ll + "px";
-        document.querySelector("#textEnter").style.left = "4em";
+        document.querySelector("#textEnter").style.left = "calc(2 * var(--margin))";
         setTimeout(function () {
             logo.style.left = 0;
             setTimeout(function () {
@@ -823,6 +823,8 @@ window.onload = function () {
     if (localStorage.getItem('nostalgiaTokName') !== null) {
         document.querySelector('#teInput').setAttribute('class', 'noBorder')
         document.querySelector('#teTitle').style.textDecoration = "none";
+        document.querySelector('#textEnter').style.left = "calc(2 * var(--margin))";
+        document.querySelector('#textEnter').style.width = " calc(100vw - (4 * var(--margin)) - 2em)";
         document.querySelector('#teButton').style.display = "none";
         userName = localStorage.getItem('nostalgiaTokName');
         document.querySelector('#teTitle').innerHTML = words[navigator.language][32] + localStorage.getItem('nostalgiaTokName') + "?";
@@ -862,7 +864,11 @@ window.onload = function () {
             document.querySelector("#allHold").style.overflow = "hidden";
         }, 2000, {})
         newConsoleLog(5);
-        this.setTimeout(function () { document.querySelector('#teTitle').innerHTML = words[navigator.language][32] + localStorage.getItem('nostalgiaTokName') + "?"; }, 1000);
+        this.setTimeout(function () {
+            document.querySelector('#teTitle').innerHTML = words[navigator.language][32] + localStorage.getItem('nostalgiaTokName') + "?";
+            document.querySelector('#textEnter').style.left = "calc(2 * var(--margin))";
+            document.querySelector('#textEnter').style.width = " calc(100vw - (4 * var(--margin)) - 2em)";
+        }, 1000);
     }
     newConsoleLog(6);
     for (var i of [...document.querySelectorAll('[words]')]) {
@@ -989,7 +995,7 @@ function swapTe(n, f, m, g, t) {
         const inputEl = nee.querySelector("input");
         inputEl.value = '';
        
-        inputEl.setAttribute("onkeyup", "if (event.keyCode == 13) { var raeleigh = " + f + "; raeleigh(); this.blur(); document.body.style.top='env(safe - area - inset - top)'; document.body.style.marginTop = 'env(safe - area - inset - top)'}");
+        inputEl.setAttribute("onkeyup", "if (event.keyCode == 13) { var raeleigh = " + f + "; this.blur(); document.body.style.top='env(safe - area - inset - top)'; document.body.style.marginTop = 'env(safe - area - inset - top)'; setTimeout(function(){raeleigh()},100)}");
     }
     if (t) {
         nee.style.height = "calc(var(--ballSize) + 1em)  ";

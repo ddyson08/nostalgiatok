@@ -38,9 +38,10 @@ scrollable {
     --ballSize: 10em;
     --oj: HSL(11, 42%, 58%);
     --swText: HSL(152, 6%, 50%);
-    --lightTxt: HSL(60, 56%, 90%); 
+    --lightTxt: HSL(60, 56%, 90%);
     --emphText: HSL(152, 6%, 40%);
     --emphBg: HSL(60, 2%, 96%);
+    --margin: 1em;
 }
 @media (orientation: landscape){
     :root {
