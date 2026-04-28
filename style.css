@@ -21,7 +21,11 @@ html, body {
     margin: 0;
     padding: 0;
     height: 100dvh;
-    overflow: hidden;
+    overflow: hidden; /* lock body scroll */
+}
+
+body, #allHold {
+    touch-action: none;
 }
 
 
