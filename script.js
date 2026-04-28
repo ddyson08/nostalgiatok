@@ -1528,7 +1528,11 @@ function runAnimation(bypass) {
  if (isPWA()) {
       //  await appendToStringStore('[NOSTALGIATOKSPLIT][NOSTALGIATOK973LASTTIMEINUSERLANGUAGE][NTS2]' + JSON.stringify(user))
  } else {
-     var totalNST = localStorage.getItem('nostalgiaTokSaved').split('[NOSTALGIATOKSPLIT]');
+     if (localStorage.getItem('nostalgiaTokSaved').split('[NOSTALGIATOKSPLIT]') !== undefined) {
+         var totalNST = localStorage.getItem('nostalgiaTokSaved').split('[NOSTALGIATOKSPLIT]');
+     } else {
+         var totalNST = "";
+     }
      if (totalNST[0].includes('[NOSTALGIATOK973LASTTIMEINUSERLANGUAGE]')) {
          totalNST[0] = '[NOSTALGIATOK973LASTTIMEINUSERLANGUAGE][NTS2]' + JSON.stringify(user)
      }
@@ -2213,6 +2217,10 @@ function enterName() {
         ni.style.width = "max-content";
         ni.style.left = "calc(50% + 0.5em)";
         ni.innerText = words[navigator.language][11] + words[navigator.language][12] + userName + words[navigator.language][10] + words[navigator.language][6];
+        setTimeout(function () {
+            ni.style.transition = "1s";
+            ni.style.left = "calc(50% - " + (ni.getBoundingClientRect().width / 2) + "px + 0.5em)"
+        }, 500);
     }, 1000);
     swapTe(7, function () {
         if (doneAnimation) {
