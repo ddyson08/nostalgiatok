@@ -5,6 +5,7 @@
     font-style: normal;
     font-display: swap;
 }
+
 @font-face {
     font-family: 'GlacialIndifferences';
     src: url('GlacialIndifference-Bold.otf') format('opentype');
@@ -12,27 +13,23 @@
     font-style: normal;
     font-display: swap;
 }
+
 body {
     width: 100vw;
-
-
 }
+
 html, body {
     margin: 0;
     padding: 0;
     height: 100dvh;
-    overflow: hidden; /* lock body scroll */
-}
-
-body, #allHold {
-    touch-action: none;
+    overflow: hidden;
 }
 
 
 html, body {
     overscroll-behavior: none; /* Prevents scroll chaining and rubber-banding */
 
-	
+
     overflow: hidden; /* Disables scrolling */
 }
 
@@ -41,6 +38,7 @@ scrollable {
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch; /* Smooth scrolling for iOS */
 }
+
 :root {
     --bg: HSL(60, 56%, 90%);
     --accent: HSL(152, 6%, 50%);
@@ -56,27 +54,31 @@ scrollable {
     --contrast: HSL(60, 2%, 80%);
     --margin: 1em;
 }
-@media (orientation: landscape){
+
+@media (orientation: landscape) {
     :root {
         --margin: 2em;
     }
 }
-@media (orientation: portrait){
+
+@media (orientation: portrait) {
     :root {
         --margin: 1em;
     }
 }
+
 #fullscreenButton {
     position: absolute;
     top: calc(100% - 2em);
     right: 0;
     width: max-content;
     height: 1em;
-    margin:0.5em;
+    margin: 0.5em;
     z-index: 9999;
     background-color: rgba(0,0,0,0);
 }
-*{
+
+* {
     background-color: var(--bg);
     color: var(--text);
     font-family: var(--font), system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -87,6 +89,7 @@ scrollable {
     -moz-user-select: none;
     -webkit-user-select: none;
 }
+
 #titleBar {
     background-color: var(--accent);
     color: var(--text);
@@ -103,6 +106,7 @@ scrollable {
     left: 10vw;
     z-index: 2000;
 }
+
 div#buttonHolder::before {
     content: "";
     position: absolute;
@@ -114,26 +118,32 @@ div#buttonHolder::before {
     background: var(--lightTxt);
     border-radius: 5px;
 }
+
 #titleBar :is(div) {
     display: block;
     background-color: inherit;
     width: inherit;
     max-height: inherit;
 }
-img{
+
+img {
     height: 1em;
     width: 1em;
     vertical-align: middle;
 }
-b,a,span, button{
+
+b, a, span, button {
     background-color: inherit;
 }
-b,#teTitle{
+
+b, #teTitle {
     font-weight: normal;
 }
+
 body {
     overflow-y: hidden;
 }
+
 #background {
     background: radial-gradient( circle at 100%, var(--bg), var(--contrast) 50%, var(--bg) 75%, var(--contrast) 100% );
     position: absolute;
@@ -144,6 +154,7 @@ body {
     z-index: 0;
     transition: 0.5s;
 }
+
 #textEnter {
     transition: 0.5s;
     background-color: var(--second);
@@ -163,89 +174,109 @@ body {
     z-index: 100;
     overflow: hidden;
 }
-#textEnter :is(span, button){
-    transition: 0.5s;
-}
+
+    #textEnter :is(span, button) {
+        transition: 0.5s;
+    }
+
 button {
     border: 0px;
     text-align: left;
 }
-.hasBorder{
+
+.hasBorder {
     border-bottom: 0.0625em dashed var(--text);
     border-top: 0.0625em solid var(--second);
     border-left: 0.0625em solid var(--second);
     border-right: 0.0625em solid var(--second);
     display: block;
 }
-.noBorder{
+
+.noBorder {
     border: 0.0625em solid var(--second);
     display: none;
 }
+
 #textEnter :is(span, input, #teButton, button) {
     width: 100%;
     min-height: 0;
 }
+
 #b1, #b2, #b3, button {
     margin-top: 0.25em;
     margin-bottom: 0.25em;
     width: 100%;
     min-height: 0;
 }
+
 #teTitle {
     width: 100%;
     min-height: 0;
     padding: 0 !important;
 }
+
 #b4 {
     width: 100%;
     min-height: 0;
+}
 
-}
-#teButton{
+#teButton {
     opacity: 0;
-    transition:0.5s;
+    transition: 0.5s;
 }
+
 html, body {
     margin: 0;
     padding: 0;
     box-sizing: border-box; /* Ensures consistent sizing */
-  
 }
-#teTitle{
+
+#teTitle {
     display: grid;
     align-items: center;
 }
-#viewSaved{
+
+#viewSaved {
     display: none;
 }
-#saveThis{
+
+#saveThis {
     display: none;
 }
-#teInput{
+
+#teInput {
     background: transparent;
     margin-bottom: 1em;
     border-radius: 5px;
     transition: 0.5s;
+    width: max-content !important;
+    min-width: 5ch;
 }
-body{
+
+body {
     top: 0dvh;
     min-height: 100dvh;
     max-height: 100dvh;
-    margin:0;
-    padding:0;
+    margin: 0;
+    padding: 0;
 }
+
 .card, #textEnter, .uBall, #uBalance, #uLine, #uNameplate, #titleBar {
     /* Add shadows to create the "card" effect */
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     opacity: 0.9;
     transition: 0.3s;
 }
+
 #uNameplate {
     opacity: 0.7;
 }
 
-    /* On mouse-over, add a deeper shadow */
-*{margin:0}
+/* On mouse-over, add a deeper shadow */
+* {
+    margin: 0
+}
+
 #uvula {
     will-change: transform;
     position: relative;
@@ -259,6 +290,7 @@ body{
     opacity: 0;
     transform: rotateZ(0deg);
 }
+
 .uBall, .palestine {
     position: absolute;
     border-radius: 50%;
@@ -270,9 +302,11 @@ body{
     overflow: hidden;
     transition: opacity 0.5s, top 0.5s, z-index 0.5s, background-color 0.5s, margin-top 0.5s, width 0.5s, height 0.5s, position 0.5s, left 0.5s, margin-left 0.5s, filter 0.5s !important;
 }
-#teButton{
+
+#teButton {
     display: none;
 }
+
 #uMiniball {
     position: absolute;
     border-radius: 50%;
@@ -283,6 +317,7 @@ body{
     background-color: var(--accent);
     transition: 0.5s;
 }
+
 #uLine {
     position: absolute;
     top: 50%;
@@ -292,6 +327,7 @@ body{
     background-color: var(--accent);
     transition: 0.5s;
 }
+
 #uNameplate {
     position: absolute;
     height: 2em;
@@ -308,12 +344,14 @@ body{
     padding-left: 0.5em;
     padding-right: 0.5em;
 }
+
 #uBalance {
     position: absolute;
     height: 50%;
     opacity: 0;
     top: 0;
 }
+
 .teShape {
     background-color: var(--bg);
     position: absolute;
@@ -324,6 +362,7 @@ body{
     place-items: center;
     mix-blend-mode: destination-out;
 }
+
 #displayVideos {
     transition: 0.5s;
     opacity: 0;
@@ -336,6 +375,7 @@ body{
     left: 0;
     top: 0;
 }
+
     #displayVideos :is(iframe), #touchOverlay {
         /* top: 1.5em; */
         position: absolute;
@@ -345,6 +385,7 @@ body{
         background-color: var(--second);
         border-radius: 5px;
     }
+
 #buttonHolder {
     position: absolute;
     width: 100vw;
@@ -354,6 +395,7 @@ body{
     top: calc((100dvh - 10em));
     left: 0em;
 }
+
     #buttonHolder :is(div) {
         position: absolute;
         background-color: var(--second);
@@ -364,19 +406,23 @@ body{
         place-items: center;
         padding: 0.5em;
     }
-#leftButton{
+
+#leftButton {
     left: calc((100vw - ((100dvh - 10em) * (9/16)))/2);
 }
-#rightButton{
+
+#rightButton {
     right: calc((100vw - ((100dvh - 10em) * (9/16)))/2);
 }
-#swipeScreen{
+
+#swipeScreen {
     display: none;
     place-items: left;
     display: block;
     opacity: 0;
     transition: 0.5s;
 }
+
 #swFirst, #creator, #swDiff, #swTopic, #exitsw {
     padding-top: 1em;
     display: flex;
@@ -384,83 +430,97 @@ body{
     height: 2em;
     align-items: center;
 }
-.swText{
+
+.swText {
     color: var(--swText);
     font-size: 1.6em;
 }
+
 #swDrag {
     background-color: var(--swText);
     color: var(--text);
-    width: 10em;
+    width: max-content;
     border-radius: 5px;
     padding: 1em;
 }
-#swGive{
+
+#swGive {
     background-color: var(--accent);
     width: 10em;
     height: 4em;
     border-radius: 10%;
     padding: 1em;
 }
-#swLine{
-    width: calc(100vw - 8em);
-    left: 4em;
+
+#swLine {
+    width: calc(100vw - (4 * var(--margin)));
+    left: calc(2 * var(--margin));
     height: 0.1em;
     background-color: var(--swText);
     margin-top: 1em;
 }
-#teInput{
+
+#teInput {
     font-size: 20px;
     height: 30px;
 }
+
 #touchOverlay {
     position: absolute;
     z-index: 9999;
     background: transparent;
     display: none;
 }
-#playground{
+
+#playground {
     position: absolute;
-    left:0;
-    top:0;
+    left: 0;
+    top: 0;
     height: calc(100dvh - var(--margin));
     width: 100vw;
     overflow-y: scroll;
     text-wrap: normal;
-    z-index:5;
-    opacity:0;
-    padding-top:3em;
+    z-index: 5;
+    opacity: 0;
+    padding-top: 3em;
 }
-#playground :is(span, text, button){
-    color: var(--swText);
-}
+
+    #playground :is(span, text, button) {
+        color: var(--swText);
+    }
+
     #playground :is(button) {
         border: 1px solid var(--swText);
     }
-.pgMain{
+
+.pgMain {
     display: flex;
     width: 100vw;
     height: 8em;
     padding-top: 1em;
     padding-bottom: 1em;
-    margin-bottom:0.5em;
-    margin-top:0.5em;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
 }
-.pgData{
-    overflow-x:scroll !important;
+
+.pgData {
+    overflow-x: scroll !important;
 }
+
 .pgButtonHold {
     display: flex;
     transition: 0s;
     width: -webkit-fill-available;
     margin-top: 0.5em;
 }
+
 .pgP {
     display: grid;
     left: var(--margin);
     position: absolute;
     width: calc(100vw - 3*var(--margin) - calc(((2*var(--margin) * var(--screenWidthRatio)))));
 }
+
 .pgCover {
     position: absolute;
     left: calc(100vw - var(--margin) - (2*var(--margin) * var(--screenWidthRatio)));
@@ -470,30 +530,35 @@ body{
     border: 1px solid var(--textColor) !important;
     opacity: 0 !important;
 }
-#allHold{
+
+#allHold {
     z-index: 6;
     position: absolute;
     left: 0;
-    top:0;
-    width:100vw;
+    top: 0;
+    width: 100vw;
     height: 100dvh;
-	transition: 0.5s;
+    transition: 0.5s;
 }
-body, #allHold, #playground{
-	overflow-x: hidden;
+
+body, #allHold, #playground {
+    overflow-x: hidden;
 }
+
 *::-webkit-scrollbar {
-  display: none;
+    display: none;
 }
 
 /* Hide scrollbar for IE, Edge and Firefox */
 * {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
 }
-.pgFlex{
+
+.pgFlex {
     display: flex;
 }
+
 button {
     border: 1px solid var(--text);
     margin-right: 1em;
@@ -503,15 +568,18 @@ button {
     display: inline-block;
     max-width: max-content;
 }
+
 #pgTitle {
     top: 2.5em;
-    display: flex;
+    display: none;
     margin-left: 1em;
     margin-right: 1.5em;
     width: max-content;
     background-color: rgba(0,0,0,0);
     z-index: 1000;
+    transition: 0.5s;
 }
+
     #pgTitle :is(b) {
         margin-right: 0.5em;
         width: 50vw;
@@ -520,6 +588,7 @@ button {
         justify-content: left;
         align-items: center;
     }
+
     #pgTitle :is(button) {
         /* margin-left: 0.5em; */
         width: var(--margin);
@@ -527,36 +596,46 @@ button {
         margin-right: 0.5em;
         padding-right: 0.5em;
     }
-#pgTitle{
-    display:none;
-    margin-top:1em;
+
+#pgTitle {
+    display: none;
+    position: absolute;
 }
-.uBall{
+
+.uBall {
     transition: 1s;
 }
+
 .pgP :is(span):not(.pgData) {
     color: var(--emphText) !important;
 }
+
 span.pgData {
     text-align: right;
     width: -webkit-fill-available;
 }
+
 .pgButtonHold.special :nth-child(1) {
     margin-right: 0.5em;
 }
+
 .pgButtonHold.special :nth-child(2) {
     margin-left: 0.5em;
 }
+
 .pgButtonHold.nonspecial :nth-child(1) {
     margin-right: 0.5em;
 }
+
 .pgButtonHold.nonspecial :nth-child(2) {
     margin-left: 0.5em;
     margin-right: 0.5em;
 }
+
 .pgButtonHold.nonspecial :nth-child(3) {
     margin-left: 0.5em;
 }
+
 button {
     border: 1px solid var(--text);
     /* margin-right: 1em; */
@@ -566,21 +645,25 @@ button {
     display: inline-block;
     /* max-width: max-content; */
 }
+
 #b1, #b2, #b3, button {
     /* padding: 0.25em; */
     /* margin-bottom: 0.25em; */
     width: 100%;
     min-height: 0;
 }
+
 #playground :is(button) {
     border: 1px solid var(--swText);
     width: -webkit-fill-available;
     background-color: var(--emphBg);
     /* color: var(--text) !important; */
 }
-.nstLower{
+
+.nstLower {
     color: var(--swText);
 }
-#titleBar :is(a){
+
+#titleBar :is(a) {
     text-decoration: underline;
 }

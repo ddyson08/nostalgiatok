@@ -134,7 +134,7 @@ words = {
         "", //12
         "if you wanna save your nostalgia for later, name it here", //13
         "or not, thats ok", //14
-        "video pool", //15
+        "fishing out your videos", //15
         "a whole lot of 'em", //16
         "player", //17
         "ts plays videos", //18
@@ -294,6 +294,8 @@ function startFollow() {
     document.querySelector('#swFirst').append(document.querySelector('#swDrag'));
     document.querySelector('#swDrag').innerText = "";
     SF = true;
+  //  document.querySelector('#swDrag').style.width = "calc(100vw - (2 * var(--margin)) - " + document.querySelector('#swDrag').getBoundingClientRect().x + "px)";
+
 }
 function endFollow() {
     SF = false;
@@ -323,9 +325,16 @@ function openAh() {
     ah.style.height = "100dvh";
     ah.setAttribute('onclick', '');
     document.querySelector('#playground').style.opacity = 0;
+    document.querySelector('#uvula').style.opacity = 0;
+    document.querySelector('#uvula').style.display = "none";
 }
 function editModeAnimation() {
-    document.querySelector('#pgTitle').style.display = "fixed";
+    document.querySelector('#pgTitle').style.opacity = 1;
+    document.querySelector('#pgTitle').querySelector('b').innerText = "Search History";
+    document.querySelector('#pgTitle').querySelector('button').innerText = "X";
+    setTimeout(function () {
+        document.querySelector('#pgTitle').style.display = "flex";
+    }, 500);
     oldUser.year = user.year;
     oldUser.preferences = user.preferences;
     oldUser.topics = user.topics;
@@ -528,9 +537,13 @@ function pgCancel(text) {
             ah.style.width = "100vw";
             ah.style.height = "100dvh";
             canEMA = true;
-            document.querySelector('#pgTitle').style.display = "none";
+           document.querySelector('#pgTitle').style.opacity = 0;
+            setTimeout(function () {
+                document.querySelector('#pgTitle').style.display = "none";
+            }, 500);
         }, 100);
     } else {
+        document.querySelector('#uvula').style.display = "none";
         pg1.remove();
         if ([...document.querySelectorAll('.pgButtonHold')].length < 2) {
             document.querySelector('.pgButtonHold').innerHTML = `<button style="display:none" onclick="eMA2(false, this)">search this now</button><button onclick="eMA2(true, this)">search again!</button><button id="pgSN" onclick="eMA2(true, this, true)">search new</button>`;
@@ -547,12 +560,13 @@ function pgCancel(text) {
                 <div id="rightButton" class="sideButton" words="27"></div>
             </div>
         </div>`;
+
         document.querySelector('#fullscreenButton').style.display = "block";
         runAnimation(true);
         editModeAnimation();
         var pgt = document.querySelector('#pgTitle');
         pgt.querySelector('button').innerText = "X";
-        document.querySelector('#uvula').style.display = "none";
+        
         pgt.querySelector('b').innerText = "Search History";
     }
 }
@@ -764,7 +778,7 @@ window.onload = function () {
         root.style.setProperty('--accent', 'HSL(152, 6%, 15%)');
         root.style.setProperty('--second', 'HSL(340, 100%, 10%)');
         root.style.setProperty('--text', 'HSL(60, 10%, 60%)');
-        root.style.setProperty('--oj', 'HSL(60, 2%, 2%)');
+        root.style.setProperty('--oj', ' HSL(11, 42%, 20%)');
         root.style.setProperty('--swText', 'HSL(152, 6%, 50%)');
         root.style.setProperty('--lightText', 'HSL(60, 56%, 10%)');
         root.style.setProperty('--lightText', 'HSL(60, 56%, 10%)');
@@ -816,6 +830,7 @@ window.onload = function () {
                 document.querySelector('#swDrag').innerText = "-->";
                
             }
+            document.querySelector('#swDrag').style.width = "calc(100vw - (2 * var(--margin)) - " + document.querySelector('#swDrag').getBoundingClientRect().x + "px)";
             document.querySelector(closest[1]).append(document.querySelector('#swDrag'))
 
         }
@@ -1502,6 +1517,10 @@ user = {
 }
 var ra = false;
 function runAnimation(bypass) {
+    document.querySelector('#pgTitle').style.opacity = 0;
+    setTimeout(function () {
+        document.querySelector('#pgTitle').style.display = "none";
+    }, 500);
     var multiplier = 1;
     if (bypass) {
         multiplier = 0.1
@@ -1596,12 +1615,35 @@ try{
                         ooh.style.height = "calc(20dvh - (var(--ballSize) / 2))";
                         ooh.style.top = "calc(50% + 30dvh - (var(--ballSize) / 2))";
                         mem.style.top = "calc(50% - var(--margin) + 20dvh)";
+                        for (var i of document.querySelectorAll(".teShape")) {
+                            if (Math.random() < 0.5) {
+                                i.style.backgroundColor = "var(--oj)";
+                                i.style.opacity = "1";
+
+                                //  i.innerHTML = "";
+                                i.style.filter = "";
+                                /*  if (i.children.length == 0) {
+                                      var three = i.getBoundingClientRect().width * 0.3;
+                                      var tee = document.createElement('div');
+                                      tee.setAttribute('style', `
+                                          width: 0; 
+                                          height: 0; 
+                                          border-top: `+ three + `px solid var(--oj);
+                                          border-bottom: `+ three + `px solid var(--oj);
+                                          
+                                          border-left: `+ three + `px solid var(--accent);
+                                      `);
+                                      i.append(tee);
+                                  }
+                                      */
+                            }
+                        }
                         setTimeout(function () {
                             q.style.top = "calc(-50dvh + 4em)";
                             ooh.style.height = "calc(50dvh - (var(--ballSize) / 2))";
                             ooh.style.top = "calc(50%)"
                             mem.style.top = "calc(50% - 0.5em)";
-                            for (var i of document.querySelectorAll(".teShape")) {
+                          /*  for (var i of document.querySelectorAll(".teShape")) {
                                 var r = Math.floor(Math.random() * 3);
                                 if (r == 0) {
                                     i.style.backgroundColor = "var(--oj)";
@@ -1619,7 +1661,7 @@ try{
          `);
          
                                      i.append(tee);
-                                     */
+                                     
                                 }
                                 if (r == 1) {
                                     i.style.backgroundColor = "var(--oj)";
@@ -1640,20 +1682,44 @@ try{
            `);
                                            i.append(tee);
                                        }
-                                           */
+                                           
                                 }
-                            }
+                    }
+                        */
                             setTimeout(function () {
                                 q.style.top = "calc(1em)";
                                 ooh.style.height = "calc(20dvh - (var(--ballSize) / 2))";
                                 ooh.style.top = "calc(50% + 30dvh - (var(--ballSize) / 2))";
                                 mem.style.top = "calc(50% - var(--margin) + 20dvh)";
+                                for (var ayi of document.querySelectorAll(".teShape")) {
+
+                                    ayi.style.backgroundColor = "var(--oj)";
+                                    ayi.style.opacity = "1";
+
+                                    //  i.innerHTML = "";
+                                    ayi.style.filter = "";
+                                    /*  if (i.children.length == 0) {
+                                          var three = i.getBoundingClientRect().width * 0.3;
+                                          var tee = document.createElement('div');
+                                          tee.setAttribute('style', `
+                                              width: 0; 
+                                              height: 0; 
+                                              border-top: `+ three + `px solid var(--oj);
+                                              border-bottom: `+ three + `px solid var(--oj);
+                                              
+                                              border-left: `+ three + `px solid var(--accent);
+                                          `);
+                                          i.append(tee);
+                                      }
+                                          */
+
+                                }
                                 setTimeout(function () {
                                     q.style.top = "calc(-50dvh + 4em)";
                                     ooh.style.height = "calc(50dvh - (var(--ballSize) / 2))";
                                     ooh.style.top = "calc(50%)"
                                     mem.style.top = "calc(50% - 0.5em)";
-                                    for (var i of document.querySelectorAll(".teShape")) {
+                                   /* for (var i of document.querySelectorAll(".teShape")) {
                                         if (i.style.backgroundColor != "var(--oj)") {
                                             i.style.backgroundColor = "var(--oj)";
                                             i.style.opacity = "0.5";
@@ -1664,37 +1730,18 @@ try{
                                             }
                                             break;
                                         }
-                                    }
+                                    }*/
                                     setTimeout(function () {
                                         q.style.top = "calc(1em)";
                                         ooh.style.height = "calc(20dvh - (var(--ballSize) / 2))";
                                         ooh.style.top = "calc(50% + 30dvh - (var(--ballSize) / 2))";
                                         mem.style.top = "calc(50% - var(--margin) + 20dvh)";
+                                       
                                         setTimeout(function () {
                                             q.style.top = "calc(-50dvh + 4em)";
                                             ooh.style.height = "calc(50dvh - (var(--ballSize) / 2))";
                                             ooh.style.top = "calc(50%)"
                                             mem.style.top = "calc(50% - 0.5em)";
-                                            for (var i of document.querySelectorAll(".teShape")) {
-                                                i.style.backgroundColor = "var(--oj)";
-                                                i.style.opacity = "1";
-                                                //  i.innerHTML = "";
-                                                i.style.filter = "";
-                                                /*  if (i.children.length == 0) {
-                                                      var three = i.getBoundingClientRect().width * 0.3;
-                                                      var tee = document.createElement('div');
-                                                      tee.setAttribute('style', `
-                                                          width: 0; 
-                                                          height: 0; 
-                                                          border-top: `+ three + `px solid var(--oj);
-                                                          border-bottom: `+ three + `px solid var(--oj);
-                                                          
-                                                          border-left: `+ three + `px solid var(--accent);
-                                                      `);
-                                                      i.append(tee);
-                                                  }
-                                                      */
-                                            }
                                             if (!bypass) {
                                                 swapTe(17, function () { }, 18, function () { }, true);
                                             }
@@ -1705,6 +1752,8 @@ try{
                                                 ooh.style.top = "calc(50% + 30dvh - (var(--ballSize) / 2))";
                                                 mem.style.top = "calc(50% - var(--margin) + 20dvh)";
                                                 document.querySelector('#textEnter').style.background = "";
+                                               
+                                                
 
                                                 /* setTimeout(function(){var v = q.getBoundingClientRect()
                                                  for(var j of [...document.querySelector('.uBall').children]){
@@ -1713,18 +1762,42 @@ try{
                                                              j.style.opacity = "0";
                                                          }
                                                      }}, 600) */
-
                                                 setTimeout(function () {
+                                                    document.querySelector('.uBall').style.overflow = "visible";
+                                                    for (var ji of document.querySelectorAll(".teShape")) {
+                                                        ji.style.transition = "1s";
+                                                        ji.style.width = "calc(2 * var(--ballSize))";
+                                                        ji.style.height = "calc(2 * var(--ballSize))";
+                                                        ji.style.marginLeft = "calc(-1 * var(--ballSize))";
+                                                        ji.style.marginTop = "calc(-1 * var(--ballSize))"
+                                                        //ji.style.filter = "blur(2em)";
+                                                        ji.style.opacity = "0"
+                                                        ji.style.borderRadius = "50%";
+                                                    }
+                                                    setTimeout(function () {
+
+                                                        for (var jji of document.querySelectorAll(".teShape")) {
+                                                            jji.remove();
+
+                                                        }
+                                                    }, 1000)
+                                                }, 500);
+                                                
+                                                setTimeout(function () {
+                                                    
                                                     var t = document.querySelector('#textEnter')
-                                                    t.style.backgroundColor = "var(--bg)";
+                                                   t.style.backgroundColor = "var(--bg)";
                                                     t.style.color = "var(--bg)";
-                                                    t.style.opacity = "1";
+                                                  
+                                                    
                                                     t.style.background = "radial-gradient( circle at 100%, var(--bg), rgba(0,0,0,0.2) 50%, var(--bg) 75%, rgba(0,0,0,0.05) 75% );";
+                                                   
                                                     setTimeout(function () {
                                                         t.style.bottom = 0;
                                                         setTimeout(function () {
                                                             t.style.height = "calc(100dvh - 4em)";
                                                             t.style.maxHeight = "calc(100dvh - 4em)";
+                                                            t.style.opacity = "1";
                                                             setTimeout(function () {
                                                                 t.style.left = 0;
                                                                 t.style.width = "100vw";
@@ -2451,9 +2524,11 @@ function displaySwipe(lr) {
     z-index: 500;
     width: 100vw;
     height: calc(100dvh - var(--margin));
-    padding: 4em;
+    padding: calc(var(--margin));
    `)
     swsc.style.display = "block";
+    // document.querySelector('#swDrag').style.width = "calc(100vw - (2 * var(--margin)) - " + document.querySelector('#swDrag').getBoundingClientRect().x + "px)";
+   
     setTimeout(function () {
         swsc.style.opacity = 1;
 
