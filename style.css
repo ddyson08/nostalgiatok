@@ -14,8 +14,14 @@
     font-display: swap;
 }
 
+.elms-sans-unique {
+    font-family: "Elms Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 100;
+    font-style: normal;
+}
 body {
-    width: 100vw;
+    width: 100dvw;
 }
 
 html, body {
@@ -48,8 +54,8 @@ scrollable {
     --bg: HSL(60, 56%, 90%);
     --accent: HSL(152, 6%, 50%);
     --second: HSL(340, 65%, 40%);
-    --text: HSL(60, 56%, 90%);
-    --font: 'GlacialIndifference';
+    --text: HSL(60, 10%, 60%);
+    --font: 'Elms Sans';
     --ballSize: 10em;
     --oj: HSL(11, 42%, 58%);
     --swText: HSL(152, 6%, 50%);
@@ -58,6 +64,8 @@ scrollable {
     --emphBg: HSL(60, 2%, 96%);
     --contrast: HSL(60, 2%, 80%);
     --margin: 1em;
+    --emphasizedText: HSL(60, 10%, 80%);
+    --lighterText: 18px;
 }
 
 @media (orientation: landscape) {
@@ -86,7 +94,7 @@ scrollable {
 * {
     background-color: var(--bg);
     color: var(--text);
-    font-family: var(--font), system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-family: var(--font), system-ui, -apple-system, "Elms Sans", Roboto, "Helvetica Neue", Arial, sans-serif;
     font-size: 24px;
     line-height: 1.2;
     user-select: none;
@@ -108,7 +116,7 @@ scrollable {
     place-items: center;
     position: absolute;
     top: calc(100dvh - 4em);
-    left: 10vw;
+    left: 10dvw;
     z-index: 2000;
 }
 
@@ -154,7 +162,7 @@ body {
     position: absolute;
     top: -50dvh;
     left: 0px;
-    width: 100vw;
+    width: 100dvw;
     height: 150dvh;
     z-index: 0;
     transition: 0.5s;
@@ -164,7 +172,7 @@ body {
     transition: 0.5s;
     background-color: var(--second);
     color: var(--text);
-    width: calc(100vw - (4 * var(--margin)) - 2em);
+    width: calc(100dvw - (4 * var(--margin)) - 2em);
     height: max-content;
     padding-left: 1em;
     padding-right: 1em;
@@ -174,7 +182,7 @@ body {
     min-height: 0;
     position: absolute;
     bottom: 2em;
-    left: calc(100vw + (2 * var(--margin)));
+    left: calc(100dvw + (2 * var(--margin)));
     display: block;
     z-index: 100;
     overflow: hidden;
@@ -218,6 +226,7 @@ button {
     width: 100%;
     min-height: 0;
     padding: 0 !important;
+    color: var(--emphasizedText);
 }
 
 #b4 {
@@ -256,6 +265,7 @@ html, body {
     transition: 0.5s;
     width: max-content !important;
     min-width: 5ch;
+    color: var(--text);
 }
 
 body {
@@ -288,7 +298,7 @@ body {
     width: var(--ballSize);
     height: 100dvh;
     top: calc(-50dvh + 1.5em);
-    left: calc(50vw - (var(--ballSize) / 2));
+    left: calc(50dvw - (var(--ballSize) / 2));
     z-index: 1;
     background-color: rgba(0,0,0,0);
     transition: opacity 0.5s, top 0.5s, z-index 0.5s, background-color 0.5s, margin-top 0.5s, width 0.5s, height 0.5s, position 0.5s, left 0.5s, margin-left 0.5s, filter 0.5s !important;
@@ -371,7 +381,7 @@ body {
 #displayVideos {
     transition: 0.5s;
     opacity: 0;
-    width: 100vw;
+    width: 100dvw;
     height: calc(100dvh - 6em);
     max-height: calc(100dvh - 4em);
     background-color: var(--bg);
@@ -384,7 +394,7 @@ body {
     #displayVideos :is(iframe), #touchOverlay {
         /* top: 1.5em; */
         position: absolute;
-        left: calc((100vw - ((100dvh - 10em) * (9/16)))/2);
+        left: calc((100dvw - ((100dvh - 10em) * (9/16)))/2);
         height: calc(100dvh - 10em);
         width: calc(calc(100dvh - 10em) * (9/16));
         background-color: var(--second);
@@ -393,7 +403,7 @@ body {
 
 #buttonHolder {
     position: absolute;
-    width: 100vw;
+    width: 100dvw;
     display: grid;
     height: 4em !important;
     place-items: center;
@@ -413,11 +423,11 @@ body {
     }
 
 #leftButton {
-    left: calc((100vw - ((100dvh - 10em) * (9/16)))/2);
+    left: calc((100dvw - ((100dvh - 10em) * (9/16)))/2);
 }
 
 #rightButton {
-    right: calc((100vw - ((100dvh - 10em) * (9/16)))/2);
+    right: calc((100dvw - ((100dvh - 10em) * (9/16)))/2);
 }
 
 #swipeScreen {
@@ -443,7 +453,7 @@ body {
 
 #swDrag {
     background-color: var(--swText);
-    color: var(--text);
+    color: var(--emphasizedText);
     width: max-content;
     border-radius: 5px;
     padding: 1em;
@@ -458,7 +468,7 @@ body {
 }
 
 #swLine {
-    width: calc(100vw - (4 * var(--margin)));
+    width: calc(100dvw - (4 * var(--margin)));
     left: calc(2 * var(--margin));
     height: 0.1em;
     background-color: var(--swText);
@@ -482,31 +492,35 @@ body {
     left: 0;
     top: 0;
     height: calc(100dvh - var(--margin));
-    width: 100vw;
+    width: 100dvw;
     overflow-y: scroll;
     text-wrap: normal;
     z-index: 5;
     opacity: 0;
     padding-top: 3em;
+    color: var(--text) !important;
 }
 
     #playground :is(span, text, button) {
-        color: var(--swText);
+        color: var(--text);
     }
 
     #playground :is(button) {
-        border: 1px solid var(--swText);
+        border: 1px solid var(--text);
+        background-color: var(--bg);
+        color: var(--emphasizedText);
     }
+  
 
-.pgMain {
-    display: flex;
-    width: 100vw;
-    height: 8em;
-    padding-top: 1em;
-    padding-bottom: 1em;
-    margin-bottom: 0.5em;
-    margin-top: 0.5em;
-}
+    .pgMain {
+        display: flex;
+        width: 100dvw;
+        height: 8em;
+        padding-top: 1em;
+        padding-bottom: 1em;
+        margin-bottom: 0.5em;
+        margin-top: 0.5em;
+    }
 
 .pgData {
     overflow-x: scroll !important;
@@ -523,12 +537,12 @@ body {
     display: grid;
     left: var(--margin);
     position: absolute;
-    width: calc(100vw - 3*var(--margin) - calc(((2*var(--margin) * var(--screenWidthRatio)))));
+    width: calc(100dvw - 3*var(--margin) - calc(((2*var(--margin) * var(--screenWidthRatio)))));
 }
 
 .pgCover {
     position: absolute;
-    left: calc(100vw - var(--margin) - (2*var(--margin) * var(--screenWidthRatio)));
+    left: calc(100dvw - var(--margin) - (2*var(--margin) * var(--screenWidthRatio)));
     height: calc(2*var(--margin)) !important;
     width: calc(2 * var(--margin) * var(--screenWidthRatio));
     border-radius: 5px !important;
@@ -541,7 +555,7 @@ body {
     position: absolute;
     left: 0;
     top: 0;
-    width: 100vw;
+    width: 100dvw;
     height: 100dvh;
     transition: 0.5s;
 }
@@ -572,6 +586,7 @@ button {
     padding-left: 0.25em;
     display: inline-block;
     max-width: max-content;
+    font-size: var(--lighterText);
 }
 
 #pgTitle {
@@ -587,7 +602,7 @@ button {
 
     #pgTitle :is(b) {
         margin-right: 0.5em;
-        width: 50vw;
+        width: 50dvw;
         vertical-align: text-bottom;
         display: flex;
         justify-content: left;
@@ -606,13 +621,17 @@ button {
     display: none;
     position: absolute;
 }
-
+#playground :is(.primaryButton), #pgTitle :is(.primaryButton), [words = "38"] {
+    background-color: var(--emphasizedText) !important;
+    color: var(--bg) !important;
+}
 .uBall {
     transition: 1s;
 }
 
-.pgP :is(span):not(.pgData) {
-    color: var(--emphText) !important;
+.primaryButton{
+    background-color: var(--text);
+    color: var(--second);
 }
 
 span.pgData {
@@ -659,14 +678,14 @@ button {
 }
 
 #playground :is(button) {
-    border: 1px solid var(--swText);
+    border: 1px solid var(--text);
     width: -webkit-fill-available;
-    background-color: var(--emphBg);
+    background-color: var(--bg);
     /* color: var(--text) !important; */
 }
 
 .nstLower {
-    color: var(--swText);
+    color: var(--text);
 }
 
 #titleBar :is(a) {
