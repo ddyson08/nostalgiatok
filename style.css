@@ -87,7 +87,7 @@ scrollable {
     display: grid;
     place-items: center;
     position: absolute;
-    top: calc(100vh - 4em);
+    top: calc(100dvh - 4em);
     left: 10vw;
     z-index: 2000;
 }
@@ -96,7 +96,7 @@ div#buttonHolder::before {
     position: absolute;
     top: 0;
     left: 50%;
-    width: calc((100vh - 10em) * (9/16));
+    width: calc((100dvh - 10em) * (9/16));
     height: 1%;
     transform: translateX(-50%) translateY(9900%);
     background: var(--lightTxt);
@@ -125,10 +125,10 @@ body {
 #background {
     background: radial-gradient( circle at 100%, var(--bg), var(--contrast) 50%, var(--bg) 75%, var(--contrast) 100% );
     position: absolute;
-    top: -50vh;
+    top: -50dvh;
     left: 0px;
     width: 100vw;
-    height: 150vh;
+    height: 150dvh;
     z-index: 0;
     transition: 0.5s;
 }
@@ -216,9 +216,9 @@ html, body {
     transition: 0.5s;
 }
 body{
-    top: 0vh;
-    min-height: 100vh;
-    max-height: 100vh;
+    top: 0dvh;
+    min-height: 100dvh;
+    max-height: 100dvh;
     margin:0;
     padding:0;
 }
@@ -238,8 +238,8 @@ body{
     will-change: transform;
     position: relative;
     width: var(--ballSize);
-    height: 100vh;
-    top: calc(-50vh + 1.5em);
+    height: 100dvh;
+    top: calc(-50dvh + 1.5em);
     left: calc(50vw - (var(--ballSize) / 2));
     z-index: 1;
     background-color: rgba(0,0,0,0);
@@ -274,7 +274,7 @@ body{
 #uLine {
     position: absolute;
     top: 50%;
-    height: calc(50vh - (var(--ballSize) / 2));
+    height: calc(50dvh - (var(--ballSize) / 2));
     width: 1em;
     left: calc(50% - 0.5em);
     background-color: var(--accent);
@@ -316,8 +316,8 @@ body{
     transition: 0.5s;
     opacity: 0;
     width: 100vw;
-    height: calc(100vh - 6em);
-    max-height: calc(100vh - 4em);
+    height: calc(100dvh - 6em);
+    max-height: calc(100dvh - 4em);
     background-color: var(--bg);
     color: var(--text);
     position: absolute;
@@ -327,9 +327,9 @@ body{
     #displayVideos :is(iframe), #touchOverlay {
         /* top: 1.5em; */
         position: absolute;
-        left: calc((100vw - ((100vh - 10em) * (9/16)))/2);
-        height: calc(100vh - 10em);
-        width: calc(calc(100vh - 10em) * (9/16));
+        left: calc((100vw - ((100dvh - 10em) * (9/16)))/2);
+        height: calc(100dvh - 10em);
+        width: calc(calc(100dvh - 10em) * (9/16));
         background-color: var(--second);
         border-radius: 5px;
     }
@@ -339,7 +339,7 @@ body{
     display: grid;
     height: 4em !important;
     place-items: center;
-    top: calc((100vh - 10em));
+    top: calc((100dvh - 10em));
     left: 0em;
 }
     #buttonHolder :is(div) {
@@ -353,10 +353,10 @@ body{
         padding: 0.5em;
     }
 #leftButton{
-    left: calc((100vw - ((100vh - 10em) * (9/16)))/2);
+    left: calc((100vw - ((100dvh - 10em) * (9/16)))/2);
 }
 #rightButton{
-    right: calc((100vw - ((100vh - 10em) * (9/16)))/2);
+    right: calc((100vw - ((100dvh - 10em) * (9/16)))/2);
 }
 #swipeScreen{
     display: none;
@@ -411,7 +411,7 @@ body{
     position: absolute;
     left:0;
     top:0;
-    height: calc(100vh - var(--margin));
+    height: calc(100dvh - var(--margin));
     width: 100vw;
     overflow-y: scroll;
     text-wrap: normal;
@@ -464,7 +464,7 @@ body{
     left: 0;
     top:0;
     width:100vw;
-    height: 100vh;
+    height: 100dvh;
 	transition: 0.5s;
 }
 body, #allHold, #playground{

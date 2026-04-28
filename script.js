@@ -236,7 +236,7 @@ function jumpLogo() {
     logo.style.transition = "0.25s";
     logo.style.transitionTimingFunction = "ease-in";
     var l = logo.style.top;
-    logo.style.top = "20vh";
+    logo.style.top = "20dvh";
     setTimeout(function (l) { logo.style.transform = "rotateZ(360deg)"; }, 200, l);
     setTimeout(function () {
         logo.style.transitionTimingFunction = "ease-out";
@@ -320,7 +320,7 @@ function openAh() {
     ah.style.top = "0";
     ah.style.left = "0";
     ah.style.width = "100vw";
-    ah.style.height = "100vh";
+    ah.style.height = "100dvh";
     ah.setAttribute('onclick', '');
     document.querySelector('#playground').style.opacity = 0;
 }
@@ -496,7 +496,7 @@ function eMA2(simmilar, pgGivenData, neww) {
                 ah.style.top = "0";
                 ah.style.left = "0";
                 ah.style.width = "100vw";
-                ah.style.height = "100vh";
+                ah.style.height = "100dvh";
                 canEMA = true;
             }, 1000)
         }, 50)
@@ -526,7 +526,7 @@ function pgCancel(text) {
             ah.style.top = "0";
             ah.style.left = "0";
             ah.style.width = "100vw";
-            ah.style.height = "100vh";
+            ah.style.height = "100dvh";
             canEMA = true;
             document.querySelector('#pgTitle').style.display = "none";
         }, 100);
@@ -746,12 +746,12 @@ window.onload = function () {
 
     fullsc = 'no';
     sVl = {
-        no: ["calc(((100vw - ((100vh - 10em) * (9/16)))/2) + calc((100vh - 10em) * (9/16)))", "calc(((100vw - ((100vh - 10em) * (9/16)))/2) - 0.5em)", "calc(((100vw - ((100vh - 10em) * (9/16)))/2) + calc((100vh - 10em) * (9/16)))"],
+        no: ["calc(((100vw - ((100dvh - 10em) * (9/16)))/2) + calc((100dvh - 10em) * (9/16)))", "calc(((100vw - ((100dvh - 10em) * (9/16)))/2) - 0.5em)", "calc(((100vw - ((100dvh - 10em) * (9/16)))/2) + calc((100dvh - 10em) * (9/16)))"],
         yes: ["calc(100vw - 0.25em)", "-0.25em", "calc(100vw - 0.25em)"]
     }
     sVt = {
-        no: ["calc(100vh - 10em + 4em)", "3.5em"],
-        yes: ["calc(100vh - 0.25em)", "0.25em"]
+        no: ["calc(100dvh - 10em + 4em)", "3.5em"],
+        yes: ["calc(100dvh - 0.25em)", "0.25em"]
     }
     var Arr = [];
     var posinar = 0;
@@ -1269,7 +1269,7 @@ function nextSaved() {
             setTimeout(function () {
                 console.warn("4 cleanup:", document.querySelector('#textEnter').innerHTML);
                 q.setAttribute('style', 'transition: 2s; left:' + (qqq.x) + 'px; top:' + (qqq.y) + 'px; opacity: 1; background-color: var(--accent); width:' + (qqq.width) + 'px; height:' + (qqq.height) + 'px; z-index: 1000; filter: blur(0.25em);');
-                document.querySelector('.uBall').setAttribute('style', 'position: fixed; opacity: 0; left: -70vw; top:-20vh; width: 180vw; height: 180vw; filter: blur(0.25em);');
+                document.querySelector('.uBall').setAttribute('style', 'position: fixed; opacity: 0; left: -70vw; top:-20dvh; width: 180vw; height: 180vw; filter: blur(0.25em);');
               //  document.querySelector('#uvula').style.transition = "opacity 1s, top 1s, z-index 1s, background-color 1s, margin-top 1s, width 1s, height 1s, position 1s, left 1s, transform 0s, margin-left 1s, filter 1s  ";
             }, 100);
             setTimeout(function () {
@@ -1282,10 +1282,10 @@ function nextSaved() {
                 Gaza.style.opacity = 0;
                 Gaza.style.position = "absolute";
                 Gaza.style.backgroundColor = "var(--bg)";
-                Gaza.style.top = "-150vh";
+                Gaza.style.top = "-150dvh";
                 Gaza.style.filter = "blur(0.25em)";
                 Gaza.style.width = "100vw";
-                Gaza.style.height = "100vh";
+                Gaza.style.height = "100dvh";
                 genNext(false, false, true);
                 var nBb = document.createElement('button'); nBb.setAttribute('id', 'teButton'); document.querySelector('#textEnter').append(nBb);
                 // document.querySelector('.uBall').style.filter = "";
@@ -1301,11 +1301,11 @@ function nextSaved() {
         setTimeout(function () {
             var ooh = document.querySelector('#uLine');
             var mem = document.querySelector('#uNameplate');
-            mem.style.marginTop = "calc(-50vh + 1.5em + 10vh - (var(--ballSize) / 2))";
-            ooh.style.height = "calc(10vh - (var(--ballSize) / 2))";
+            mem.style.marginTop = "calc(-50dvh + 1.5em + 10dvh - (var(--ballSize) / 2))";
+            ooh.style.height = "calc(10dvh - (var(--ballSize) / 2))";
             setTimeout(function () {
                 mem.style.marginTop = "";
-                ooh.style.height = "calc(50vh - (var(--ballSize) / 2))";
+                ooh.style.height = "calc(50dvh - (var(--ballSize) / 2))";
                 document.getElementById('uvula').style.transition = "opacity 0s, top 0s, z-index 0s, background-color 0s, margin-top 0s, width 0s, height 0s, position 0s, left 0s, margin-left 0s, filter 0s";
                 console.warn("7 cleanup:", document.querySelector('#textEnter').innerHTML);
             }, 500);
@@ -1445,9 +1445,9 @@ async function getSaved() {
         pl.style.opacity = 0;
         pl.style.position = "absolute";
         pl.style.backgroundColor = "var(--bg)";
-        pl.style.top = "-150vh";
+        pl.style.top = "-150dvh";
         pl.style.width = "100vw";
-        pl.style.height = "100vh";
+        pl.style.height = "100dvh";
         document.querySelector("#allHold").append(pl);
         swapTe(20, function () { }, 25, function () { });
        // setTimeout(function () { nextSaved();},1000)
@@ -1568,9 +1568,9 @@ try{
         var mem = document.querySelector('#uMiniball');
         setTimeout(function () {
             q.style.top = "calc(1em)";
-            ooh.style.height = "calc(20vh - (var(--ballSize) / 2))";
-            ooh.style.top = "calc(50% + 30vh - (var(--ballSize) / 2))";
-            mem.style.top = "calc(50% - var(--margin) + 20vh)";
+            ooh.style.height = "calc(20dvh - (var(--ballSize) / 2))";
+            ooh.style.top = "calc(50% + 30dvh - (var(--ballSize) / 2))";
+            mem.style.top = "calc(50% - var(--margin) + 20dvh)";
             funnyC = 0;
             setTimeout(function () {
 
@@ -1580,8 +1580,8 @@ try{
                 //document.querySelector('#uvula').style.transform = "rotateZ(0deg)";
 
                 setTimeout(function () {
-                    q.style.top = "calc(-50vh + 4em)";
-                    ooh.style.height = "calc(50vh - (var(--ballSize) / 2))";
+                    q.style.top = "calc(-50dvh + 4em)";
+                    ooh.style.height = "calc(50dvh - (var(--ballSize) / 2))";
                     ooh.style.top = "calc(50%)"
                     mem.style.top = "calc(50% - 0.5em)";
 
@@ -1593,12 +1593,12 @@ try{
                     // nn.style.filter = "";
                     setTimeout(function () {
                         q.style.top = "calc(1em)";
-                        ooh.style.height = "calc(20vh - (var(--ballSize) / 2))";
-                        ooh.style.top = "calc(50% + 30vh - (var(--ballSize) / 2))";
-                        mem.style.top = "calc(50% - var(--margin) + 20vh)";
+                        ooh.style.height = "calc(20dvh - (var(--ballSize) / 2))";
+                        ooh.style.top = "calc(50% + 30dvh - (var(--ballSize) / 2))";
+                        mem.style.top = "calc(50% - var(--margin) + 20dvh)";
                         setTimeout(function () {
-                            q.style.top = "calc(-50vh + 4em)";
-                            ooh.style.height = "calc(50vh - (var(--ballSize) / 2))";
+                            q.style.top = "calc(-50dvh + 4em)";
+                            ooh.style.height = "calc(50dvh - (var(--ballSize) / 2))";
                             ooh.style.top = "calc(50%)"
                             mem.style.top = "calc(50% - 0.5em)";
                             for (var i of document.querySelectorAll(".teShape")) {
@@ -1645,12 +1645,12 @@ try{
                             }
                             setTimeout(function () {
                                 q.style.top = "calc(1em)";
-                                ooh.style.height = "calc(20vh - (var(--ballSize) / 2))";
-                                ooh.style.top = "calc(50% + 30vh - (var(--ballSize) / 2))";
-                                mem.style.top = "calc(50% - var(--margin) + 20vh)";
+                                ooh.style.height = "calc(20dvh - (var(--ballSize) / 2))";
+                                ooh.style.top = "calc(50% + 30dvh - (var(--ballSize) / 2))";
+                                mem.style.top = "calc(50% - var(--margin) + 20dvh)";
                                 setTimeout(function () {
-                                    q.style.top = "calc(-50vh + 4em)";
-                                    ooh.style.height = "calc(50vh - (var(--ballSize) / 2))";
+                                    q.style.top = "calc(-50dvh + 4em)";
+                                    ooh.style.height = "calc(50dvh - (var(--ballSize) / 2))";
                                     ooh.style.top = "calc(50%)"
                                     mem.style.top = "calc(50% - 0.5em)";
                                     for (var i of document.querySelectorAll(".teShape")) {
@@ -1667,12 +1667,12 @@ try{
                                     }
                                     setTimeout(function () {
                                         q.style.top = "calc(1em)";
-                                        ooh.style.height = "calc(20vh - (var(--ballSize) / 2))";
-                                        ooh.style.top = "calc(50% + 30vh - (var(--ballSize) / 2))";
-                                        mem.style.top = "calc(50% - var(--margin) + 20vh)";
+                                        ooh.style.height = "calc(20dvh - (var(--ballSize) / 2))";
+                                        ooh.style.top = "calc(50% + 30dvh - (var(--ballSize) / 2))";
+                                        mem.style.top = "calc(50% - var(--margin) + 20dvh)";
                                         setTimeout(function () {
-                                            q.style.top = "calc(-50vh + 4em)";
-                                            ooh.style.height = "calc(50vh - (var(--ballSize) / 2))";
+                                            q.style.top = "calc(-50dvh + 4em)";
+                                            ooh.style.height = "calc(50dvh - (var(--ballSize) / 2))";
                                             ooh.style.top = "calc(50%)"
                                             mem.style.top = "calc(50% - 0.5em)";
                                             for (var i of document.querySelectorAll(".teShape")) {
@@ -1701,9 +1701,9 @@ try{
 
                                             setTimeout(function () {
                                                 q.style.top = "calc(1em)";
-                                                ooh.style.height = "calc(20vh - (var(--ballSize) / 2))";
-                                                ooh.style.top = "calc(50% + 30vh - (var(--ballSize) / 2))";
-                                                mem.style.top = "calc(50% - var(--margin) + 20vh)";
+                                                ooh.style.height = "calc(20dvh - (var(--ballSize) / 2))";
+                                                ooh.style.top = "calc(50% + 30dvh - (var(--ballSize) / 2))";
+                                                mem.style.top = "calc(50% - var(--margin) + 20dvh)";
                                                 document.querySelector('#textEnter').style.background = "";
 
                                                 /* setTimeout(function(){var v = q.getBoundingClientRect()
@@ -1723,14 +1723,14 @@ try{
                                                     setTimeout(function () {
                                                         t.style.bottom = 0;
                                                         setTimeout(function () {
-                                                            t.style.height = "calc(100vh - 4em)";
-                                                            t.style.maxHeight = "calc(100vh - 4em)";
+                                                            t.style.height = "calc(100dvh - 4em)";
+                                                            t.style.maxHeight = "calc(100dvh - 4em)";
                                                             setTimeout(function () {
                                                                 t.style.left = 0;
                                                                 t.style.width = "100vw";
                                                                 setTimeout(function () {
-                                                                    t.style.height = "100vh";
-                                                                    t.style.maxHeight = "100vh"
+                                                                    t.style.height = "100dvh";
+                                                                    t.style.maxHeight = "100dvh"
                                                                     t.style.bottom = "-var(--margin)";
                                                                     var v = document.querySelector('#displayVideos');
                                                                     v.style.opacity = "1";
@@ -1803,11 +1803,11 @@ function requestTheFullscreen(a) {
         fullsc = 'yes';
 		document.querySelector('#uvula').style.display = "none";
     video.style.width = "100vw";
-    video.style.height = "100vh";
+    video.style.height = "100dvh";
     video.style.left = "0";
     video.style.top = "-4em";
      touchOverlay.style.width = "100vw";
-    touchOverlay.style.height = "100vh";
+    touchOverlay.style.height = "100dvh";
     touchOverlay.style.left = "0";
     touchOverlay.style.top = "0";
     Tee.style.zIndex = "152";
@@ -1823,13 +1823,13 @@ function requestTheFullscreen(a) {
         }
     } else {
         fullsc = 'no';
-        video.style.width = "calc(calc(100vh - 10em) * (9/16))";
-        video.style.height = "calc(-10em + 100vh)";
-        video.style.left = "calc((100vw - ((100vh - 10em) * (9/16)))/2)";
+        video.style.width = "calc(calc(100dvh - 10em) * (9/16))";
+        video.style.height = "calc(-10em + 100dvh)";
+        video.style.left = "calc((100vw - ((100dvh - 10em) * (9/16)))/2)";
         video.style.top = "0em";
-        touchOverlay.style.width = "calc(calc(100vh - 10em) * (9/16))";
-        touchOverlay.style.height = "calc(100vh - 10em)";
-        touchOverlay.style.left = "calc((100vw - ((100vh - 10em) * (9/16)))/2)"
+        touchOverlay.style.width = "calc(calc(100dvh - 10em) * (9/16))";
+        touchOverlay.style.height = "calc(100dvh - 10em)";
+        touchOverlay.style.left = "calc((100vw - ((100dvh - 10em) * (9/16)))/2)"
         touchOverlay.style.top = "4em";
         fullscreenButton.setAttribute('onclick', 'requestTheFullscreen(true)')
         fullscreenButton.innerText = '↘';
@@ -1904,7 +1904,7 @@ function reverseUball() {
                     i.style.top = "0";
                     i.style.left = "0";
                     i.style.width = "calc(40vw + 100vw)";
-                    i.style.height = "calc(40vw + 100vh)";
+                    i.style.height = "calc(40vw + 100dvh)";
                     i.style.opacity = 0;
                     i.style.backgroundColor = "var(--bg)";
                     i.style.zIndex = "100";
@@ -1927,7 +1927,7 @@ function reverseUball() {
             }, ((1000 / plList.length) * countt) + 500)
         }
         setTimeout(function () {
-            document.querySelector('#background').style.top = "-50vh";
+            document.querySelector('#background').style.top = "-50dvh";
             setTimeout(function () {
                 document.querySelector('.uBall').innerHTML = "";
                 funnyC = 1; newConsoleLog('HERE');
@@ -2375,9 +2375,9 @@ function makeShapes(n, y, extra, t, c) {
                     document.querySelector("#allHold").append(sh);
                     sh.style.borderRadius = properties[0];
                     sh.setAttribute('class', 'teShape');
-                    sh.style.top = "90vh";
+                    sh.style.top = "90dvh";
                     sh.style.left = "50vw";
-                    sh.style.height = "0vh";
+                    sh.style.height = "0dvh";
                     sh.style.left = "0vw";
                     sh.style.transition = "0.5s";
                     sh.style.position = "absolute";
@@ -2450,7 +2450,7 @@ function displaySwipe(lr) {
     position: absolute;
     z-index: 500;
     width: 100vw;
-    height: calc(100vh - var(--margin));
+    height: calc(100dvh - var(--margin));
     padding: 4em;
    `)
     swsc.style.display = "block";
@@ -2640,9 +2640,9 @@ function swipeUp() {
                 setTimeout(function () {
                     if (fullsc == 'no') {
                         bigJu.style.opacity = 1;
-                        bigJu.style.width = "calc((100vh - 10em) * (9/16))";
-                        bigJu.style.height = "calc(100vh - 10em)";
-                        bigJu.style.left = "calc((100vw - ((100vh - 10em) * (9/16)))/2)";
+                        bigJu.style.width = "calc((100dvh - 10em) * (9/16))";
+                        bigJu.style.height = "calc(100dvh - 10em)";
+                        bigJu.style.left = "calc((100vw - ((100dvh - 10em) * (9/16)))/2)";
                         bigJu.style.borderRadius = "5px";
                         bigJu.style.top = "4em";
                         bigJu.style.transform = "rotate(360deg)";
@@ -2663,7 +2663,7 @@ function swipeUp() {
                     } else {
                         bigJuf.style.opacity = 1;
                         bigJuf.style.width = "100vw";
-                        bigJuf.style.height = "100vh";
+                        bigJuf.style.height = "100dvh";
                         bigJuf.style.left = "0";
                         bigJuf.style.borderRadius = "5px";
                         bigJuf.style.top = "0";
@@ -2709,14 +2709,14 @@ function swipeDown() {
         var o2 = orbit.getBoundingClientRect();
         var bj = document.createElement('div');
         if (fullsc == "no") {
-            bj.style.width = "calc((100vh - 10em) * (9/16))";
-            bj.style.height = "calc(100vh - 10em)";
-            bj.style.left = "calc((100vw - ((100vh - 10em) * (9/16)))/2)";
+            bj.style.width = "calc((100dvh - 10em) * (9/16))";
+            bj.style.height = "calc(100dvh - 10em)";
+            bj.style.left = "calc((100vw - ((100dvh - 10em) * (9/16)))/2)";
             bj.style.borderRadius = "5px";
             bj.style.top = "4em";
         } else {
             bj.style.width = "100vw";
-            bj.style.height = "100vh";
+            bj.style.height = "100dvh";
             bj.style.left = "0";
             bj.style.borderRadius = "5px";
             bj.style.top = "var(--margin)";
@@ -2821,26 +2821,26 @@ function swipeDown() {
         document.querySelector("#allHold").append(orbit);
         setTimeout(function () {
             // Move LEFT
-            orbit.style.left = "calc(((100vw - ((100vh - 10em) * (9/16)))/2) - 0.5em)";
-            orbit.style.top = "calc(100vh - 10em + 4em + 0.5em)";
+            orbit.style.left = "calc(((100vw - ((100dvh - 10em) * (9/16)))/2) - 0.5em)";
+            orbit.style.top = "calc(100dvh - 10em + 4em + 0.5em)";
 
             setTimeout(function () {
                 // Move UP
                 orbit.style.transform = "rotate(-90deg)";
-                orbit.style.left = "calc(((100vw - ((100vh - 10em) * (9/16)))/2) - 0.5em)";
+                orbit.style.left = "calc(((100vw - ((100dvh - 10em) * (9/16)))/2) - 0.5em)";
                 orbit.style.top = "3.5em";
 
                 setTimeout(function () {
                     // Move RIGHT
                     orbit.style.transform = "rotate(-180deg)";
-                    orbit.style.left = "calc(((100vw - ((100vh - 10em) * (9/16)))/2) + calc((100vh - 10em) * (9/16)) + 0.5em)";
+                    orbit.style.left = "calc(((100vw - ((100dvh - 10em) * (9/16)))/2) + calc((100dvh - 10em) * (9/16)) + 0.5em)";
                     orbit.style.top = "3.5em";
 
                     setTimeout(function () {
                         // Move DOWN
                         orbit.style.transform = "rotate(-270deg)";
-                        orbit.style.left = "calc(((100vw - ((100vh - 10em) * (9/16)))/2) + calc((100vh - 10em) * (9/16)) + 0.5em)";
-                        orbit.style.top = "calc(100vh - 10em + 4em + 0.5em)";
+                        orbit.style.left = "calc(((100vw - ((100dvh - 10em) * (9/16)))/2) + calc((100dvh - 10em) * (9/16)) + 0.5em)";
+                        orbit.style.top = "calc(100dvh - 10em + 4em + 0.5em)";
 
                         setTimeout(function () {
                             orbit.style.transform = "rotate(-360deg)";
