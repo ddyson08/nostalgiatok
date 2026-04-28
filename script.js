@@ -770,6 +770,7 @@ window.onload = function () {
         root.style.setProperty('--lightText', 'HSL(60, 56%, 10%)');
         root.style.setProperty('--emphText', 'HSL(152, 6%, 40%)');
         root.style.setProperty('--emphBg', 'HSL(60, 2%, 96%)');
+        root.style.setProperty('--contrast', 'HSL(60, 2%, 5%)');
         /*
          * :root {
     --bg: HSL(60, 56%, 90%);
@@ -830,7 +831,6 @@ window.onload = function () {
         document.querySelector('#teTitle').innerHTML = words[navigator.language][32] + localStorage.getItem('nostalgiaTokName') + "?";
         setTimeout(function () {
             var ni = document.querySelector("#uNameplate");
-
             ni.style.color = "var(--accent)";
             ni.style.transition = "0.5s";
             ni.style.width = "0px";
@@ -839,6 +839,10 @@ window.onload = function () {
                 ni.style.color = "var(--text)";
                 ni.style.width = "max-content";
                 ni.style.left = "calc(50% + 0.5em)"
+                setTimeout(function () {
+                    ni.style.transition = "1s";
+                    ni.style.left = "calc(50% - " + (ni.getBoundingClientRect().width / 2) +"px + 0.5em)"
+                }, 500);
             }, 500);
             swapTe(7, function () {
                 if (doneAnimation) {
@@ -995,7 +999,7 @@ function swapTe(n, f, m, g, t) {
         const inputEl = nee.querySelector("input");
         inputEl.value = '';
        
-        inputEl.setAttribute("onkeyup", "if (event.keyCode == 13) { var raeleigh = " + f + "; this.blur(); document.body.style.top='env(safe - area - inset - top)'; document.body.style.marginTop = 'env(safe - area - inset - top)'; setTimeout(function(){raeleigh()},100)}");
+        inputEl.setAttribute("onkeyup", "if (event.keyCode == 13) { var raeleigh = " + f + "; this.blur(); setTimeout(function(){raeleigh()},100)}");
     }
     if (t) {
         nee.style.height = "calc(var(--ballSize) + 1em)  ";
