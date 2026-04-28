@@ -13,8 +13,6 @@
     font-display: swap;
 }
 body {
-    padding-top: env(safe-area-inset-top) !important;
-    top: env(safe-area-inset-top) !important;
     width: 100vw;
 }
 
