@@ -3812,7 +3812,12 @@ document.body.addEventListener("wheel", event => {
                                                                     }
                                                                     catch(e){}
                                                             player.playVideo();
+                                                            
                                                             setTimeout(function(){player.playVideo()},500);
+                                                            if(document.querySelector("#pgTitle").checkVisibility()){
+                                                                player.pauseVideo();
+                                                                setTimeout(function(){player.pauseVideo()},510)
+                                                                }
                                                                 }, 500 * multiplier)
                                                             }, 50 * multiplier)
                                                         }, 50 * multiplier)
