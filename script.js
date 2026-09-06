@@ -3588,6 +3588,7 @@ try{
                                                                 t.style.left = 0;
                                                                 t.style.width = "100dvw";
                                                                 setTimeout(function () {
+                                                                    
                                                                     t.style.height = "100dvh";
                                                                     t.style.maxHeight = "100dvh"
                                                                     t.style.bottom = "-var(--margin)";
