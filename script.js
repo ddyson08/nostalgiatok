@@ -4822,6 +4822,7 @@ function evaluateFullscreenReminder(n){
 }
 function swipeUp() {
     if(rateLimit){
+        setTimeout(function(){rateLimit = true}, 2000);
         rateLimit = false;
     if((currentPlace >= allVideos.length - 3) || (currentPlace >= allVideos.length - 1)){
         if(nextToken!=="" && !nextToken.includes("undefined") && nextToken.includes("null")){
@@ -5220,11 +5221,13 @@ if (currentPlace < allVideos.length-3) {
             }, (tsMT * 1000))
 }
     }
-     setTimeout(function(){rateLimit = true}, 2000);
+     
 }
+
 };
 function swipeDown() {
     if(rateLimit){
+        setTimeout(function(){rateLimit = true}, 2000);
         rateLimit = false;
         if(currentPlace > 0){
      try{
@@ -5458,9 +5461,10 @@ function swipeDown() {
         }, (tsMT * 1000))
         */
     }
- setTimeout(function(){rateLimit = true}, 2000);
+ 
 }
 }
+
 };
 
 function validateDate(tex) {
