@@ -1264,7 +1264,10 @@ function endFollow() {
         editModeAnimation();
     }
     if (document.querySelector('#swDrag').parentNode == document.querySelector('#swTopic')) {
-        window.open("https://youtube.com/shorts/" + allVideos[currentPlace].replace('📺',''));
+        var BUTTON = document.createElement("a");
+        BUTTON.setAttribute("href",("https://youtube.com/watch?v=" + allVideos[currentPlace].replace('📺',''));
+        BUTTON.setAttribute("target","_blank");
+        BUTTON.click();
     }
     if (document.querySelector('#swDrag').parentNode == document.querySelector('#exitsw')) {
        //change name
