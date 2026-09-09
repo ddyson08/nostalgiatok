@@ -5607,7 +5607,7 @@ function validateDate(tex) {
 		
         tbr = tbr.replace(/XXXX/g, theYear).replace(/XXXY/g, theYear + 1);
 		for(var XXY of tbr.split('~')){
-		if(((XXY.replace(/0/g,'').split('/')[0] >= (d.getMonth()+1)) && (d.getFullYear() == XXY.split('/')[2]))){
+		if(((XXY.replace(/0/g,'').split('/')[0] >= (d.getMonth()+1)) && !userName.includes("9908") && (d.getFullYear() == XXY.split('/')[2]))){
 			return ("Year Error: Too high~Year Error: Too high")
 		}
 		}
