@@ -1265,7 +1265,7 @@ function endFollow() {
     }
     if (document.querySelector('#swDrag').parentNode == document.querySelector('#swTopic')) {
         var BUTTON = document.createElement("a");
-        BUTTON.setAttribute("href",("https://youtube.com/watch?v=" + allVideos[currentPlace].replace('📺',''));
+        BUTTON.setAttribute("href",("https://youtube.com/watch?v=" + allVideos[currentPlace].replace('📺','')));
         BUTTON.setAttribute("target","_blank");
         BUTTON.click();
     }
